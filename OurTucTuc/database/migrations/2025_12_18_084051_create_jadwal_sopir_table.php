@@ -16,6 +16,8 @@ return new class extends Migration
             $table->time('jam_mulai');
             $table->time('jam_selesai');
 
+            $table->enum('status', ['aktif', 'selesai', 'belum_aktif'])
+                    ->default('belum_aktif');
             $table->unsignedBigInteger('id_kendaraan');
             $table->unsignedBigInteger('id_sopir');
             $table->unsignedBigInteger('id_rute_halte');
