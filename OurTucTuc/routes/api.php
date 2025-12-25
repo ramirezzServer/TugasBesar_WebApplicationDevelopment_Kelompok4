@@ -13,74 +13,8 @@ use App\Http\Controllers\HalteController;
 use App\Http\Controllers\RuteController;
 use App\Http\Controllers\KeluhanController;
 
-/**
- * =============1================
- * unprotected routes for user registration and login
- */
-
-
 Route::middleware('auth:sanctum')->group(function () {
+    Route::apiResource('kendaraan', KendaraanController::class);
+});   
 
-    /**
-     * ============2================
-     * user logout route
-     */
-
-    /**
-     * ============3================
-     * auth API routes
-     */
-
-    /**
-     * ============4================
-     * user API routes
-     */
-
-    /**
-     * 
-     * ============5================
-     * sopir API routes
-     */
-
-    Route::apiResource('sopir', SopirController::class);
-    
-
-    /**
-     * ============6================
-     * kendaraan API routes
-     */
-
-    /**
-     * ============7================
-     * rute halte API routes
-     */
-
-
-    /**
-     * ============9================
-     * jadwal Sopir API routes
-     */
-
-
-    /**
-     * ============10================
-     * halte API routes
-     */
-
-
-    /**
-     * ============11================
-     * rute API routes
-     */
-
-
-    /**
-     * ============10================
-     * keluhan API routes
-     */
-
-
-
-
-});
 
