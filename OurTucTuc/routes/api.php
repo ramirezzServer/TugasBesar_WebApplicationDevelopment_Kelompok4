@@ -13,17 +13,74 @@ use App\Http\Controllers\HalteController;
 use App\Http\Controllers\RuteController;
 use App\Http\Controllers\KeluhanController;
 
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login',    [AuthController::class, 'login']);
+/**
+ * =============1================
+ * unprotected routes for user registration and login
+ */
+
 
 Route::middleware('auth:sanctum')->group(function () {
 
-    Route::post('/logout', [AuthController::class, 'logout']);
+    /**
+     * ============2================
+     * user logout route
+     */
 
-    Route::get('/user', function (Request $request) {
-        return $request->user();
-    });
+    /**
+     * ============3================
+     * auth API routes
+     */
 
-    Route::apiResource('users', UserController::class);
-    Route::apiResource('keluhan', KeluhanController::class);
+    /**
+     * ============4================
+     * user API routes
+     */
+
+    /**
+     * 
+     * ============5================
+     * sopir API routes
+     */
+
+    Route::apiResource('sopir', SopirController::class);
+    
+
+    /**
+     * ============6================
+     * kendaraan API routes
+     */
+
+    /**
+     * ============7================
+     * rute halte API routes
+     */
+
+
+    /**
+     * ============9================
+     * jadwal Sopir API routes
+     */
+
+
+    /**
+     * ============10================
+     * halte API routes
+     */
+
+
+    /**
+     * ============11================
+     * rute API routes
+     */
+
+
+    /**
+     * ============10================
+     * keluhan API routes
+     */
+
+
+
+
 });
+
