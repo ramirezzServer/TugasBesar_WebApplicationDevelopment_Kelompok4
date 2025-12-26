@@ -21,9 +21,9 @@ class halteResource extends JsonResource
             'halte' => $this->whenLoaded('haltes', function () {
                 return $this->haltes->map(function ($haltes) {
                     return [
-                        'id' => $halte->id,
-                        'nama_halte' => $halte->nama_halte,
-                        'jam_berangkat' => $halte->privot->jam_berangkat
+                        'id' => $haltes->id,
+                        'nama_halte' => $haltes->nama_halte,
+                        'jam_berangkat' => $haltes->pivot->jam_berangkat
                     ];
                 });
             })

@@ -9,7 +9,8 @@ class RuteHalteController extends Controller
 {
     public function index()
     {
-        return RuteHalte::with(['rute', 'halte'])->get();
+        $data = RuteHalte::with(['rute', 'halte'])->get();
+        return RuteHalteResource::collection($data);
     }
 
     public function store(Request $request)
