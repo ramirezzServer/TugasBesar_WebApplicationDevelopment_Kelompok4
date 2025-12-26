@@ -3,25 +3,19 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Keluhan extends Model
 {
-    use HasFactory;
-
     protected $table = 'keluhan';
 
     protected $fillable = [
+        'id_penumpang',
         'nama_keluhan',
         'status',
-        'id_penumpang',
     ];
 
-    // keluhan ini diajukan oleh 1 penumpang (user)
-    public function penumpang(): BelongsTo
+    public function penumpang()
     {
         return $this->belongsTo(User::class, 'id_penumpang');
     }
 }
-

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Keluhan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -27,6 +28,14 @@ class UserController extends Controller
                 $w->where('name', 'like', "%{$q}%")
                     ->orWhere('email', 'like', "%{$q}%");
             });
+        }
+
+        if ($request->boolean('with_keluhan')) {
+        $query->with(['keluhans:id,id_penumpang,nama_keluhan,status,created_at']);
+        }
+
+        if ($request->boolean('with_keluhan_count')) {
+            $query->withCount('keluhans');
         }
 
         $perPage = (int) $request->query('per_page', 10);

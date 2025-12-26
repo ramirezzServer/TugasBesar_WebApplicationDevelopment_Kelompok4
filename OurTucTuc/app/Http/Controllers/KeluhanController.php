@@ -13,8 +13,8 @@ class KeluhanController extends Controller
     /**
      * GET /keluhan
      * Optional query:
-     * - status=diajukan|diselesaikan
-     * - q=keyword
+     * - status=baru|diajukan|diselesaikan
+     * - q=keyword (search nama_keluhan)
      * - mine=true (keluhan milik user login)
      * - per_page=10
      */
@@ -24,7 +24,7 @@ class KeluhanController extends Controller
 
         if ($request->filled('status')) {
             $request->validate([
-                'status' => ['required', Rule::in(['diajukan', 'diselesaikan'])],
+                'status' => ['required', Rule::in(['baru', 'diajukan', 'diselesaikan'])],
             ]);
             $query->where('status', $request->status);
         }
@@ -49,6 +49,7 @@ class KeluhanController extends Controller
      * POST /keluhan
      * Body:
      * - nama_keluhan (required)
+     * - status (optional) default: baru
      * - id_penumpang (required kalau tidak pakai auth)
      */
     public function store(Request $request)
@@ -57,6 +58,7 @@ class KeluhanController extends Controller
 
         $rules = [
             'nama_keluhan' => ['required', 'string', 'max:255'],
+            'status'       => ['sometimes', Rule::in(['baru', 'diajukan', 'diselesaikan'])],
         ];
 
         if (!$userId) {
@@ -67,7 +69,7 @@ class KeluhanController extends Controller
 
         $keluhan = Keluhan::create([
             'nama_keluhan' => $data['nama_keluhan'],
-            'status'       => 'diajukan',
+            'status'       => $data['status'] ?? 'baru',
             'id_penumpang' => $userId ?? $data['id_penumpang'],
         ]);
 
@@ -78,18 +80,9 @@ class KeluhanController extends Controller
             ->setStatusCode(201);
     }
 
-    /**
-     * GET /keluhan/{id}
-     */
     public function show(string $id)
     {
         $keluhan = Keluhan::with('penumpang:id,name,email,NoTelp')->findOrFail($id);
-
-        // Optional proteksi: cuma pemilik yang boleh lihat
-        // if (Auth::check() && $keluhan->id_penumpang !== Auth::id()) {
-        //     abort(403, 'Tidak punya akses.');
-        // }
-
         return new KeluhanResource($keluhan);
     }
 
@@ -97,20 +90,15 @@ class KeluhanController extends Controller
      * PUT/PATCH /keluhan/{id}
      * Body (optional):
      * - nama_keluhan
-     * - status=diajukan|diselesaikan
+     * - status
      */
     public function update(Request $request, string $id)
     {
         $keluhan = Keluhan::findOrFail($id);
 
-        // Optional proteksi
-        // if (Auth::check() && $keluhan->id_penumpang !== Auth::id()) {
-        //     abort(403, 'Tidak punya akses.');
-        // }
-
         $data = $request->validate([
             'nama_keluhan' => ['sometimes', 'string', 'max:255'],
-            'status'       => ['sometimes', Rule::in(['diajukan', 'diselesaikan'])],
+            'status'       => ['sometimes', Rule::in(['baru', 'diajukan', 'diselesaikan'])],
         ]);
 
         $keluhan->update($data);
@@ -119,18 +107,9 @@ class KeluhanController extends Controller
         return new KeluhanResource($keluhan);
     }
 
-    /**
-     * DELETE /keluhan/{id}
-     */
     public function destroy(string $id)
     {
         $keluhan = Keluhan::findOrFail($id);
-
-        // Optional proteksi
-        // if (Auth::check() && $keluhan->id_penumpang !== Auth::id()) {
-        //     abort(403, 'Tidak punya akses.');
-        // }
-
         $keluhan->delete();
 
         return response()->json([
