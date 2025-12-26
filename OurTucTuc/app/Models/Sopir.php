@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Sopir extends Model
 {
-    protected $table = "sopirs";
+    protected $table = "data_sopir";
 
     protected $fillable = [
         'nama_sopir',
