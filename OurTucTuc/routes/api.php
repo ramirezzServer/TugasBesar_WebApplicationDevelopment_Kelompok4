@@ -30,13 +30,14 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Auth
     Route::post('/logout', [AuthController::class, 'logout']);
+    /*
     Route::get('/profile', [AuthController::class, 'profile']);
     Route::put('/update-profile', [AuthController::class, 'updateProfile']);
     Route::put('/change-password', [AuthController::class, 'changePassword']);
     Route::post('/refresh-token', [AuthController::class, 'refreshToken']);
-
+    */
     // Resources
-    Route::apiResource('users', UserController::class);
+    Route::apiResource('users', UserController::class)->except(['store']);
     Route::apiResource('kendaraan', KendaraanController::class);
     Route::apiResource('rute', ruteController::class);
     Route::apiResource('sopir', SopirController::class);
