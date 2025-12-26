@@ -3,8 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Rute;
+use App\Models\Halte;
 
-class halte extends Model
+class RuteHalte extends Model
 {
     protected $table ="rute_halte";
 
