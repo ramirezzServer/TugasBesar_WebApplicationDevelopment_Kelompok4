@@ -15,10 +15,11 @@ use App\Http\Controllers\KeluhanController;
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('kendaraan', KendaraanController::class);
-});   
-
-
     Route::apiResource('rute', ruteController::class);
-    Route::apiResource('kendaraan', KendaraanController::class);
-
+    Route::apiResource('sopir', SopirController::class);
+    Route::apiResource('halte', HalteController::class);
+    Route::apiResource('rute-halte', RuteHalteController::class);
+    Route::apiResource('jadwal-sopir', JadwalSopirController::class);
+    Route::apiResource('keluhan', KeluhanController::class);
+    Route::apiResource('user', UserController::class);
 });
