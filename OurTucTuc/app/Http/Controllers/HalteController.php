@@ -11,8 +11,11 @@ class HalteController extends Controller
 {
     public function index()
     {
-        $haltes = Halte::all();
-        return ItemResource::collection($haltes);
+        $halte = Halte::with('rutes')->get();
+        return response()->json([
+            'success' => true,
+            'data' => HalteResource::collection($halte)
+        ]);
     }
 
     public function store(Request $request)
