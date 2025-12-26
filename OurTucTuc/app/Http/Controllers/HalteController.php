@@ -79,7 +79,7 @@ class HalteController extends Controller
 
     public function destroy(string $id)
     {
-        $halte - Halte::find($id);
+        $halte = Halte::find($id);
 
         if (!$halte){
             return response()->json([
