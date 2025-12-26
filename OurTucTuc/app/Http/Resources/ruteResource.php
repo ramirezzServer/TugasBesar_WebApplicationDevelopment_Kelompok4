@@ -14,7 +14,7 @@ class ruteResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-       return [
+        return [
             'id' => $this->id,
             'nama_rute' => $this->nama_rute,
 
