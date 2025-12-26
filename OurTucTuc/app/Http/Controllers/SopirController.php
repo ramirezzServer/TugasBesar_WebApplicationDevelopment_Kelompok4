@@ -96,7 +96,9 @@ class SopirController extends Controller
          $sopir = Sopir::find($id);
 
          if (!$sopir) {
-            return response()->json(['message' => 'Sopir not found'], 404);
+            return response()->json([
+                'message' => 'Sopir not found'
+            ], 404);
          }
 
          $sopir->delete();

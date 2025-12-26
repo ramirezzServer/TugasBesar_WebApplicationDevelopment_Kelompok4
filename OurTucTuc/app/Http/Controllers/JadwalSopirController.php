@@ -11,7 +11,7 @@ class JadwalSopirController extends Controller
 {
     public function index()
     {
-        $jadwalSopirs = JadwalSopir::all();
+        $jadwalSopirs = JadwalSopir::with(['sopir', 'kendaraan', 'ruteHalte'])->get();
         return JadwalSopirResource::collection($jadwalSopirs);
     }
 
@@ -29,11 +29,12 @@ class JadwalSopirController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'message' => 'Please check your request',
-                'errors' => $validator->errors(),
+                'errors'  => $validator->errors(),
             ], 422);
         }
 
         $jadwalSopir = JadwalSopir::create($validator->validated());
+        $jadwalSopir->load(['sopir', 'kendaraan', 'ruteHalte']);
 
         return (new JadwalSopirResource($jadwalSopir))
             ->additional(['message' => 'Jadwal sopir created successfully'])
@@ -43,7 +44,7 @@ class JadwalSopirController extends Controller
 
     public function show(string $id)
     {
-        $jadwalSopir = JadwalSopir::find($id);
+        $jadwalSopir = JadwalSopir::with(['sopir', 'kendaraan', 'ruteHalte'])->find($id);
 
         if (!$jadwalSopir) {
             return response()->json([
@@ -64,35 +65,42 @@ class JadwalSopirController extends Controller
             ], 404);
         }
 
-        // Biar fleksibel, update boleh parsial (kadang cuma status doang, misalnya)
         $validator = Validator::make($request->all(), [
-            'id_kendaraan'   => 'sometimes|required|integer|exists:kendaraan,id',
-            'id_sopir'       => 'sometimes|required|integer|exists:data_sopir,id',
-            'id_rute_halte'  => 'sometimes|required|integer|exists:rute_halte,id',
-            'jam_mulai'      => 'sometimes|required|date_format:H:i',
-            'jam_selesai'    => 'sometimes|required|date_format:H:i',
-            'status'         => 'sometimes|required|in:aktif,selesai,belum_aktif',
+            'id_kendaraan'   => 'sometimes|integer|exists:kendaraan,id',
+            'id_sopir'       => 'sometimes|integer|exists:data_sopir,id',
+            'id_rute_halte'  => 'sometimes|integer|exists:rute_halte,id',
+            'jam_mulai'      => 'sometimes|date_format:H:i',
+            'jam_selesai'    => 'sometimes|date_format:H:i',
+            'status'         => 'sometimes|in:aktif,selesai,belum_aktif',
         ]);
 
         if ($validator->fails()) {
             return response()->json([
                 'message' => 'Please check your request',
-                'errors' => $validator->errors(),
+                'errors'  => $validator->errors(),
             ], 422);
         }
 
-        // Kalau jam_mulai & jam_selesai sama-sama dikirim, validasi urutan jam
         $data = $validator->validated();
-        if (isset($data['jam_mulai'], $data['jam_selesai'])) {
-            if (strtotime($data['jam_selesai']) <= strtotime($data['jam_mulai'])) {
+
+        // Validasi jam_selesai harus setelah jam_mulai
+        // (baik saat update salah satu field, ataupun dua-duanya)
+        $jamMulai = $data['jam_mulai'] ?? $jadwalSopir->jam_mulai;
+        $jamSelesai = $data['jam_selesai'] ?? $jadwalSopir->jam_selesai;
+
+        if ($jamMulai && $jamSelesai) {
+            if (strtotime($jamSelesai) <= strtotime($jamMulai)) {
                 return response()->json([
                     'message' => 'Please check your request',
-                    'errors' => ['jam_selesai' => ['jam_selesai must be after jam_mulai']],
+                    'errors'  => [
+                        'jam_selesai' => ['jam_selesai must be after jam_mulai'],
+                    ],
                 ], 422);
             }
         }
 
         $jadwalSopir->update($data);
+        $jadwalSopir->load(['sopir', 'kendaraan', 'ruteHalte']);
 
         return (new JadwalSopirResource($jadwalSopir))
             ->additional(['message' => 'Jadwal sopir updated successfully'])

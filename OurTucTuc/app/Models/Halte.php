@@ -12,7 +12,7 @@ class halte extends Model
         'nama_halte'
     ];
 
-      public function rutes()
+        public function rutes()
     {
         return $this->belongsToMany(
             Rute::class,
@@ -20,6 +20,6 @@ class halte extends Model
             'id_halte',
             'id_rute'
         )->withPivot('jam_berangkat')
-         ->withTimestamps();
+            ->withTimestamps();
     }
 }
