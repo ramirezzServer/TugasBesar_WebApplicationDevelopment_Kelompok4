@@ -12,6 +12,6 @@ Route::get('/user', function (Request $request) {
 Route::middleware(['auth:sanctum', 'admin'])->group(function () {
 
     Route::apiResource('rute', ruteController::class);
-    Route::apiResource('halte', HalteController::class);
+
 
 });
