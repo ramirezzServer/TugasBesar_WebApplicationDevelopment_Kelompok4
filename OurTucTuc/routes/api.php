@@ -27,8 +27,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/halte/{id}', [HalteController::class, 'show']);
 
     /* ================= RUTE ================= */
-    Route::get('/rute', [RuteController::class, 'index']);
-    Route::get('/rute/{id}', [RuteController::class, 'show']);
+    Route::get('/rute', [ruteController::class, 'index']);
+    Route::get('/rute/{id}', [ruteController::class, 'show']);
 });
 
 //buat penumpang
@@ -52,9 +52,9 @@ Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
     Route::delete('/halte/{id}', [HalteController::class, 'destroy']);
 
     /* ================= RUTE ================= */
-    Route::post('/rute', [RuteController::class, 'store']);
-    Route::put('/rute/{id}', [RuteController::class, 'update']);
-    Route::delete('/rute/{id}', [RuteController::class, 'destroy']);
+    Route::post('/rute', [ruteController::class, 'store']);
+    Route::put('/rute/{id}', [ruteController::class, 'update']);
+    Route::delete('/rute/{id}', [ruteController::class, 'destroy']);
 
     /* ================= KENDARAAN ================= */
     Route::get('/kendaraan', [KendaraanController::class, 'index']);
@@ -67,7 +67,7 @@ Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
     Route::get('/sopir', [SopirController::class, 'index']);
     Route::post('/sopir', [SopirController::class, 'store']);
     Route::get('/sopir/{id}', [SopirController::class, 'show']);
-    Route::put('/sopir/{id}', [SopirController::class, 'update']);
+    Route::put('/sopir/{sopir}', [SopirController::class, 'update']);
     Route::delete('/sopir/{id}', [SopirController::class, 'destroy']);
 
     /* ================= RUTE - HALTE ================= */
