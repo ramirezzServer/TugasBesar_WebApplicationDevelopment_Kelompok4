@@ -14,6 +14,7 @@ class KeluhanResource extends JsonResource
             'id_penumpang' => $this->id_penumpang,
             'nama_keluhan' => $this->nama_keluhan,
             'status' => $this->status,
+            'role' => $this->role,
             'created_at' => optional($this->created_at)->toISOString(),
             'updated_at' => optional($this->updated_at)->toISOString(),
 
@@ -22,6 +23,7 @@ class KeluhanResource extends JsonResource
                     'id' => $this->penumpang->id,
                     'name' => $this->penumpang->name,
                     'email' => $this->penumpang->email,
+                    'role' => $this->penumpang->role,
                     'NoTelp' => $this->penumpang->NoTelp,
                 ];
             }),

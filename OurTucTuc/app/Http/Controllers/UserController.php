@@ -11,21 +11,34 @@ use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
+    // Hanya menampilkan user + relasi keluhan
     public function index(Request $request)
     {
         $query = User::query()->select('id', 'name', 'email', 'NoTelp', 'created_at', 'updated_at');
 
-        if ($request->filled('q')) {
-            $q = $request->q;
-            $query->where(function ($w) use ($q) {
-                $w->where('name', 'like', "%{$q}%")
-                    ->orWhere('email', 'like', "%{$q}%");
-            });
+        if ($request->boolean('with_keluhan_count')) {
+            $query->withCount('keluhans');
         }
 
-        if ($request->boolean('with_keluhan')) {
-            $query->with(['keluhans:id,id_penumpang,nama_keluhan,status,created_at']);
-        }
+        $users = $query->latest()->get();
+
+        return UserResource::collection($users);
+    }
+
+    // Fungsi baru khusus search
+    public function search(Request $request)
+    {
+        $request->validate([
+            'q' => ['required', 'string']
+        ]);
+
+        $q = $request->q;
+
+        $query = User::query()->select('id', 'name', 'email', 'NoTelp', 'created_at', 'updated_at')
+            ->where(function ($w) use ($q) {
+                $w->where('name', 'like', "%{$q}%")
+                  ->orWhere('email', 'like', "%{$q}%");
+            });
 
         if ($request->boolean('with_keluhan_count')) {
             $query->withCount('keluhans');
@@ -48,7 +61,6 @@ class UserController extends Controller
     public function me(Request $request)
     {
         $user = $request->user();
-
         $user->load(['keluhans:id,id_penumpang,nama_keluhan,status,created_at']);
 
         return new UserResource($user);
@@ -62,7 +74,7 @@ class UserController extends Controller
             'name'   => ['sometimes', 'string', 'max:255'],
             'email'  => ['sometimes', 'email', 'max:255', Rule::unique('users', 'email')->ignore($user->id)],
             'NoTelp' => ['sometimes', 'string'],
-            'password' => ['sometimes', 'string', 'min:6'],
+            'password' => ['sometimes','string', 'min:8', 'confirmed'],
         ]);
 
         if (isset($data['password'])) {
@@ -85,7 +97,7 @@ class UserController extends Controller
             'name'   => ['sometimes', 'string', 'max:255'],
             'email'  => ['sometimes', 'email', 'max:255', Rule::unique('users', 'email')->ignore($user->id)],
             'NoTelp' => ['sometimes', 'string'],
-            'password' => ['sometimes', 'string', 'min:6'],
+            'password' => ['sometimes', 'string', 'min:8', 'confirmed'],
         ]);
 
         if (isset($data['password'])) {

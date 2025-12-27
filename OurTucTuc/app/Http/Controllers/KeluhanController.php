@@ -12,12 +12,32 @@ class KeluhanController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Keluhan::query()->with('penumpang:id,name,email,NoTelp');
+        $user = Auth::user();
+
+        $query = Keluhan::with('penumpang:id,name');
+
+        if ($user->role === 'penumpang') {
+
+            $query->where('id_penumpang', $user->id);
+        }
+
+        $keluhan = $query->latest()->get();
+
+        return KeluhanResource::collection($keluhan);
+    }
+
+    // Fungsi baru untuk search
+    public function search(Request $request)
+    {
+        $request->validate([
+            'q'      => ['required', 'string'],
+            'status' => ['nullable', Rule::in(['diajukan', 'diselesaikan'])],
+            'mine'   => ['nullable', 'boolean'],
+        ]);
+
+        $query = Keluhan::query()->with('penumpang:id,name');
 
         if ($request->filled('status')) {
-            $request->validate([
-                'status' => ['required', Rule::in(['diajukan', 'diselesaikan'])],
-            ]);
             $query->where('status', $request->status);
         }
 
@@ -36,56 +56,68 @@ class KeluhanController extends Controller
 
     public function store(Request $request)
     {
-        $userId = Auth::id();
+        $user = Auth::user();
 
-        $rules = [
+        $data = $request->validate([
             'nama_keluhan' => ['required', 'string', 'max:255'],
-        ];
-
-        if (!$userId) {
-            $rules['id_penumpang'] = ['required', 'integer', 'exists:users,id'];
-        }
-
-        $data = $request->validate($rules);
+        ]);
 
         $keluhan = Keluhan::create([
             'nama_keluhan' => $data['nama_keluhan'],
             'status'       => 'diajukan',
-            'id_penumpang' => $userId ?? $data['id_penumpang'],
+            'id_penumpang' => $user->id,
         ]);
 
-        $keluhan->load('penumpang:id,name,email,NoTelp');
+        $keluhan->load('penumpang:id,name');
 
-        return (new KeluhanResource($keluhan))
-            ->response()
-            ->setStatusCode(201);
+        return (new KeluhanResource($keluhan))->response()->setStatusCode(201);
     }
 
     public function show(string $id)
     {
-        $keluhan = Keluhan::with('penumpang:id,name,email,NoTelp')->findOrFail($id);
+        $keluhan = Keluhan::with('penumpang:id,name')->findOrFail($id);
         return new KeluhanResource($keluhan);
     }
+
+
 
     public function update(Request $request, string $id)
     {
         $keluhan = Keluhan::findOrFail($id);
+        $user = Auth::user();
+
+        if ($user->role === 'penumpang' && $keluhan->id_penumpang !== $user->id) {
+            return response()->json(['message' => 'Tidak punya akses.'], 403);
+        }
 
         $data = $request->validate([
             'nama_keluhan' => ['sometimes', 'string', 'max:255'],
             'status'       => ['sometimes', Rule::in(['diajukan', 'diselesaikan'])],
         ]);
 
+        if ($user->role === 'penumpang') {
+            unset($data['status']);
+        }
+
         $keluhan->update($data);
-        $keluhan->load('penumpang:id,name,email,NoTelp');
+        $keluhan->load('penumpang:id,name');
 
         return new KeluhanResource($keluhan);
     }
 
+
+
     public function destroy(string $id)
     {
         $keluhan = Keluhan::findOrFail($id);
+        $user = Auth::user();
         $keluhan->delete();
+
+        if ($user->role === 'admin') {
+            return response()->json([
+                'message' => 'Admin tidak diperbolehkan menghapus keluhan.'
+            ], 403);
+        }
 
         return response()->json([
             'message' => 'Keluhan berhasil dihapus.'

@@ -21,17 +21,17 @@ public function toArray(Request $request): array
         'status' => $this->status,
 
         'sopir' => [
-            'id' => $this->sopir?->id,
-            'nama_sopir' => $this->sopir?->nama_sopir,
+            'id' => $this->sopir->id,
+            'nama_sopir' => $this->sopir->nama_sopir,
         ],
 
         'kendaraan' => [
-            'id' => $this->kendaraan?->id,
+            'id' => $this->kendaraan->id,
         ],
 
         'ruteHalte' => [
-            'id' => $this->ruteHalte?->id,
-            'jam_berangkat' => $this->ruteHalte?->jam_berangkat,
+            'id' => $this->ruteHalte->id,
+            'jam_berangkat' => $this->ruteHalte->jam_berangkat,
         ],
     ];
 }

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Sopir;
 use App\Http\Resources\SopirResource;
+use Illuminate\Support\Facades\Storage;
 
 class SopirController extends Controller
 {
@@ -26,10 +27,10 @@ class SopirController extends Controller
         $validator = Validator::make($request->all(), [
             'nama_sopir' => 'required|string|max:255',
             'notelp_sopir' => 'required|string|max:255',
-            'alamat' => 'required|string|max:255|unique:users,email',
-            'email_sopir' => 'required|string|max:255',
-            'foto' => 'required|string',
-        ]); 
+            'alamat' => 'required|string|max:255',
+            'email_sopir' => 'required|string|email|max:255|unique:sopirs,email',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
 
         if ($validator->fails()) {
             return response()->json([
@@ -61,26 +62,33 @@ class SopirController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Sopir $sopir)
     {
         $validator = Validator::make($request->all(), [
             'nama_sopir' => 'required|string|max:255',
             'notelp_sopir' => 'required|string|max:255',
-            'alamat' => 'required|string|max:255|unique:users,email',
-            'email_sopir' => 'required|string|max:255',
-            'foto' => 'required|string',
-        ]); 
-
-        $sopir = Sopir::find($id);
+            'alamat' => 'required|string|max:255',
+            'email_sopir' => 'required|string|email|max:255|unique:sopirs,email,' . $sopir->id,
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
 
         if ($validator->fails()) {
             return response()->json([
                 'message' => 'Please check your request',
-                'errors' => $validator->errors()
+                'errors'  => $validator->errors()
             ], 422);
         }
 
-        $sopir->update($validator->validated());
+        $data = $validator->validated();
+
+        if ($request->hasFile('foto')) {
+            if ($sopir->foto) {
+                Storage::disk('public')->delete($sopir->foto);
+            }
+            $data['foto'] = $request->file('foto')->store('gambar_profil', 'public');
+        }
+
+        $sopir->update($data);
 
         return (new SopirResource($sopir))
             ->additional(['message' => 'Sopir updated successfully'])
@@ -93,17 +101,16 @@ class SopirController extends Controller
      */
     public function destroy(string $id)
     {
-         $sopir = Sopir::find($id);
+        $sopir = Sopir::find($id);
 
-         if (!$sopir) {
+        if (!$sopir) {
             return response()->json([
                 'message' => 'Sopir not found'
             ], 404);
-         }
+        }
 
-         $sopir->delete();
+        $sopir->delete();
 
-         return response()->json(['message' => 'Sopir deleted successfully'], 200);
-
+        return response()->json(['message' => 'Sopir deleted successfully'], 200);
     }
 }
