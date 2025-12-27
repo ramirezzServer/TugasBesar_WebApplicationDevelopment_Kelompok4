@@ -109,15 +109,17 @@ class KeluhanController extends Controller
 
     public function destroy(string $id)
     {
-        $keluhan = Keluhan::findOrFail($id);
         $user = Auth::user();
-        $keluhan->delete();
-
+        $keluhan = Keluhan::findOrFail($id);
         if ($user->role === 'admin') {
-            return response()->json([
-                'message' => 'Admin tidak diperbolehkan menghapus keluhan.'
-            ], 403);
-        } 
+            return response()->json(['message' => 'Admin tidak diperbolehkan menghapus keluhan.'], 403);
+        }
+
+        if ($user->role === 'penumpang' && $keluhan->id_penumpang !== $user->id) {
+            return response()->json(['message' => 'Tidak punya akses.'], 403);
+        }
+
+        $keluhan->delete();
 
         return response()->json([
             'message' => 'Keluhan berhasil dihapus.'

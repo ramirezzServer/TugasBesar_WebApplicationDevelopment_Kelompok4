@@ -6,70 +6,81 @@ use App\Http\Controllers\HalteController;
 use App\Http\Controllers\ruteController;
 use App\Http\Controllers\KendaraanController;
 use App\Http\Controllers\SopirController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\KeluhanController;
+use App\Http\Controllers\JadwalSopirController;
+use App\Http\Controllers\RuteHalteController;
 
-/*
-|--------------------------------------------------------------------------
-| AUTH - ALL (PUBLIC)
-|--------------------------------------------------------------------------
-*/
+//buat public
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
 
-/*
-|--------------------------------------------------------------------------
-| DATA MASTER - ALL (READ ONLY)
-|--------------------------------------------------------------------------
-| Bisa diakses Admin & Penumpang
-*/
-Route::get('/halte', [HalteController::class, 'index']);
-Route::get('/halte/{id}', [HalteController::class, 'show']);
-
-Route::get('/rute', [ruteController::class, 'index']);
-Route::get('/rute/{id}', [ruteController::class, 'show']);
-
-Route::get('/kendaraan', [KendaraanController::class, 'index']);
-Route::get('/kendaraan/{id}', [KendaraanController::class, 'show']);
-
-Route::get('/sopir', [SopirController::class, 'index']);
-Route::get('/sopir/{id}', [SopirController::class, 'show']);
-
-
-/*
-|--------------------------------------------------------------------------
-| AUTHENTICATED USER (ALL ROLE)
-|--------------------------------------------------------------------------
-*/
+//allrole after auth
 Route::middleware('auth:sanctum')->group(function () {
 
-    // logout bisa semua role
     Route::post('/logout', [AuthController::class, 'logout']);
+    Route::get('/me', [UserController::class, 'me']);
 
-    /*
-    |--------------------------------------------------------------------------
-    | ADMIN ONLY
-    |--------------------------------------------------------------------------
-    */
-    Route::middleware('role:admin')->group(function () {
+    /* ================= HALTE ================= */
+    Route::get('/halte', [HalteController::class, 'index']);
+    Route::get('/halte/{id}', [HalteController::class, 'show']);
 
-        // HALTE
-        Route::post('/halte', [HalteController::class, 'store']);
-        Route::put('/halte/{id}', [HalteController::class, 'update']);
-        Route::delete('/halte/{id}', [HalteController::class, 'destroy']);
+    /* ================= RUTE ================= */
+    Route::get('/rute', [RuteController::class, 'index']);
+    Route::get('/rute/{id}', [RuteController::class, 'show']);
+});
 
-        // RUTE
-        Route::post('/rute', [ruteController::class, 'store']);
-        Route::put('/rute/{id}', [ruteController::class, 'update']);
-        Route::delete('/rute/{id}', [ruteController::class, 'destroy']);
+//buat penumpang
+Route::middleware(['auth:sanctum', 'role:penumpang'])->group(function () {
 
-        // KENDARAAN
-        Route::post('/kendaraan', [KendaraanController::class, 'store']);
-        Route::put('/kendaraan/{id}', [KendaraanController::class, 'update']);
-        Route::delete('/kendaraan/{id}', [KendaraanController::class, 'destroy']);
+    /* ================= KELUHAN ================= */
+    Route::get('/keluhan', [KeluhanController::class, 'index']);
+    Route::post('/keluhan', [KeluhanController::class, 'store']);
+    Route::get('/keluhan/{id}', [KeluhanController::class, 'show']);
+    Route::put('/keluhan/{id}', [KeluhanController::class, 'update']);
+    Route::delete('/keluhan/{id}', [KeluhanController::class, 'destroy']);
+});
 
-        // SOPIR
-        Route::post('/sopir', [SopirController::class, 'store']);
-        Route::post('/sopir/{sopir}', [SopirController::class, 'update']);
-        Route::delete('/sopir/{id}', [SopirController::class, 'destroy']);
-    });
+
+//buat admin
+Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
+
+    /* ================= HALTE ================= */
+    Route::post('/halte', [HalteController::class, 'store']);
+    Route::put('/halte/{id}', [HalteController::class, 'update']);
+    Route::delete('/halte/{id}', [HalteController::class, 'destroy']);
+
+    /* ================= RUTE ================= */
+    Route::post('/rute', [RuteController::class, 'store']);
+    Route::put('/rute/{id}', [RuteController::class, 'update']);
+    Route::delete('/rute/{id}', [RuteController::class, 'destroy']);
+
+    /* ================= KENDARAAN ================= */
+    Route::get('/kendaraan', [KendaraanController::class, 'index']);
+    Route::post('/kendaraan', [KendaraanController::class, 'store']);
+    Route::get('/kendaraan/{id}', [KendaraanController::class, 'show']);
+    Route::put('/kendaraan/{id}', [KendaraanController::class, 'update']);
+    Route::delete('/kendaraan/{id}', [KendaraanController::class, 'destroy']);
+
+    /* ================= SOPIR ================= */
+    Route::get('/sopir', [SopirController::class, 'index']);
+    Route::post('/sopir', [SopirController::class, 'store']);
+    Route::get('/sopir/{id}', [SopirController::class, 'show']);
+    Route::put('/sopir/{id}', [SopirController::class, 'update']);
+    Route::delete('/sopir/{id}', [SopirController::class, 'destroy']);
+
+    /* ================= RUTE - HALTE ================= */
+    Route::get('/rute-halte', [RuteHalteController::class, 'index']);
+    Route::post('/rute-halte', [RuteHalteController::class, 'store']);
+    Route::get('/rute-halte/{id}', [RuteHalteController::class, 'show']);
+    Route::put('/rute-halte/{id}', [RuteHalteController::class, 'update']);
+    Route::delete('/rute-halte/{id}', [RuteHalteController::class, 'destroy']);
+
+    /* ================= JADWAL SOPIR ================= */
+    Route::get('/jadwal-sopir', [JadwalSopirController::class, 'index']);
+    Route::post('/jadwal-sopir', [JadwalSopirController::class, 'store']);
+    Route::get('/jadwal-sopir/{id}', [JadwalSopirController::class, 'show']);
+    Route::put('/jadwal-sopir/{id}', [JadwalSopirController::class, 'update']);
+    Route::delete('/jadwal-sopir/{id}', [JadwalSopirController::class, 'destroy']);
 });

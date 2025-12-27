@@ -28,8 +28,8 @@ class SopirController extends Controller
             'nama_sopir' => 'required|string|max:255',
             'notelp_sopir' => 'required|string|max:255',
             'alamat' => 'required|string|max:255',
-            'email_sopir' => 'required|string|email|max:255|unique:sopirs,email',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'email_sopir' => 'required|string|email|max:255|unique:data_sopir,email_sopir',
+            'foto' => 'required|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
         if ($validator->fails()) {
@@ -38,8 +38,15 @@ class SopirController extends Controller
                 'errors' => $validator->errors()
             ], 422);
         }
+        $data = $validator->validated();
 
-        $sopir = Sopir::create($validator->validated());
+        if ($request->hasFile('foto')) {
+            $data['foto'] = $request->file('foto')->store('gambar_profil', 'public');
+        } else {
+            $data['foto'] = 'gambar_profil/default.png';
+        }
+
+        $sopir = Sopir::create($data);
 
         return (new SopirResource($sopir))
             ->additional(['message' => 'Sopir created successfully'])
@@ -68,8 +75,8 @@ class SopirController extends Controller
             'nama_sopir' => 'required|string|max:255',
             'notelp_sopir' => 'required|string|max:255',
             'alamat' => 'required|string|max:255',
-            'email_sopir' => 'required|string|email|max:255|unique:sopirs,email,' . $sopir->id,
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'email_sopir' => 'required|string|email|max:255|unique:data_sopir,email_sopir,' . $sopir->id,
+            'foto' => 'required|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
         if ($validator->fails()) {
