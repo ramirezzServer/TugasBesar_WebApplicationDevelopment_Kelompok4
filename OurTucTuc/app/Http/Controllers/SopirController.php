@@ -76,7 +76,7 @@ class SopirController extends Controller
             'notelp_sopir' => 'required|string|max:255',
             'alamat' => 'required|string|max:255',
             'email_sopir' => 'required|string|email|max:255|unique:data_sopir,email_sopir,' . $sopir->id,
-            'foto' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'foto' => 'sometimes|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
         if ($validator->fails()) {
