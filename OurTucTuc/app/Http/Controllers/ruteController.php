@@ -89,7 +89,7 @@ class ruteController extends Controller
         return (new ruteResource($rute))
             ->additional(['message' => 'rute berhasil diupdate'])
             ->response()
-            ->setStatusCode(201);
+            ->setStatusCode(200);
     }
 
     /**

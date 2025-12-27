@@ -14,7 +14,7 @@ class KeluhanController extends Controller
     {
         $user = Auth::user();
 
-        $query = Keluhan::with('penumpang:id,name');
+        $query = Keluhan::with('penumpang:id,name,email,role,NoTelp');
 
         if ($user->role === 'penumpang') {
 
@@ -35,7 +35,7 @@ class KeluhanController extends Controller
             'mine'   => ['nullable', 'boolean'],
         ]);
 
-        $query = Keluhan::query()->with('penumpang:id,name');
+        $query = Keluhan::query()->with('penumpang:id,name,email,role,NoTelp');
 
         if ($request->filled('status')) {
             $query->where('status', $request->status);
@@ -68,14 +68,19 @@ class KeluhanController extends Controller
             'id_penumpang' => $user->id,
         ]);
 
-        $keluhan->load('penumpang:id,name');
+        $keluhan->load('penumpang:id,name,email,role,NoTelp');
 
         return (new KeluhanResource($keluhan))->response()->setStatusCode(201);
     }
 
     public function show(string $id)
     {
-        $keluhan = Keluhan::with('penumpang:id,name')->findOrFail($id);
+        $keluhan = Keluhan::with('penumpang:id,name,email,role,NoTelp')->findOrFail($id);
+        $user = Auth::user();
+
+        if ($user->role === 'penumpang' && $keluhan->id_penumpang !== $user->id) {
+            return response()->json(['message' => 'Tidak punya akses.'], 403);
+        }
         return new KeluhanResource($keluhan);
     }
 
@@ -100,7 +105,7 @@ class KeluhanController extends Controller
         }
 
         $keluhan->update($data);
-        $keluhan->load('penumpang:id,name');
+        $keluhan->load('penumpang:id,name,email,role,NoTelp');
 
         return new KeluhanResource($keluhan);
     }
