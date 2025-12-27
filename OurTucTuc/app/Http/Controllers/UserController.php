@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserResource;
 use App\Models\User;
-use App\Models\Keluhan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -11,13 +11,6 @@ use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
-    /**
-     * GET /api/users
-     * List semua user (biasanya buat admin).
-     * Optional query:
-     * - q=keyword (search name/email)
-     * - per_page=10
-     */
     public function index(Request $request)
     {
         $query = User::query()->select('id', 'name', 'email', 'NoTelp', 'created_at', 'updated_at');
@@ -31,53 +24,36 @@ class UserController extends Controller
         }
 
         if ($request->boolean('with_keluhan')) {
-        $query->with(['keluhans:id,id_penumpang,nama_keluhan,status,created_at']);
+            $query->with(['keluhans:id,id_penumpang,nama_keluhan,status,created_at']);
         }
 
         if ($request->boolean('with_keluhan_count')) {
             $query->withCount('keluhans');
         }
 
-        $perPage = (int) $request->query('per_page', 10);
-        $perPage = max(1, min($perPage, 100));
+        $users = $query->latest()->get();
 
-        return response()->json(
-            $query->latest()->paginate($perPage)
-        );
+        return UserResource::collection($users);
     }
 
-    /**
-     * GET /api/users/{id}
-     * Detail user by id
-     */
     public function show(string $id)
     {
         $user = User::select('id', 'name', 'email', 'NoTelp', 'created_at', 'updated_at')
+            ->with(['keluhans:id,id_penumpang,nama_keluhan,status,created_at'])
             ->findOrFail($id);
 
-        return response()->json($user);
+        return new UserResource($user);
     }
 
-    /**
-     * GET /api/me
-     * Profile user yang lagi login
-     */
     public function me(Request $request)
     {
-        return response()->json(
-            $request->user()
-        );
+        $user = $request->user();
+
+        $user->load(['keluhans:id,id_penumpang,nama_keluhan,status,created_at']);
+
+        return new UserResource($user);
     }
 
-    /**
-     * PUT/PATCH /api/me
-     * Update profile user login
-     * Body (optional):
-     * - name
-     * - email (unique)
-     * - NoTelp
-     * - password (kalau mau ganti)
-     */
     public function updateMe(Request $request)
     {
         $user = $request->user();
@@ -97,14 +73,10 @@ class UserController extends Controller
 
         return response()->json([
             'message' => 'Profile berhasil diupdate.',
-            'data' => $user->only(['id', 'name', 'email', 'NoTelp', 'created_at', 'updated_at']),
+            'data' => new UserResource($user->fresh()),
         ]);
     }
 
-    /**
-     * PUT/PATCH /api/users/{id}
-     * Update user by id (buat admin / operator).
-     */
     public function update(Request $request, string $id)
     {
         $user = User::findOrFail($id);
@@ -124,19 +96,14 @@ class UserController extends Controller
 
         return response()->json([
             'message' => 'User berhasil diupdate.',
-            'data' => $user->only(['id', 'name', 'email', 'NoTelp', 'created_at', 'updated_at']),
+            'data' => new UserResource($user->fresh()),
         ]);
     }
 
-    /**
-     * DELETE /api/users/{id}
-     * Hapus user by id
-     */
     public function destroy(string $id)
     {
         $user = User::findOrFail($id);
 
-        // biar aman: user yang lagi login jangan bisa hapus dirinya sendiri
         if (Auth::check() && (int) $user->id === (int) Auth::id()) {
             return response()->json([
                 'message' => 'Tidak bisa menghapus akun yang sedang login.'

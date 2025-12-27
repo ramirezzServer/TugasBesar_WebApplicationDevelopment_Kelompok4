@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AuthController;
@@ -13,30 +12,15 @@ use App\Http\Controllers\HalteController;
 use App\Http\Controllers\ruteController;
 use App\Http\Controllers\KeluhanController;
 
-/*
-|--------------------------------------------------------------------------
-| AUTH (PUBLIC)
-|--------------------------------------------------------------------------
-*/
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
 
-/*
-|--------------------------------------------------------------------------
-| AUTHENTICATED ROUTES
-|--------------------------------------------------------------------------
-*/
 Route::middleware('auth:sanctum')->group(function () {
-
-    // Auth
     Route::post('/logout', [AuthController::class, 'logout']);
-    /*
-    Route::get('/profile', [AuthController::class, 'profile']);
-    Route::put('/update-profile', [AuthController::class, 'updateProfile']);
-    Route::put('/change-password', [AuthController::class, 'changePassword']);
-    Route::post('/refresh-token', [AuthController::class, 'refreshToken']);
-    */
-    // Resources
+
+    Route::get('/me', [UserController::class, 'me']);
+    Route::match(['put', 'patch'], '/me', [UserController::class, 'updateMe']);
+
     Route::apiResource('users', UserController::class)->except(['store']);
     Route::apiResource('kendaraan', KendaraanController::class);
     Route::apiResource('rute', ruteController::class);

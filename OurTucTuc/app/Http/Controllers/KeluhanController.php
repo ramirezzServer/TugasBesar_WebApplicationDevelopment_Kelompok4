@@ -10,21 +10,13 @@ use Illuminate\Validation\Rule;
 
 class KeluhanController extends Controller
 {
-    /**
-     * GET /keluhan
-     * Optional query:
-     * - status=baru|diajukan|diselesaikan
-     * - q=keyword (search nama_keluhan)
-     * - mine=true (keluhan milik user login)
-     * - per_page=10
-     */
     public function index(Request $request)
     {
         $query = Keluhan::query()->with('penumpang:id,name,email,NoTelp');
 
         if ($request->filled('status')) {
             $request->validate([
-                'status' => ['required', Rule::in(['baru', 'diajukan', 'diselesaikan'])],
+                'status' => ['required', Rule::in(['diajukan', 'diselesaikan'])],
             ]);
             $query->where('status', $request->status);
         }
@@ -37,28 +29,17 @@ class KeluhanController extends Controller
             $query->where('id_penumpang', Auth::id());
         }
 
-        $perPage = (int) $request->query('per_page', 10);
-        $perPage = max(1, min($perPage, 100));
-
-        $keluhan = $query->latest()->paginate($perPage);
+        $keluhan = $query->latest()->get();
 
         return KeluhanResource::collection($keluhan);
     }
 
-    /**
-     * POST /keluhan
-     * Body:
-     * - nama_keluhan (required)
-     * - status (optional) default: baru
-     * - id_penumpang (required kalau tidak pakai auth)
-     */
     public function store(Request $request)
     {
         $userId = Auth::id();
 
         $rules = [
             'nama_keluhan' => ['required', 'string', 'max:255'],
-            'status'       => ['sometimes', Rule::in(['baru', 'diajukan', 'diselesaikan'])],
         ];
 
         if (!$userId) {
@@ -69,7 +50,7 @@ class KeluhanController extends Controller
 
         $keluhan = Keluhan::create([
             'nama_keluhan' => $data['nama_keluhan'],
-            'status'       => $data['status'] ?? 'baru',
+            'status'       => 'diajukan',
             'id_penumpang' => $userId ?? $data['id_penumpang'],
         ]);
 
@@ -86,19 +67,13 @@ class KeluhanController extends Controller
         return new KeluhanResource($keluhan);
     }
 
-    /**
-     * PUT/PATCH /keluhan/{id}
-     * Body (optional):
-     * - nama_keluhan
-     * - status
-     */
     public function update(Request $request, string $id)
     {
         $keluhan = Keluhan::findOrFail($id);
 
         $data = $request->validate([
             'nama_keluhan' => ['sometimes', 'string', 'max:255'],
-            'status'       => ['sometimes', Rule::in(['baru', 'diajukan', 'diselesaikan'])],
+            'status'       => ['sometimes', Rule::in(['diajukan', 'diselesaikan'])],
         ]);
 
         $keluhan->update($data);
