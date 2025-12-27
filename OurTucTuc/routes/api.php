@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HalteController;
-use App\Http\Controllers\RuteController;
+use App\Http\Controllers\ruteController;
 use App\Http\Controllers\KendaraanController;
 use App\Http\Controllers\SopirController;
 
@@ -25,8 +25,8 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::get('/halte', [HalteController::class, 'index']);
 Route::get('/halte/{id}', [HalteController::class, 'show']);
 
-Route::get('/rute', [RuteController::class, 'index']);
-Route::get('/rute/{id}', [RuteController::class, 'show']);
+Route::get('/rute', [ruteController::class, 'index']);
+Route::get('/rute/{id}', [ruteController::class, 'show']);
 
 Route::get('/kendaraan', [KendaraanController::class, 'index']);
 Route::get('/kendaraan/{id}', [KendaraanController::class, 'show']);
@@ -58,9 +58,9 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('/halte/{id}', [HalteController::class, 'destroy']);
 
         // RUTE
-        Route::post('/rute', [RuteController::class, 'store']);
-        Route::put('/rute/{id}', [RuteController::class, 'update']);
-        Route::delete('/rute/{id}', [RuteController::class, 'destroy']);
+        Route::post('/rute', [ruteController::class, 'store']);
+        Route::put('/rute/{id}', [ruteController::class, 'update']);
+        Route::delete('/rute/{id}', [ruteController::class, 'destroy']);
 
         // KENDARAAN
         Route::post('/kendaraan', [KendaraanController::class, 'store']);
