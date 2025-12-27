@@ -5,6 +5,7 @@ use App\Models\Kendaraan;
 use App\Http\Resources\KendaraanResource;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class KendaraanController extends Controller
 {
@@ -23,7 +24,7 @@ class KendaraanController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'plat_nomor' => 'required|string|max:255',
+            'plat_nomor' => ['required','string','max:255', Rule::unique('kendaraan','plat_nomor')],
         ]);
 
         if ($validator->fails()) {
@@ -63,7 +64,7 @@ class KendaraanController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'plat_nomor' => 'sometimes|string|max:255',
+            'plat_nomor' => ['sometimes','string','max:255', Rule::unique('kendaraan','plat_nomor')->ignore($kendaraan->id)],
             'status' => 'sometimes|in:aktif,nonaktif',
         ]);
 
