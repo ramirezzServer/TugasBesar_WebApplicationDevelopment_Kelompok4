@@ -117,7 +117,7 @@ class KeluhanController extends Controller
             return response()->json([
                 'message' => 'Admin tidak diperbolehkan menghapus keluhan.'
             ], 403);
-        }
+        } 
 
         return response()->json([
             'message' => 'Keluhan berhasil dihapus.'

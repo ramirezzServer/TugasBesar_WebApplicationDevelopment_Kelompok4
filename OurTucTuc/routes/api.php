@@ -1,32 +1,75 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\SopirController;
-use App\Http\Controllers\KendaraanController;
-use App\Http\Controllers\RuteHalteController;
-use App\Http\Controllers\JadwalSopirController;
 use App\Http\Controllers\HalteController;
-use App\Http\Controllers\ruteController;
-use App\Http\Controllers\KeluhanController;
+use App\Http\Controllers\RuteController;
+use App\Http\Controllers\KendaraanController;
+use App\Http\Controllers\SopirController;
 
-Route::post('/login', [AuthController::class, 'login']);
+/*
+|--------------------------------------------------------------------------
+| AUTH - ALL (PUBLIC)
+|--------------------------------------------------------------------------
+*/
 Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
 
+
+/*
+|--------------------------------------------------------------------------
+| DATA MASTER - ALL (READ ONLY)
+|--------------------------------------------------------------------------
+| Bisa diakses Admin & Penumpang
+*/
+Route::get('/halte', [HalteController::class, 'index']);
+Route::get('/halte/{id}', [HalteController::class, 'show']);
+
+Route::get('/rute', [RuteController::class, 'index']);
+Route::get('/rute/{id}', [RuteController::class, 'show']);
+
+Route::get('/kendaraan', [KendaraanController::class, 'index']);
+Route::get('/kendaraan/{id}', [KendaraanController::class, 'show']);
+
+Route::get('/sopir', [SopirController::class, 'index']);
+Route::get('/sopir/{id}', [SopirController::class, 'show']);
+
+
+/*
+|--------------------------------------------------------------------------
+| AUTHENTICATED USER (ALL ROLE)
+|--------------------------------------------------------------------------
+*/
 Route::middleware('auth:sanctum')->group(function () {
+
+    // logout bisa semua role
     Route::post('/logout', [AuthController::class, 'logout']);
 
-    Route::get('/me', [UserController::class, 'me']);
-    Route::match(['put', 'patch'], '/me', [UserController::class, 'updateMe']);
+    /*
+    |--------------------------------------------------------------------------
+    | ADMIN ONLY
+    |--------------------------------------------------------------------------
+    */
+    Route::middleware('role:admin')->group(function () {
 
-    Route::apiResource('users', UserController::class)->except(['store']);
-    Route::apiResource('kendaraan', KendaraanController::class);
-    Route::apiResource('rute', ruteController::class);
-    Route::apiResource('sopir', SopirController::class);
-    Route::apiResource('halte', HalteController::class);
-    Route::apiResource('rute-halte', RuteHalteController::class);
-    Route::apiResource('jadwal-sopir', JadwalSopirController::class);
-    Route::apiResource('keluhan', KeluhanController::class);
+        // HALTE
+        Route::post('/halte', [HalteController::class, 'store']);
+        Route::put('/halte/{id}', [HalteController::class, 'update']);
+        Route::delete('/halte/{id}', [HalteController::class, 'destroy']);
+
+        // RUTE
+        Route::post('/rute', [RuteController::class, 'store']);
+        Route::put('/rute/{id}', [RuteController::class, 'update']);
+        Route::delete('/rute/{id}', [RuteController::class, 'destroy']);
+
+        // KENDARAAN
+        Route::post('/kendaraan', [KendaraanController::class, 'store']);
+        Route::put('/kendaraan/{id}', [KendaraanController::class, 'update']);
+        Route::delete('/kendaraan/{id}', [KendaraanController::class, 'destroy']);
+
+        // SOPIR
+        Route::post('/sopir', [SopirController::class, 'store']);
+        Route::post('/sopir/{sopir}', [SopirController::class, 'update']);
+        Route::delete('/sopir/{id}', [SopirController::class, 'destroy']);
+    });
 });
