@@ -12,11 +12,11 @@ class JadwalSopir extends Model
     protected $table = 'jadwal_sopir';
 
     protected $fillable = [
+        'jam_mulai',
+        'jam_selesai',
         'id_kendaraan',
         'id_sopir',
         'id_rute_halte',
-        'jam_mulai',
-        'jam_selesai',
         'status',
     ];
 

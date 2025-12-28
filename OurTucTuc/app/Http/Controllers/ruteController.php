@@ -14,7 +14,8 @@ class ruteController extends Controller
      */
     public function index()
     {
-        $rute = Rute::all();
+        $rute = Rute::all()
+        ->withCount('haltes');
         return ruteResource::collection($rute);
     }
 
@@ -43,14 +44,29 @@ class ruteController extends Controller
             ->response()
             ->setStatusCode(201);
     }
+ public function search(Request $request)
+    {
+        $request->validate([
+            'q' => ['required', 'string']
+        ]);
 
+        $q = $request->q;
+
+        $rute = Rute::with('haltes')
+        ->where('nama_rute', 'like', "%{$q}%");
+ 
+        $Rute = $rute->latest()->get();
+
+        return ruteResource::collection($Rute);
+    }
 
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
-         $rute = Rute::find($id);
+         $rute = Rute::find($id)
+         ->with('haltes');
         if (!$rute) {
             return response()->json([
                 'success' => false,

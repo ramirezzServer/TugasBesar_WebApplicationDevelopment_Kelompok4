@@ -27,6 +27,7 @@ public function toArray(Request $request): array
 
         'kendaraan' => [
             'id' => $this->kendaraan->id,
+            'plat_nomor' => $this->kendaraan->plat_nomor,
         ],
 
         'ruteHalte' => [

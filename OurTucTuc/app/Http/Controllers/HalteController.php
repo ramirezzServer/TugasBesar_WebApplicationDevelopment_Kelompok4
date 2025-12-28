@@ -20,6 +20,7 @@ class HalteController extends Controller
 
     public function store(Request $request)
     {
+
         $validator = Validator::make($request->all(), [
             'nama_halte' => 'required|string|max:255'
         ]);
@@ -55,11 +56,11 @@ class HalteController extends Controller
     public function update(Request $request, string $id)
     {
         $validator = Validator::make($request->all(),[
-           'nama_halte' => 'sometimes|required|string|max:255' 
+           'nama_halte' => 'sometimes|required|string|max:255'
         ]);
 
     $halte = Halte::find($id);
-    
+
     if (!$halte) {
         return response()->json(['message' => 'Halte tidak ditemukan'], 404);
     }

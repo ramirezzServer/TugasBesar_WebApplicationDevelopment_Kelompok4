@@ -23,7 +23,7 @@ class JadwalSopirController extends Controller
             'id_rute_halte'  => 'required|integer|exists:rute_halte,id',
             'jam_mulai'      => 'required|date_format:H:i',
             'jam_selesai'    => 'required|date_format:H:i|after:jam_mulai',
-            'status'         => 'required|in:aktif,selesai,belum_aktif',
+            'status'         => 'sometimes|in:aktif,selesai,belum_aktif',
         ]);
 
         if ($validator->fails()) {

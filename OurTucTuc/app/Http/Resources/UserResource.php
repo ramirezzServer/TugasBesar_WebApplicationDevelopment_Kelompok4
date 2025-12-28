@@ -30,7 +30,10 @@ class UserResource extends JsonResource
                 });
             }),
 
-            'keluhan_count' => $this->whenLoaded('keluhans', fn () => $this->keluhans->count()),
+            'keluhan_count' => $this->when(
+                isset($this->keluhans_count),
+                $this->keluhans_count
+            ),
         ];
     }
 }

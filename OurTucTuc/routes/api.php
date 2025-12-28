@@ -11,6 +11,7 @@ use App\Http\Controllers\KeluhanController;
 use App\Http\Controllers\JadwalSopirController;
 use App\Http\Controllers\RuteHalteController;
 
+
 //buat public
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
@@ -18,9 +19,12 @@ Route::post('/login', [AuthController::class, 'login']);
 
 //allrole after auth
 Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/rute/search', [ruteController::class, 'search']);
+    Route::get('/rute-halte/search', [RuteHalteController::class, 'search']);
 
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/me', [UserController::class, 'me']);
+    Route::put('/updateMe', [UserController::class, 'updateMe']);
 
     /* ================= HALTE ================= */
     Route::get('/halte', [HalteController::class, 'index']);
@@ -29,6 +33,8 @@ Route::middleware('auth:sanctum')->group(function () {
     /* ================= RUTE ================= */
     Route::get('/rute', [ruteController::class, 'index']);
     Route::get('/rute/{id}', [ruteController::class, 'show']);
+
+    Route::put('/keluhan/{id}', [KeluhanController::class, 'update']);
 });
 
 //buat penumpang
@@ -38,7 +44,7 @@ Route::middleware(['auth:sanctum', 'role:penumpang'])->group(function () {
     Route::get('/keluhan', [KeluhanController::class, 'index']);
     Route::post('/keluhan', [KeluhanController::class, 'store']);
     Route::get('/keluhan/{id}', [KeluhanController::class, 'show']);
-    Route::put('/keluhan/{id}', [KeluhanController::class, 'update']);
+
     Route::delete('/keluhan/{id}', [KeluhanController::class, 'destroy']);
 });
 
@@ -46,15 +52,21 @@ Route::middleware(['auth:sanctum', 'role:penumpang'])->group(function () {
 //buat admin
 Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
 
+
+
     /* ================= HALTE ================= */
     Route::post('/halte', [HalteController::class, 'store']);
     Route::put('/halte/{id}', [HalteController::class, 'update']);
     Route::delete('/halte/{id}', [HalteController::class, 'destroy']);
 
     /* ================= RUTE ================= */
+
+
     Route::post('/rute', [ruteController::class, 'store']);
     Route::put('/rute/{id}', [ruteController::class, 'update']);
     Route::delete('/rute/{id}', [ruteController::class, 'destroy']);
+
+
 
     /* ================= KENDARAAN ================= */
     Route::get('/kendaraan', [KendaraanController::class, 'index']);
@@ -67,7 +79,7 @@ Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
     Route::get('/sopir', [SopirController::class, 'index']);
     Route::post('/sopir', [SopirController::class, 'store']);
     Route::get('/sopir/{id}', [SopirController::class, 'show']);
-    Route::put('/sopir/{sopir}', [SopirController::class, 'update']);
+    Route::post('/sopir/{sopir}', [SopirController::class, 'update']); //ini update pake post karena laravel ga dukung edit data by form data yang mengandung foto pake put(klo bingung nnya devi yh)
     Route::delete('/sopir/{id}', [SopirController::class, 'destroy']);
 
     /* ================= RUTE - HALTE ================= */
@@ -83,4 +95,9 @@ Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
     Route::get('/jadwal-sopir/{id}', [JadwalSopirController::class, 'show']);
     Route::put('/jadwal-sopir/{id}', [JadwalSopirController::class, 'update']);
     Route::delete('/jadwal-sopir/{id}', [JadwalSopirController::class, 'destroy']);
+
+
+
+    Route::get('/user', [UserController::class, 'index']);
+    Route::get('/user/search', [UserController::class, 'search']);
 });

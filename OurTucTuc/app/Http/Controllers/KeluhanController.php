@@ -85,7 +85,6 @@ class KeluhanController extends Controller
     }
 
 
-
     public function update(Request $request, string $id)
     {
         $keluhan = Keluhan::findOrFail($id);
@@ -100,10 +99,20 @@ class KeluhanController extends Controller
             'status'       => ['sometimes', Rule::in(['diajukan', 'diselesaikan'])],
         ]);
 
-        if ($user->role === 'penumpang') {
-            unset($data['status']);
+      if ($user->role === 'penumpang') {
+        if (isset($data['status'])) {
+            return response()->json([
+                'message' => 'Penumpang tidak boleh mengubah status.'
+            ], 403);
         }
-
+    }
+    if ($user->role === 'admin') {
+        if (isset($data['nama_keluhan'])) {
+            return response()->json([
+                'message' => 'Admin hanya boleh mengubah status.'
+            ], 403);
+        }
+    }
         $keluhan->update($data);
         $keluhan->load('penumpang:id,name,email,role,NoTelp');
 

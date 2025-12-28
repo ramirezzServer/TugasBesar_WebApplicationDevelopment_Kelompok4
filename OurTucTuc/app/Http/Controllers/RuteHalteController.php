@@ -26,10 +26,29 @@ class RuteHalteController extends Controller
         return RuteHalte::create($request->all());
     }
 
+
+    public function search(Request $request)
+    {
+        $request->validate([
+            'q' => ['required', 'string']
+        ]);
+
+        $q = $request->q;
+
+        $rute_halte =RuteHalte::with(['rute', 'halte'])
+            ->where('jam_berangkat', 'like', "%{$q}%");
+
+        $Rute_halte = $rute_halte->latest()->get();
+
+        return RuteHalteResource::collection($Rute_halte);
+    }
+
+
     public function show($id)
     {
         return RuteHalte::with(['rute', 'halte'])->findOrFail($id);
     }
+
 
     public function update(Request $request, $id)
     {

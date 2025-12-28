@@ -14,11 +14,9 @@ class UserController extends Controller
     // Hanya menampilkan user + relasi keluhan
     public function index(Request $request)
     {
-        $query = User::query()->select('id', 'name', 'email', 'NoTelp', 'created_at', 'updated_at');
+        $query = User::query()->select('id', 'name', 'email', 'NoTelp', 'role', 'created_at', 'updated_at')
+            ->withCount('keluhans');
 
-        if ($request->boolean('with_keluhan_count')) {
-            $query->withCount('keluhans');
-        }
 
         $users = $query->latest()->get();
 
@@ -34,15 +32,13 @@ class UserController extends Controller
 
         $q = $request->q;
 
-        $query = User::query()->select('id', 'name', 'email', 'NoTelp', 'created_at', 'updated_at')
+        $query = User::query()->select('id', 'name', 'email', 'NoTelp', 'role', 'created_at', 'updated_at')
             ->where(function ($w) use ($q) {
                 $w->where('name', 'like', "%{$q}%")
-                  ->orWhere('email', 'like', "%{$q}%");
-            });
+                    ->orWhere('email', 'like', "%{$q}%");
+            })
+            ->withCount('keluhans');
 
-        if ($request->boolean('with_keluhan_count')) {
-            $query->withCount('keluhans');
-        }
 
         $users = $query->latest()->get();
 
@@ -61,8 +57,11 @@ class UserController extends Controller
     public function me(Request $request)
     {
         $user = $request->user();
-        $user->load(['keluhans:id,id_penumpang,nama_keluhan,status,created_at']);
 
+        if ($user->role === 'penumpang') {
+            $user->load(['keluhans:id,id_penumpang,nama_keluhan,status,created_at'])
+                ->where('id_penumpang', $user->id);
+        }
         return new UserResource($user);
     }
 
@@ -74,7 +73,7 @@ class UserController extends Controller
             'name'   => ['sometimes', 'string', 'max:255'],
             'email'  => ['sometimes', 'email', 'max:255', Rule::unique('users', 'email')->ignore($user->id)],
             'NoTelp' => ['sometimes', 'string'],
-            'password' => ['sometimes','string', 'min:8', 'confirmed'],
+            'password' => ['sometimes', 'string', 'min:8', 'confirmed'],
         ]);
 
         if (isset($data['password'])) {
