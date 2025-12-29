@@ -6,13 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Halte extends Model
 {
-    protected $table ="halte";
+    protected $table = "halte";
 
     protected $fillable = [
         'nama_halte'
     ];
 
-        public function rutes()
+    public function rutes()
     {
         return $this->belongsToMany(
             Rute::class,

@@ -24,11 +24,11 @@ class KendaraanController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'plat_nomor' => ['required','string','max:255', Rule::unique('kendaraan','plat_nomor')],
+            'plat_nomor' => ['required', 'string', 'max:255', Rule::unique('kendaraan', 'plat_nomor')],
         ]);
 
         if ($validator->fails()) {
-            return response() -> json([
+            return response()->json([
                 'message' => 'Please check your request',
                 'errors' => $validator->errors()
             ], 422);
@@ -44,7 +44,7 @@ class KendaraanController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show (string $id)
+    public function show(string $id)
     {
         $kendaraan = Kendaraan::find($id);
         if (!$kendaraan) {
@@ -64,7 +64,7 @@ class KendaraanController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'plat_nomor' => ['sometimes','string','max:255', Rule::unique('kendaraan','plat_nomor')->ignore($kendaraan->id)],
+            'plat_nomor' => ['sometimes', 'string', 'max:255', Rule::unique('kendaraan', 'plat_nomor')->ignore($kendaraan->id)],
             'status' => 'sometimes|in:aktif,nonaktif',
         ]);
 

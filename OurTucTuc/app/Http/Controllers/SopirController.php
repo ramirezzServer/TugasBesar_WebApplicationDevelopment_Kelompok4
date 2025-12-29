@@ -82,7 +82,7 @@ class SopirController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'message' => 'Please check your request',
-                'errors'  => $validator->errors()
+                'errors' => $validator->errors()
             ], 422);
         }
 

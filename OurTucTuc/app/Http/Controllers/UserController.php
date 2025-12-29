@@ -70,8 +70,8 @@ class UserController extends Controller
         $user = $request->user();
 
         $data = $request->validate([
-            'name'   => ['sometimes', 'string', 'max:255'],
-            'email'  => ['sometimes', 'email', 'max:255', Rule::unique('users', 'email')->ignore($user->id)],
+            'name' => ['sometimes', 'string', 'max:255'],
+            'email' => ['sometimes', 'email', 'max:255', Rule::unique('users', 'email')->ignore($user->id)],
             'NoTelp' => ['sometimes', 'string'],
             'password' => ['sometimes', 'string', 'min:8', 'confirmed'],
         ]);
@@ -93,8 +93,8 @@ class UserController extends Controller
         $user = User::findOrFail($id);
 
         $data = $request->validate([
-            'name'   => ['sometimes', 'string', 'max:255'],
-            'email'  => ['sometimes', 'email', 'max:255', Rule::unique('users', 'email')->ignore($user->id)],
+            'name' => ['sometimes', 'string', 'max:255'],
+            'email' => ['sometimes', 'email', 'max:255', Rule::unique('users', 'email')->ignore($user->id)],
             'NoTelp' => ['sometimes', 'string'],
             'password' => ['sometimes', 'string', 'min:8', 'confirmed'],
         ]);

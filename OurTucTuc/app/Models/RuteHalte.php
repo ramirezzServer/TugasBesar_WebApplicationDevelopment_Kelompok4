@@ -8,7 +8,7 @@ use App\Models\Halte;
 
 class RuteHalte extends Model
 {
-    protected $table ="rute_halte";
+    protected $table = "rute_halte";
 
     protected $fillable = [
         'id_rute',
@@ -16,7 +16,7 @@ class RuteHalte extends Model
         'jam_berangkat'
     ];
 
-      public function rute()
+    public function rute()
     {
         return $this->belongsTo(Rute::class, 'id_rute');
     }

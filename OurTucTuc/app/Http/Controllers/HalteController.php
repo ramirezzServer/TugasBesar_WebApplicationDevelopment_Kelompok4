@@ -55,24 +55,24 @@ class HalteController extends Controller
 
     public function update(Request $request, string $id)
     {
-        $validator = Validator::make($request->all(),[
-           'nama_halte' => 'sometimes|required|string|max:255'
+        $validator = Validator::make($request->all(), [
+            'nama_halte' => 'sometimes|required|string|max:255'
         ]);
 
-    $halte = Halte::find($id);
+        $halte = Halte::find($id);
 
-    if (!$halte) {
-        return response()->json(['message' => 'Halte tidak ditemukan'], 404);
-    }
-    if ($validator->fails()) {
-        return response()->json([
-            'message' => 'Silahkan periksa permintaan anda',
-            'errors' => $validator->errors()
+        if (!$halte) {
+            return response()->json(['message' => 'Halte tidak ditemukan'], 404);
+        }
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => 'Silahkan periksa permintaan anda',
+                'errors' => $validator->errors()
             ], 422);
-    }
-    $halte->update($validator->validated());
+        }
+        $halte->update($validator->validated());
 
-    return(new HalteResource($halte))
+        return (new HalteResource($halte))
             ->additional(['message' => 'Halte berhasil diupdate'])
             ->response()
             ->setStatusCode(200);
@@ -82,7 +82,7 @@ class HalteController extends Controller
     {
         $halte = Halte::find($id);
 
-        if (!$halte){
+        if (!$halte) {
             return response()->json([
                 'success' => false,
                 'message' => 'Halte tidak ditemukan'
@@ -91,7 +91,8 @@ class HalteController extends Controller
 
         $halte->delete();
 
-        return response()->json(['message' => 'Halte berhasil dihapus'
+        return response()->json([
+            'message' => 'Halte berhasil dihapus'
         ], 200);
     }
 }

@@ -35,7 +35,7 @@ class RuteHalteController extends Controller
 
         $q = $request->q;
 
-        $rute_halte =RuteHalte::with(['rute', 'halte'])
+        $rute_halte = RuteHalte::with(['rute', 'halte'])
             ->where('jam_berangkat', 'like', "%{$q}%");
 
         $Rute_halte = $rute_halte->latest()->get();

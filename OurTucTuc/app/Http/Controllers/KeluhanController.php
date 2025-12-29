@@ -30,9 +30,9 @@ class KeluhanController extends Controller
     public function search(Request $request)
     {
         $request->validate([
-            'q'      => ['required', 'string'],
+            'q' => ['required', 'string'],
             'status' => ['nullable', Rule::in(['diajukan', 'diselesaikan'])],
-            'mine'   => ['nullable', 'boolean'],
+            'mine' => ['nullable', 'boolean'],
         ]);
 
         $query = Keluhan::query()->with('penumpang:id,name,email,role,NoTelp');
@@ -64,7 +64,7 @@ class KeluhanController extends Controller
 
         $keluhan = Keluhan::create([
             'nama_keluhan' => $data['nama_keluhan'],
-            'status'       => 'diajukan',
+            'status' => 'diajukan',
             'id_penumpang' => $user->id,
         ]);
 
@@ -96,23 +96,23 @@ class KeluhanController extends Controller
 
         $data = $request->validate([
             'nama_keluhan' => ['sometimes', 'string', 'max:255'],
-            'status'       => ['sometimes', Rule::in(['diajukan', 'diselesaikan'])],
+            'status' => ['sometimes', Rule::in(['diajukan', 'diselesaikan'])],
         ]);
 
-      if ($user->role === 'penumpang') {
-        if (isset($data['status'])) {
-            return response()->json([
-                'message' => 'Penumpang tidak boleh mengubah status.'
-            ], 403);
+        if ($user->role === 'penumpang') {
+            if (isset($data['status'])) {
+                return response()->json([
+                    'message' => 'Penumpang tidak boleh mengubah status.'
+                ], 403);
+            }
         }
-    }
-    if ($user->role === 'admin') {
-        if (isset($data['nama_keluhan'])) {
-            return response()->json([
-                'message' => 'Admin hanya boleh mengubah status.'
-            ], 403);
+        if ($user->role === 'admin') {
+            if (isset($data['nama_keluhan'])) {
+                return response()->json([
+                    'message' => 'Admin hanya boleh mengubah status.'
+                ], 403);
+            }
         }
-    }
         $keluhan->update($data);
         $keluhan->load('penumpang:id,name,email,role,NoTelp');
 

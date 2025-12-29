@@ -15,7 +15,7 @@ class ruteController extends Controller
     public function index()
     {
         $rute = Rute::all()
-        ->withCount('haltes');
+            ->withCount('haltes');
         return ruteResource::collection($rute);
     }
 
@@ -44,7 +44,7 @@ class ruteController extends Controller
             ->response()
             ->setStatusCode(201);
     }
- public function search(Request $request)
+    public function search(Request $request)
     {
         $request->validate([
             'q' => ['required', 'string']
@@ -53,8 +53,8 @@ class ruteController extends Controller
         $q = $request->q;
 
         $rute = Rute::with('haltes')
-        ->where('nama_rute', 'like', "%{$q}%");
- 
+            ->where('nama_rute', 'like', "%{$q}%");
+
         $Rute = $rute->latest()->get();
 
         return ruteResource::collection($Rute);
@@ -65,15 +65,15 @@ class ruteController extends Controller
      */
     public function show(string $id)
     {
-         $rute = Rute::find($id)
-         ->with('haltes');
+        $rute = Rute::find($id)
+            ->with('haltes');
         if (!$rute) {
             return response()->json([
                 'success' => false,
-                 'message' => 'rute tidak ada'
+                'message' => 'rute tidak ada'
             ], 404);
-    }
-            return new ruteResource($rute);
+        }
+        return new ruteResource($rute);
     }
     /**
      * Update the specified resource in storage.
@@ -88,15 +88,15 @@ class ruteController extends Controller
         $rute = Rute::find($id);
         if (!$rute) {
             return response()->json([
-                 'success' => false,
-                 'message' => 'rute yang kamu cari tidak ada'
+                'success' => false,
+                'message' => 'rute yang kamu cari tidak ada'
             ], 404);
         }
 
         if ($validator->fails()) {
             return response()->json([
-                 'success' => false,
-                 'errors' => "cek lagi requestmu"
+                'success' => false,
+                'errors' => "cek lagi requestmu"
             ], 422);
         }
 
@@ -114,16 +114,16 @@ class ruteController extends Controller
     public function destroy(string $id)
     {
         //
-          $rute = Rute::find($id);
+        $rute = Rute::find($id);
 
         if (!$rute) {
             return response()->json([
-                 'success' => false,
-                 'message' => 'rute tidak ditemukan'
+                'success' => false,
+                'message' => 'rute tidak ditemukan'
             ], 404);
         }
 
-          $rute->delete();
+        $rute->delete();
 
         return response()->json([
             'message' => 'rute berhasil dihapus'

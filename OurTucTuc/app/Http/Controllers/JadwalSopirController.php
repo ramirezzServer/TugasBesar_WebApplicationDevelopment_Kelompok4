@@ -18,18 +18,18 @@ class JadwalSopirController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'id_kendaraan'   => 'required|integer|exists:kendaraan,id',
-            'id_sopir'       => 'required|integer|exists:data_sopir,id',
-            'id_rute_halte'  => 'required|integer|exists:rute_halte,id',
-            'jam_mulai'      => 'required|date_format:H:i',
-            'jam_selesai'    => 'required|date_format:H:i|after:jam_mulai',
-            'status'         => 'sometimes|in:aktif,selesai,belum_aktif',
+            'id_kendaraan' => 'required|integer|exists:kendaraan,id',
+            'id_sopir' => 'required|integer|exists:data_sopir,id',
+            'id_rute_halte' => 'required|integer|exists:rute_halte,id',
+            'jam_mulai' => 'required|date_format:H:i',
+            'jam_selesai' => 'required|date_format:H:i|after:jam_mulai',
+            'status' => 'sometimes|in:aktif,selesai,belum_aktif',
         ]);
 
         if ($validator->fails()) {
             return response()->json([
                 'message' => 'Please check your request',
-                'errors'  => $validator->errors(),
+                'errors' => $validator->errors(),
             ], 422);
         }
 
@@ -66,18 +66,18 @@ class JadwalSopirController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'id_kendaraan'   => 'sometimes|integer|exists:kendaraan,id',
-            'id_sopir'       => 'sometimes|integer|exists:data_sopir,id',
-            'id_rute_halte'  => 'sometimes|integer|exists:rute_halte,id',
-            'jam_mulai'      => 'sometimes|date_format:H:i',
-            'jam_selesai'    => 'sometimes|date_format:H:i',
-            'status'         => 'sometimes|in:aktif,selesai,belum_aktif',
+            'id_kendaraan' => 'sometimes|integer|exists:kendaraan,id',
+            'id_sopir' => 'sometimes|integer|exists:data_sopir,id',
+            'id_rute_halte' => 'sometimes|integer|exists:rute_halte,id',
+            'jam_mulai' => 'sometimes|date_format:H:i',
+            'jam_selesai' => 'sometimes|date_format:H:i',
+            'status' => 'sometimes|in:aktif,selesai,belum_aktif',
         ]);
 
         if ($validator->fails()) {
             return response()->json([
                 'message' => 'Please check your request',
-                'errors'  => $validator->errors(),
+                'errors' => $validator->errors(),
             ], 422);
         }
 
@@ -92,7 +92,7 @@ class JadwalSopirController extends Controller
             if (strtotime($jamSelesai) <= strtotime($jamMulai)) {
                 return response()->json([
                     'message' => 'Please check your request',
-                    'errors'  => [
+                    'errors' => [
                         'jam_selesai' => ['jam_selesai must be after jam_mulai'],
                     ],
                 ], 422);

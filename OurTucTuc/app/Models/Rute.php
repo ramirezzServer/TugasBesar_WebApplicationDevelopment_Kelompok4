@@ -10,8 +10,8 @@ use App\Models\Halte;
 class Rute extends Model
 {
     //
-        use HasFactory;
-         protected $table = 'rute';
+    use HasFactory;
+    protected $table = 'rute';
 
     protected $fillable = [
         'nama_rute'
@@ -30,8 +30,8 @@ class Rute extends Model
             'id_rute',
             'id_halte'
         )
-        ->withPivot('jam_berangkat')
-        ->withTimestamps();
+            ->withPivot('jam_berangkat')
+            ->withTimestamps();
     }
 }
 
