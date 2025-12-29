@@ -19,8 +19,12 @@ Route::post('/login', [AuthController::class, 'login']);
 
 //allrole after auth
 Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/keluhan/search', [KeluhanController::class, 'search']);
     Route::get('/rute/search', [ruteController::class, 'search']);
     Route::get('/rute-halte/search', [RuteHalteController::class, 'search']);
+
+
+    Route::get('/keluhan', [KeluhanController::class, 'index']);
 
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/me', [UserController::class, 'me']);
@@ -35,15 +39,15 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/rute/{id}', [ruteController::class, 'show']);
 
     Route::put('/keluhan/{id}', [KeluhanController::class, 'update']);
+    Route::get('/keluhan/{id}', [KeluhanController::class, 'show']);
 });
 
 //buat penumpang
 Route::middleware(['auth:sanctum', 'role:penumpang'])->group(function () {
 
     /* ================= KELUHAN ================= */
-    Route::get('/keluhan', [KeluhanController::class, 'index']);
+
     Route::post('/keluhan', [KeluhanController::class, 'store']);
-    Route::get('/keluhan/{id}', [KeluhanController::class, 'show']);
 
     Route::delete('/keluhan/{id}', [KeluhanController::class, 'destroy']);
 });

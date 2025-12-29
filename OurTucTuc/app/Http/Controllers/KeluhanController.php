@@ -29,10 +29,10 @@ class KeluhanController extends Controller
     // Fungsi baru untuk search
     public function search(Request $request)
     {
+        $user = Auth::user();
         $request->validate([
             'q' => ['required', 'string'],
-            'status' => ['nullable', Rule::in(['diajukan', 'diselesaikan'])],
-            'mine' => ['nullable', 'boolean'],
+            'status' => ['nullable', Rule::in(['diajukan', 'diselesaikan'])]
         ]);
 
         $query = Keluhan::query()->with('penumpang:id,name,email,role,NoTelp');
@@ -45,8 +45,9 @@ class KeluhanController extends Controller
             $query->where('nama_keluhan', 'like', '%' . $request->q . '%');
         }
 
-        if ($request->boolean('mine') && Auth::check()) {
-            $query->where('id_penumpang', Auth::id());
+        if ($user->role === 'penumpang') {
+
+            $query->where('id_penumpang', $user->id);
         }
 
         $keluhan = $query->latest()->get();
