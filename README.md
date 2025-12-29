@@ -38,12 +38,3 @@ Dibuat untuk **Tugas Besar Web Application Development (Kelompok 4)**.
 - `keluhan`
 
 ---
-
-## 🔐 Auth Flow (Ringkas)
-1. **Register / Login**
-2. Dapat **token**
-3. Kirim header berikut di request selanjutnya:
-
-```http
-Authorization: Bearer <token>
-Accept: application/json
