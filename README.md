@@ -1,11 +1,9 @@
-# OurTucTuc 🚐💨  
-REST API untuk sistem **manajemen shuttle/TucTuc kampus**: rute, halte, jadwal sopir, kendaraan, dan keluhan penumpang.  
-Dibangun sebagai **Tugas Besar Web Application Development (Kelompok 4)**.
+# OurTucTuc 🚐💨 — Shuttle Management REST API
 
-![PHP](https://img.shields.io/badge/PHP-8.2+-777BB4?logo=php&logoColor=white)
-![Laravel](https://img.shields.io/badge/Laravel-12.x-FF2D20?logo=laravel&logoColor=white)
-![Sanctum](https://img.shields.io/badge/Auth-Sanctum-0F172A)
-![API](https://img.shields.io/badge/Type-REST%20API-22c55e)
+Sistem backend (REST API) untuk mengelola operasional **shuttle/TucTuc kampus**: rute, halte, jadwal sopir, kendaraan, dan keluhan penumpang.  
+Dibuat untuk **Tugas Besar Web Application Development (Kelompok 4)**.
+
+> Fokus utama: API yang rapi, role-based access, dan validasi jam/jadwal yang aman saat update partial request.
 
 ---
 
@@ -43,11 +41,3 @@ Dibangun sebagai **Tugas Besar Web Application Development (Kelompok 4)**.
 - **Vite + Tailwind (dev deps)**
 
 ---
-
-## 🚀 Quick Start (Local)
-> Contoh base URL kalau pakai artisan serve: `http://127.0.0.1:8000`
-
-### 1) Install dependency
-```bash
-composer install
-npm install
