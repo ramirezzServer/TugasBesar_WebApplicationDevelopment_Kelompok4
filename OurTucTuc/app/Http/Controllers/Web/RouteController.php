@@ -3,13 +3,16 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use Illuminate\View\View;
 use App\Models\Rute;
 
 class RouteController extends Controller
 {
-    public function index()
+    public function index(): View
     {
-        $rute = Rute::all();
+        // Ambil data rute langsung dari database
+        $rute = Rute::with('halte')->get();
+
         return view('user.rute.index', compact('rute'));
     }
 }

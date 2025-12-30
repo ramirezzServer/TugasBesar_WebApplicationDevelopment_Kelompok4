@@ -1,11 +1,12 @@
 :root {
-    --merah-telkom: #C4161C;
+    --merah-telkom: #c4161c;
     --merah-gelap: #9f1217;
     --abu-bg: #f4f4f4;
     --abu-border: #e5e5e5;
     --hitam: #222;
 }
 
+/* ================= GLOBAL ================= */
 * {
     margin: 0;
     padding: 0;
@@ -20,7 +21,11 @@ body {
 
 /* ================= AUTH ================= */
 .auth-body {
-    background: linear-gradient(135deg, var(--merah-telkom), var(--merah-gelap));
+    background: linear-gradient(
+        135deg,
+        var(--merah-telkom),
+        var(--merah-gelap)
+    );
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -97,8 +102,85 @@ body {
 .navbar a {
     color: #fff;
     text-decoration: none;
-    margin-left: 16px;
     font-weight: 500;
+}
+
+.navbar a:hover {
+    text-decoration: underline;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.navbar-menu {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+/* ===== Register Button ===== */
+.btn-register {
+    background: #fff;
+    color: var(--merah-telkom);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+/* ===== Logout ===== */
+.logout-form {
+    display: inline;
+}
+
+.logout-btn {
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.logout-btn:hover {
+    text-decoration: underline;
+}
+
+/* ===== Dropdown ===== */
+.dropdown {
+    position: relative;
+}
+
+.dropdown-toggle {
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 28px;
+    background: #fff;
+    border-radius: 6px;
+    min-width: 160px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 100;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 8px 12px;
+    color: var(--hitam);
+    text-decoration: none;
+}
+
+.dropdown-menu a:hover {
+    background: var(--abu-bg);
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
 }
 
 /* ================= LAYOUT ================= */

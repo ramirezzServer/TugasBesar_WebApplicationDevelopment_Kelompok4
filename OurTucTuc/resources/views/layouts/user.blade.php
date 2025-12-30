@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
-    <title>User - OurTucTuc</title>
+    <title>@yield('title', 'OurTucTuc')</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ asset('favicon.ico') }}">
 </head>
+
 <body>
 
-@include('layouts.partials.navbar')
+    @include('layouts.partials.navbar')
 
-<div class="main-content">
-    @yield('content')
+    <main class="main-content">
+        @yield('content')
+    </main>
+
     @include('layouts.partials.footer')
-</div>
 
 </body>
+
 </html>
