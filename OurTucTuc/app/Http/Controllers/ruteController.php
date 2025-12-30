@@ -14,8 +14,9 @@ class ruteController extends Controller
      */
     public function index()
     {
-        $rute = Rute::all()
-            ->withCount('haltes');
+        $rute = Rute::withCount([
+            'haltes as jumlah_halte'
+        ])->get();
         return ruteResource::collection($rute);
     }
 

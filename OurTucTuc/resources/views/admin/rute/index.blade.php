@@ -7,15 +7,16 @@
         <table>
             <thead>
                 <tr>
+                    <th>No</th>
                     <th>Nama Rute</th>
-                    <th>Deskripsi</th>
+                    <th>aksi</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($rute as $item)
+                @foreach ($data as $index => $item)
                     <tr>
+                        <td>{{ $index + 1 }}</td>
                         <td>{{ $item->nama_rute }}</td>
-                        <td>{{ $item->deskripsi }}</td>
                     </tr>
                 @endforeach
             </tbody>

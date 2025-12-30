@@ -27,7 +27,7 @@ class ruteResource extends JsonResource
                     ];
                 });
             }),
-
+            'jumlah_halte' => $this->jumlah_halte,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
         ];

@@ -48,7 +48,6 @@ Route::middleware(['auth:sanctum', 'role:penumpang'])->group(function () {
     /* ================= KELUHAN ================= */
 
     Route::post('/keluhan', [KeluhanController::class, 'store']);
-
     Route::delete('/keluhan/{id}', [KeluhanController::class, 'destroy']);
 });
 

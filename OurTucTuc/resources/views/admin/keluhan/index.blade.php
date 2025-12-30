@@ -7,6 +7,7 @@
         <table>
             <thead>
                 <tr>
+                    <th>No</th>
                     <th>Pengguna</th>
                     <th>Isi Keluhan</th>
                     <th>Status</th>
@@ -14,10 +15,11 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($keluhan as $item)
+                @foreach ($keluhan as $index => $item)
                     <tr>
-                        <td>{{ $item->user->name ?? '-' }}</td>
-                        <td>{{ $item->isi_keluhan }}</td>
+                        <td>{{ $index + 1 }}</td>
+                        <td>{{ $item->penumpang->name ?? '-' }}</td>
+                        <td>{{ $item->nama_keluhan }}</td>
                         <td>{{ $item->status }}</td>
                         <td>{{ $item->created_at }}</td>
                     </tr>
