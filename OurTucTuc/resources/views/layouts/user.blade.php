@@ -4,11 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <title>User - OurTucTuc</title>
+
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/keluhan.css') }}">
     <link rel="icon" href="{{ asset('favicon.ico') }}">
+
+    @stack('styles')
 </head>
 
-<body>
+<body class="page-keluhan">
 
     {{-- NAVBAR --}}
     @include('layouts.partials.navbar')

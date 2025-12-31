@@ -1,41 +1,40 @@
 <div class="sidebar">
-    <h3>Admin</h3>
+    <h3>Admin Menu</h3>
 
-    <a href="{{ route('admin.dashboard') }}"
-        class="menu-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
+    <a href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
         Dashboard
     </a>
 
-    <a href="{{ route('admin.keluhan') }}" class="menu-item {{ request()->routeIs('admin.keluhan') ? 'active' : '' }}">
+    <a href="{{ route('admin.keluhan') }}" class="{{ request()->routeIs('admin.keluhan') ? 'active' : '' }}">
         Keluhan
     </a>
 
-    <a href="/admin/sopir" class="menu-item">
+    <a href="{{ route('admin.user') }}" class="{{ request()->routeIs('admin.user') ? 'active' : '' }}">
+        User
+    </a>
+
+    <a href="{{ route('admin.sopir') }}" class="{{ request()->routeIs('admin.sopir') ? 'active' : '' }}">
         Sopir
     </a>
 
-    <a href="/admin/kendaraan" class="menu-item">
+    <a href="{{ route('admin.kendaraan') }}" class="{{ request()->routeIs('admin.kendaraan') ? 'active' : '' }}">
         Kendaraan
     </a>
 
-    <a href="/admin/halte" class="menu-item">
+    <a href="{{ route('admin.halte') }}" class="{{ request()->routeIs('admin.halte') ? 'active' : '' }}">
         Halte
     </a>
 
-    <a href="{{ route('admin.rute') }}" class="menu-item {{ request()->routeIs('admin.rute') ? 'active' : '' }}">
+    <a href="{{ route('admin.rute') }}" class="{{ request()->routeIs('admin.rute') ? 'active' : '' }}">
         Rute
     </a>
 
-    <a href="/admin/jadwal-sopir" class="menu-item">
+    <a href="{{ route('admin.rute-halte') }}" class="{{ request()->routeIs('admin.rute-halte') ? 'active' : '' }}">
+        Rute Halte
+    </a>
+
+    <a href="{{ route('admin.jadwal-sopir') }}"
+        class="{{ request()->routeIs('admin.jadwal-sopir') ? 'active' : '' }}">
         Jadwal Sopir
-    </a>
-
-    <a href="{{ route('admin.rute-halte') }}"
-        class="menu-item {{ request()->routeIs('admin.rute-halte') ? 'active' : '' }}">
-        Jadwal Rute
-    </a>
-
-    <a href="{{ route('admin.user') }}" class="menu-item {{ request()->routeIs('admin.user') ? 'active' : '' }}">
-        Data User
     </a>
 </div>

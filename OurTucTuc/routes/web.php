@@ -22,7 +22,9 @@ use App\Http\Controllers\Admin\JadwalSopirController as AdminJS;
 use App\Http\Controllers\Admin\UserController as AdminUser;
 
 /*
+|--------------------------------------------------------------------------
 | AUTH
+|--------------------------------------------------------------------------
 */
 Route::get('/', fn() => view('auth.login'))->name('login');
 Route::get('/login', fn() => view('auth.login'));
@@ -33,14 +35,18 @@ Route::post('/web-register', [WebAuth::class, 'register'])->name('web.register')
 Route::post('/logout', [WebAuth::class, 'logout'])->name('logout');
 
 /*
+|--------------------------------------------------------------------------
 | PROFILE (ADMIN & USER)
+|--------------------------------------------------------------------------
 */
 Route::middleware('auth')
     ->get('/profile', [ProfileController::class, 'index'])
     ->name('profile');
 
 /*
-| USER
+|--------------------------------------------------------------------------
+| USER (ROLE: penumpang)
+|--------------------------------------------------------------------------
 */
 Route::middleware(['auth', WebRoleMiddleware::class . ':penumpang'])
     ->group(function () {
@@ -51,27 +57,61 @@ Route::middleware(['auth', WebRoleMiddleware::class . ':penumpang'])
         Route::get('/rute', [RouteController::class, 'index'])
             ->name('user.rute');
 
+        // USER KELUHAN (CRUD TANPA UBAH STATUS)
         Route::get('/keluhan', [UserKeluhan::class, 'index'])
             ->name('user.keluhan');
+
+        Route::post('/keluhan', [UserKeluhan::class, 'store'])
+            ->name('user.keluhan.store');
+
+        Route::get('/keluhan/{id}/edit', [UserKeluhan::class, 'edit'])
+            ->name('user.keluhan.edit');
+
+        Route::put('/keluhan/{id}', [UserKeluhan::class, 'update'])
+            ->name('user.keluhan.update');
+
+        Route::delete('/keluhan/{id}', [UserKeluhan::class, 'destroy'])
+            ->name('user.keluhan.destroy');
     });
 
 /*
-| ADMIN
+|--------------------------------------------------------------------------
+| ADMIN (ROLE: admin)
+|--------------------------------------------------------------------------
 */
 Route::middleware(['auth', WebRoleMiddleware::class . ':admin'])
     ->prefix('admin')
     ->name('admin.')
     ->group(function () {
 
-        Route::get('/dashboard', [AdminDashboard::class, 'index'])->name('dashboard');
-        Route::get('/keluhan', [AdminKeluhan::class, 'index'])->name('keluhan');
-        Route::put('/keluhan/{id}', [AdminKeluhan::class, 'update']);
+        Route::get('/dashboard', [AdminDashboard::class, 'index'])
+            ->name('dashboard');
 
-        Route::get('/user', [AdminUser::class, 'index'])->name('user');
-        Route::get('/sopir', [AdminSopir::class, 'index'])->name('sopir');
-        Route::get('/kendaraan', [AdminKendaraan::class, 'index'])->name('kendaraan');
-        Route::get('/halte', [AdminHalte::class, 'index'])->name('halte');
-        Route::get('/rute', [AdminRute::class, 'index'])->name('rute');
-        Route::get('/rute-halte', [AdminRH::class, 'index'])->name('rute-halte');
-        Route::get('/jadwal-sopir', [AdminJS::class, 'index'])->name('jadwal-sopir');
+        // ✅ ADMIN KELUHAN (LIHAT + UPDATE STATUS SAJA)
+        Route::get('/keluhan', [AdminKeluhan::class, 'index'])
+            ->name('keluhan');
+
+        Route::put('/keluhan/{id}', [AdminKeluhan::class, 'update'])
+            ->name('keluhan.update');
+
+        Route::get('/user', [AdminUser::class, 'index'])
+            ->name('user');
+
+        Route::get('/sopir', [AdminSopir::class, 'index'])
+            ->name('sopir');
+
+        Route::get('/kendaraan', [AdminKendaraan::class, 'index'])
+            ->name('kendaraan');
+
+        Route::get('/halte', [AdminHalte::class, 'index'])
+            ->name('halte');
+
+        Route::get('/rute', [AdminRute::class, 'index'])
+            ->name('rute');
+
+        Route::get('/rute-halte', [AdminRH::class, 'index'])
+            ->name('rute-halte');
+
+        Route::get('/jadwal-sopir', [AdminJS::class, 'index'])
+            ->name('jadwal-sopir');
     });
