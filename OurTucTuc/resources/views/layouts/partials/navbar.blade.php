@@ -27,7 +27,7 @@
                         <p class="text-sm text-gray-500 truncate">{{ Auth::user()->email }}</p>
                     </div>
 
-                    <a href="{{ route('profile') }}" class="block px-4 py-2 text-sm hover:bg-gray-100">
+                    <a href="{{ route('profile.index') }}" class="block px-4 py-2 text-sm hover:bg-gray-100">
                         👤 Lihat Profil
                     </a>
 

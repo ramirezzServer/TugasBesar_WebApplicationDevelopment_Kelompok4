@@ -39,9 +39,13 @@ Route::post('/logout', [WebAuth::class, 'logout'])->name('logout');
 | PROFILE (ADMIN & USER)
 |--------------------------------------------------------------------------
 */
-Route::middleware('auth')
-    ->get('/profile', [ProfileController::class, 'index'])
-    ->name('profile');
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'index'])
+        ->name('profile.index');
+
+    Route::put('/profile', [ProfileController::class, 'update'])
+        ->name('profile.update');
+});
 
 /*
 |--------------------------------------------------------------------------
