@@ -13,7 +13,7 @@
 
 
 <nav class="navbar">
-    <a href="/admin/dashboard" class="navbar-brand">
+    <a href="#" class="navbar-brand">
         OurTucTuc
     </a>
 
