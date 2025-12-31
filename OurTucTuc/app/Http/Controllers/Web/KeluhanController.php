@@ -10,7 +10,7 @@ class KeluhanController extends Controller
 {
     public function index()
     {
-        $keluhan = Keluhan::where('user_id', Auth::id())->latest()->get();
+        $keluhan = Keluhan::where('id_penumpang', Auth::id())->latest()->get();
         return view('user.keluhan.index', compact('keluhan'));
     }
 }
