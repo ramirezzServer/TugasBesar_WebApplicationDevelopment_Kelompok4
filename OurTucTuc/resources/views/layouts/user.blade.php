@@ -3,20 +3,29 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>@yield('title', 'OurTucTuc')</title>
+    <title>User - OurTucTuc</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="icon" href="{{ asset('favicon.ico') }}">
 </head>
 
 <body>
 
+    {{-- NAVBAR --}}
     @include('layouts.partials.navbar')
 
-    <main class="main-content">
-        @yield('content')
-    </main>
+    <div class="wrapper">
 
-    @include('layouts.partials.footer')
+        {{-- SIDEBAR USER --}}
+        @include('layouts.partials.sidebar-user')
+
+        {{-- MAIN CONTENT --}}
+        <div class="main-content">
+            @yield('content')
+
+            {{-- FOOTER --}}
+            @include('layouts.partials.footer')
+        </div>
+    </div>
 
 </body>
 

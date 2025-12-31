@@ -2,15 +2,15 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Web\AuthController as WebAuth;
+use App\Http\Controllers\Web\ProfileController;
 use App\Http\Middleware\WebRoleMiddleware;
 
-
-//User
+// USER
+use App\Http\Controllers\Web\UserDashboardController;
 use App\Http\Controllers\Web\KeluhanController as UserKeluhan;
 use App\Http\Controllers\Web\RouteController;
-use App\Http\Controllers\Web\UserDashboardController;
 
-//Admin
+// ADMIN
 use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
 use App\Http\Controllers\Admin\KeluhanController as AdminKeluhan;
 use App\Http\Controllers\Admin\SopirController as AdminSopir;
@@ -21,40 +21,43 @@ use App\Http\Controllers\Admin\RuteHalteController as AdminRH;
 use App\Http\Controllers\Admin\JadwalSopirController as AdminJS;
 use App\Http\Controllers\Admin\UserController as AdminUser;
 
-
 /*
-|--------------------------------------------------------------------------
-| AUTH (WEB)
-|--------------------------------------------------------------------------
+| AUTH
 */
-
 Route::get('/', fn() => view('auth.login'))->name('login');
+Route::get('/login', fn() => view('auth.login'));
 Route::get('/register', fn() => view('auth.register'));
 
-Route::post('/web-login', [WebAuth::class, 'login']);
-Route::post('/web-register', [WebAuth::class, 'register']);
+Route::post('/web-login', [WebAuth::class, 'login'])->name('web.login');
+Route::post('/web-register', [WebAuth::class, 'register'])->name('web.register');
 Route::post('/logout', [WebAuth::class, 'logout'])->name('logout');
 
 /*
-|--------------------------------------------------------------------------
-| USER (PENUMPANG)
-|--------------------------------------------------------------------------
+| PROFILE (ADMIN & USER)
 */
+Route::middleware('auth')
+    ->get('/profile', [ProfileController::class, 'index'])
+    ->name('profile');
 
+/*
+| USER
+*/
 Route::middleware(['auth', WebRoleMiddleware::class . ':penumpang'])
     ->group(function () {
 
-        Route::get('/dashboard', [UserDashboardController::class, 'index']);
-        Route::get('/keluhan', [UserKeluhan::class, 'index']);
-        Route::get('/rute', [RouteController::class, 'index']);
+        Route::get('/dashboard', [UserDashboardController::class, 'index'])
+            ->name('user.dashboard');
+
+        Route::get('/rute', [RouteController::class, 'index'])
+            ->name('user.rute');
+
+        Route::get('/keluhan', [UserKeluhan::class, 'index'])
+            ->name('user.keluhan');
     });
 
 /*
-|--------------------------------------------------------------------------
 | ADMIN
-|--------------------------------------------------------------------------
 */
-
 Route::middleware(['auth', WebRoleMiddleware::class . ':admin'])
     ->prefix('admin')
     ->name('admin.')
@@ -65,51 +68,10 @@ Route::middleware(['auth', WebRoleMiddleware::class . ':admin'])
         Route::put('/keluhan/{id}', [AdminKeluhan::class, 'update']);
 
         Route::get('/user', [AdminUser::class, 'index'])->name('user');
-        Route::get('/sopir', [AdminSopir::class, 'index']);
-        Route::get('/kendaraan', [AdminKendaraan::class, 'index']);
-        Route::get('/halte', [AdminHalte::class, 'index']);
+        Route::get('/sopir', [AdminSopir::class, 'index'])->name('sopir');
+        Route::get('/kendaraan', [AdminKendaraan::class, 'index'])->name('kendaraan');
+        Route::get('/halte', [AdminHalte::class, 'index'])->name('halte');
         Route::get('/rute', [AdminRute::class, 'index'])->name('rute');
         Route::get('/rute-halte', [AdminRH::class, 'index'])->name('rute-halte');
-        Route::get('/jadwal-sopir', [AdminJS::class, 'index']);
-
-
-        // =========================
-        // DUMMY ROUTES (SEMENTARA)
-        // =========================
-        Route::get('/vehicles', function () {
-            return view('admin.placeholder', [
-                'title' => 'Manajemen Kendaraan'
-            ]);
-        });
-
-        Route::get('/drivers', function () {
-            return view('admin.placeholder', [
-                'title' => 'Manajemen Sopir'
-            ]);
-        });
-
-        Route::get('/routes', function () {
-            return view('admin.placeholder', [
-                'title' => 'Manajemen Rute'
-            ]);
-        });
-
-        Route::get('/stations', function () {
-            return view('admin.placeholder', [
-                'title' => 'Manajemen Halte'
-            ]);
-        });
-
-        Route::get('/schedules', function () {
-            return view('admin.placeholder', [
-                'title' => 'Jadwal Sopir'
-            ]);
-        });
-
-        Route::get('/complaints', function () {
-            return view('admin.placeholder', [
-                'title' => 'Keluhan Penumpang'
-            ]);
-        });
+        Route::get('/jadwal-sopir', [AdminJS::class, 'index'])->name('jadwal-sopir');
     });
-

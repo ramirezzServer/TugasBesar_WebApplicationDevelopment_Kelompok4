@@ -13,7 +13,9 @@
                 Lihat informasi rute kendaraan yang tersedia di lingkungan kampus
                 untuk mendukung mobilitas Anda.
             </p>
-            <a href="/rute" class="text-red-700 font-semibold">Lihat Rute</a>
+            <a href="{{ route('user.rute') }}" class="text-red-700 font-semibold">
+                Lihat Rute →
+            </a>
         </div>
 
         <div class="card">
@@ -21,7 +23,9 @@
             <p>
                 Sampaikan keluhan atau masukan terkait layanan transportasi kampus.
             </p>
-            <a href="/keluhan" class="text-red-700 font-semibold">Lihat Keluhan</a>
+            <a href="{{ route('user.keluhan') }}" class="text-red-700 font-semibold">
+                Lihat Keluhan →
+            </a>
         </div>
     </div>
 @endsection

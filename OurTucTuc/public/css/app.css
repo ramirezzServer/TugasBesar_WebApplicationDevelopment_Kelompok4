@@ -1,9 +1,23 @@
 :root {
     --merah-telkom: #c4161c;
     --merah-gelap: #9f1217;
+
     --abu-bg: #f4f4f4;
     --abu-border: #e5e5e5;
+    --abu-soft: #fafafa;
+
     --hitam: #222;
+    --putih: #ffffff;
+
+    --shadow-soft: 0 8px 20px rgba(0, 0, 0, 0.06);
+    --shadow-hover: 0 10px 28px rgba(0, 0, 0, 0.1);
+
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 14px;
+
+    --transition-fast: 0.2s ease;
+    --transition-mid: 0.3s ease;
 }
 
 /* ================= GLOBAL ================= */
@@ -17,6 +31,23 @@
 body {
     background-color: var(--abu-bg);
     color: var(--hitam);
+    line-height: 1.6;
+}
+
+/* ================= PAGE TRANSITION ================= */
+.main-content {
+    animation: pageFade 0.35s ease;
+}
+
+@keyframes pageFade {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* ================= AUTH ================= */
@@ -34,37 +65,45 @@ body {
 
 .auth-container {
     width: 100%;
-    max-width: 400px;
+    max-width: 420px;
 }
 
 .auth-card {
-    background: #fff;
-    padding: 30px;
-    border-radius: 10px;
-    text-align: center;
+    background: var(--putih);
+    padding: 32px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
 }
 
 .auth-card h2 {
     color: var(--merah-telkom);
-    margin-bottom: 8px;
+    margin-bottom: 6px;
 }
 
 .auth-card p {
     font-size: 14px;
-    margin-bottom: 20px;
+    margin-bottom: 22px;
+    color: #555;
 }
 
 .auth-card input {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 12px;
+    padding: 11px 12px;
+    margin-bottom: 14px;
     border: 1px solid var(--abu-border);
-    border-radius: 6px;
+    border-radius: var(--radius-sm);
+    transition: border var(--transition-fast);
+}
+
+.auth-card input:focus {
+    outline: none;
+    border-color: var(--merah-telkom);
 }
 
 .auth-link {
-    margin-top: 12px;
+    margin-top: 14px;
     font-size: 14px;
+    text-align: center;
 }
 
 .auth-link a {
@@ -76,23 +115,27 @@ body {
 /* ================= BUTTON ================= */
 .btn-primary {
     width: 100%;
-    padding: 10px;
+    padding: 11px;
     background-color: var(--merah-telkom);
-    color: #fff;
+    color: var(--putih);
     border: none;
-    border-radius: 6px;
+    border-radius: var(--radius-sm);
     cursor: pointer;
     font-weight: 600;
+    transition: background var(--transition-fast),
+        transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .btn-primary:hover {
     background-color: var(--merah-gelap);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-hover);
 }
 
 /* ================= NAVBAR ================= */
 .navbar {
     background-color: var(--merah-telkom);
-    color: #fff;
+    color: var(--putih);
     padding: 14px 24px;
     display: flex;
     justify-content: space-between;
@@ -100,13 +143,9 @@ body {
 }
 
 .navbar a {
-    color: #fff;
+    color: var(--putih);
     text-decoration: none;
     font-weight: 500;
-}
-
-.navbar a:hover {
-    text-decoration: underline;
 }
 
 .navbar-brand {
@@ -114,65 +153,34 @@ body {
     font-size: 18px;
 }
 
-.navbar-menu {
-    display: flex;
-    align-items: center;
-    gap: 18px;
-}
-
-/* ===== Register Button ===== */
-.btn-register {
-    background: #fff;
-    color: var(--merah-telkom);
-    padding: 6px 12px;
-    border-radius: 6px;
-    font-weight: 600;
-}
-
-/* ===== Logout ===== */
-.logout-form {
-    display: inline;
-}
-
-.logout-btn {
-    background: none;
-    border: none;
-    color: #fff;
-    cursor: pointer;
-    font-weight: 500;
-}
-
-.logout-btn:hover {
-    text-decoration: underline;
-}
-
-/* ===== Dropdown ===== */
+/* ================= DROPDOWN ================= */
 .dropdown {
     position: relative;
 }
 
 .dropdown-toggle {
     cursor: pointer;
-    font-weight: 500;
 }
 
 .dropdown-menu {
     display: none;
     position: absolute;
     right: 0;
-    top: 28px;
-    background: #fff;
-    border-radius: 6px;
-    min-width: 160px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    top: 32px;
+    background: var(--putih);
+    border-radius: var(--radius-md);
+    min-width: 170px;
+    box-shadow: var(--shadow-soft);
+    overflow: hidden;
     z-index: 100;
 }
 
 .dropdown-menu a {
     display: block;
-    padding: 8px 12px;
+    padding: 10px 14px;
     color: var(--hitam);
     text-decoration: none;
+    transition: background var(--transition-fast);
 }
 
 .dropdown-menu a:hover {
@@ -186,45 +194,88 @@ body {
 /* ================= LAYOUT ================= */
 .wrapper {
     display: flex;
+    min-height: calc(100vh - 56px);
 }
 
+/* ================= SIDEBAR (ADMIN & USER) ================= */
 .sidebar {
     width: 240px;
-    background: #fff;
-    min-height: 100vh;
+    background: var(--putih);
     border-right: 1px solid var(--abu-border);
-    padding: 20px;
+    padding: 22px 18px;
 }
 
 .sidebar h3 {
     color: var(--merah-telkom);
-    margin-bottom: 20px;
+    margin-bottom: 22px;
+    font-size: 15px;
+    letter-spacing: 0.5px;
 }
 
+/* sidebar link base */
 .sidebar a {
+    position: relative;
     display: block;
-    padding: 10px 14px;
+    padding: 11px 14px;
+    margin-bottom: 6px;
     color: var(--hitam);
     text-decoration: none;
-    border-radius: 6px;
-    margin-bottom: 6px;
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-mid);
+    overflow: hidden;
 }
 
+/* hover */
 .sidebar a:hover {
-    background: var(--abu-bg);
+    background-color: var(--abu-soft);
+    padding-left: 20px;
+    color: var(--merah-telkom);
 }
 
+/* left indicator */
+.sidebar a::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 4px;
+    height: 0%;
+    background-color: var(--merah-telkom);
+    border-radius: 0 4px 4px 0;
+    transform: translateY(-50%);
+    transition: height var(--transition-mid);
+}
+
+/* hover indicator */
+.sidebar a:hover::before {
+    height: 60%;
+}
+
+/* ACTIVE (ADMIN & USER SAMA) */
+.sidebar a.active {
+    background-color: #fdecec;
+    color: var(--merah-telkom);
+    font-weight: 600;
+    padding-left: 20px;
+}
+
+.sidebar a.active::before {
+    height: 70%;
+}
+
+/* ================= MAIN CONTENT ================= */
 .main-content {
     flex: 1;
-    padding: 24px;
+    padding: 26px;
 }
 
 /* ================= CARD ================= */
 .card {
-    background: #fff;
-    padding: 20px;
-    border-radius: 10px;
+    background: var(--putih);
+    padding: 22px;
+    border-radius: var(--radius-md);
     margin-bottom: 20px;
+    box-shadow: var(--shadow-soft);
 }
 
 /* ================= TABLE ================= */
@@ -235,11 +286,21 @@ table {
 
 table th,
 table td {
-    padding: 12px;
+    padding: 13px;
     border-bottom: 1px solid var(--abu-border);
     text-align: left;
 }
 
 table th {
-    background: #fafafa;
+    background: var(--abu-soft);
+    font-weight: 600;
+}
+
+/* ================= FOOTER ================= */
+.footer {
+    margin-top: 40px;
+    padding: 28px;
+    background: var(--merah-telkom);
+    color: var(--putih);
+    border-radius: var(--radius-md);
 }

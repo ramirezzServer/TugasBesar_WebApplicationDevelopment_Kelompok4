@@ -6,14 +6,14 @@
     <title>Admin - OurTucTuc</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="icon" href="{{ asset('favicon.ico') }}">
-
 </head>
 
 <body>
 
     @include('layouts.partials.navbar')
-@include('layouts.partials.sidebar-admin')
 
+    <div class="wrapper">
+        @include('layouts.partials.sidebar-admin')
 
         <div class="main-content">
             @yield('content')
