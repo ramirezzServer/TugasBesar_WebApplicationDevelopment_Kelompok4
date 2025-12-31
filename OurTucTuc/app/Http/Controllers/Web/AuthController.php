@@ -45,7 +45,7 @@ class AuthController extends Controller
             'role' => 'penumpang'
         ]);
 
-        return redirect('/login')->with('success', 'Registrasi berhasil');
+        return redirect('/')->with('success', 'Registrasi berhasil');
     }
 
     public function logout(Request $request)
