@@ -17,7 +17,7 @@
         Sopir
     </a>
 
-    <a href="{{ route('admin.kendaraan') }}" class="{{ request()->routeIs('admin.kendaraan') ? 'active' : '' }}">
+    <a href="{{ route('admin.kendaraan.index') }}" class="{{ request()->routeIs('admin.kendaraan.*') ? 'active' : '' }}">
         Kendaraan
     </a>
 

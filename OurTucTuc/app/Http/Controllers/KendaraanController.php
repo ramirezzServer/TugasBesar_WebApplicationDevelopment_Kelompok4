@@ -12,11 +12,17 @@ class KendaraanController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
+    public function index() {
         $kendaraans = Kendaraan::all();
-        return KendaraanResource::collection($kendaraans);
-    }
+
+        if (request()->expectsJson() || request()->is('api/*')) {
+            return KendaraanResource::collection($kendaraans);
+        }
+
+        return view('admin.kendaraan.index', [
+            'kendaraans' => $kendaraans
+        ]);
+}
 
     /**
      * Store a newly created resource in storage.

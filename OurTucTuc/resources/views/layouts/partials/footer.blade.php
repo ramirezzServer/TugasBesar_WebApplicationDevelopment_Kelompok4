@@ -64,5 +64,3 @@
         © {{ date('Y') }} OurTucTuc. Seluruh hak cipta dilindungi.
     </div>
 </footer> -->
-
-
