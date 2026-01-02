@@ -1,7 +1,8 @@
 @extends('layouts.admin')
 
 @section('head')
-<link rel="stylesheet" href="{{ asset('css/jadwal-sopir.css') }}">
+<link rel="stylesheet" href="{{ asset('css/jadwalsopir.css') }}">
+@endsection
 
 @section('content')
 <div class="jadwal-sopir-wrapper">
@@ -14,24 +15,31 @@
         </div>
 
     {{-- SEARCH --}}
-    <form action="{{ route('jadwal-sopir.index') }}" method="GET" class="mb-3">
-    <div class="input-group">
-        <input type="text"
-               name="search"
-               class="form-control"
-               placeholder="Cari sopir / plat kendaraan / rute / status"
-               value="{{ request('search') }}">
+    <form action="{{ route('admin.jadwal-sopir') }}" method="GET" class="mb-3">
+        <div class="input-group">
+            <input type="text"
+                   name="search"
+                   class="form-control"
+                   placeholder="Cari sopir / plat kendaraan / rute / status"
+                   value="{{ request('search') }}">
 
-        <button class="btn btn-secondary" type="submit">
-            Search
-        </button>
-    </div>
+            <button class="btn-secondary" type="submit">
+                🔍 Search
+            </button>
+            @if(request('search'))
+                <a href="{{ route('admin.jadwal-sopir') }}" class="btn-reset">
+                    Reset
+                </a>
+            @endif
+        </div>
     </form>
 
-        {{-- BUTTON TAMBAH --}}
-        <a href="{{ route('jadwal-sopir.create') }}" class="btn btn-primary">
-            Tambah Jadwal
-        </a>
+    {{-- BUTTON TAMBAH --}}
+    <a href="{{ route('admin.jadwal-sopir.create') }}" class="btn-primary">
+        + Tambah Jadwal
+    </a>
+    
+</form>
     </div>
 
     {{-- FLASH MESSAGE --}}
@@ -58,9 +66,9 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse($jadwalSopir as $index => $item)
+                @forelse($data as $item)
                     <tr>
-                        <td>{{ $index + 1 }}</td>
+                        <td>{{ $loop->iteration }}</td>
 
                         <td>
                             {{ data_get($item, 'sopir.nama_sopir', '-') }}<br>
@@ -77,10 +85,14 @@
                             <small>{{ data_get($item, 'ruteHalte.halte.nama_halte') }}</small>
                         </td>
 
-                        <td>{{ $item->jam_mulai ?? '-' }}</td>
-                        <td>{{ $item->jam_selesai ?? '-' }}</td>
+                        <td>{{ $item->jam_mulai ? \Carbon\Carbon::parse($item->jam_mulai)->format('H:i') : '-' }}</td>
+                        <td>{{ $item->jam_selesai ? \Carbon\Carbon::parse($item->jam_selesai)->format('H:i') : '-' }}</td>
 
-                        <td>{{ ucfirst($item->status ?? 'belum aktif') }}</td>
+                        <td>
+                            <span class="status {{ $item->status ?? 'belum_aktif' }}">
+                                {{ ucfirst($item->status ?? 'belum aktif') }}
+                            </span>
+                        </td>
 
                         <td>
                             {{ $item->created_at->format('d M Y') }}<br>
@@ -89,21 +101,21 @@
 
                         {{-- AKSI --}}
                         <td>
-                            <a href="{{ route('jadwal-sopir.edit', $item->id) }}"
-                               class="btn btn-sm btn-warning">
-                                Update
+                            <a href="{{ route('admin.jadwal-sopir.edit', $item->id) }}"
+                               class="btn-warning">
+                                Edit
                             </a>
 
-                            <form action="{{ route('jadwal-sopir.destroy', $item->id) }}"
+                            <form action="{{ route('admin.jadwal-sopir.destroy', $item->id) }}"
                                   method="POST"
                                   style="display:inline-block">
                                 @csrf
                                 @method('DELETE')
 
                                 <button type="submit"
-                                        class="btn btn-sm btn-danger"
+                                        class="btn-danger"
                                         onclick="return confirm('Hapus jadwal ini?')">
-                                    Delete
+                                    Hapus
                                 </button>
                             </form>
                         </td>
@@ -118,6 +130,7 @@
             </tbody>
         </table>
     </div>
+
 
 </div>
 @endsection

@@ -29,21 +29,39 @@
 /* Tambah / Primary */
 .btn-primary {
     padding: 10px 20px;
-    background-color: var(--merah-telkom);
-    color: var(--putih);
-    border: none;
+    background-color: var(--merah-telkom) !important;
+    color: var(--putih) !important;
+    border: none !important;
     border-radius: var(--radius-sm);
     font-weight: 600;
     font-size: 14px;
     text-decoration: none;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
+    opacity: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-image: none !important;
 }
 
 .btn-primary:hover {
     background-color: var(--merah-gelap);
     transform: translateY(-1px);
 }
+
+
+.btn-primary:hover {
+    background-color: var(--merah-gelap);
+    transform: translateY(-1px);
+}
+
+.btn-primary:hover {
+    background-color: var(--merah-gelap);
+    transform: translateY(-1px);
+}
+
+
 
 /* Edit / Warning */
 .btn-warning, .btn-edit {

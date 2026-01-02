@@ -1,8 +1,5 @@
 @extends('layouts.admin')
 
-@section('head')
-<link rel="stylesheet" href="{{ asset('css/jadwal-sopir.css') }}">
-
 @section('content')
     <div class="jadwal-sopir-form-wrapper">
 
@@ -10,7 +7,7 @@
         <div class="jadwal-sopir-header">
             <div>
                 <h2>Edit Jadwal Sopir</h2>
-                <p>Perbarui jadwal sopir dan kendaraan</p>
+                <p>Perbarui jadwal sopir</p>
             </div>
             <a href="{{ route('admin.jadwal-sopir') }}" class="btn-back">
                 ← Kembali
@@ -154,4 +151,5 @@
         </div>
 
     </div>
+
 @endsection

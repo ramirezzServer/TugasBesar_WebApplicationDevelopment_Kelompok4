@@ -9,31 +9,10 @@ use Illuminate\Support\Facades\Validator;
 
 class JadwalSopirController extends Controller
 {
-    /*public function index()
+    public function index()
     {
         $jadwalSopirs = JadwalSopir::with(['sopir', 'kendaraan', 'ruteHalte'])->get();
         return JadwalSopirResource::collection($jadwalSopirs);
-    }*/
-    public function index(Request $request)
-    {
-    $search = $request->query('search');
-
-    $jadwalSopirs = JadwalSopir::with(['sopir', 'kendaraan', 'ruteHalte.rute'])
-        ->when($search, function ($query) use ($search) {
-            $query->whereHas('sopir', function ($q) use ($search) {
-                    $q->where('nama_sopir', 'like', "%{$search}%");
-                })
-                ->orWhereHas('kendaraan', function ($q) use ($search) {
-                    $q->where('plat_nomor', 'like', "%{$search}%");
-                })
-                ->orWhereHas('ruteHalte.rute', function ($q) use ($search) {
-                    $q->where('nama_rute', 'like', "%{$search}%");
-                })
-                ->orWhere('status', 'like', "%{$search}%");
-        })
-        ->get();
-
-    return JadwalSopirResource::collection($jadwalSopirs);
     }
 
     public function store(Request $request)
