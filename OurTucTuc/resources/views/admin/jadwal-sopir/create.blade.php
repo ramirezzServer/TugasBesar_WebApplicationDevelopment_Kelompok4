@@ -1,5 +1,8 @@
 @extends('layouts.admin')
 
+@section('head')
+    <link rel="stylesheet" href="{{ asset('css/jadwal-sopir.css') }}">
+
 @section('content')
     <div class="jadwal-sopir-form-wrapper">
 
@@ -7,6 +10,7 @@
         <div class="jadwal-sopir-header">
             <div>
                 <h2>Tambah Jadwal Sopir</h2>
+
             </div>
             <a href="{{ route('admin.jadwal-sopir') }}" class="btn-back">
                 ← Kembali

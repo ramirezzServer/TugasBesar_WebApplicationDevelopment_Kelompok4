@@ -1,0 +1,286 @@
+/* ===================== WRAPPER ===================== */
+.jadwal-sopir-wrapper {
+    max-width: 100%;
+    padding: 20px;
+}
+
+/* ===================== HEADER ===================== */
+.jadwal-sopir-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+    gap: 16px;
+}
+
+.jadwal-sopir-header h2 {
+    color: var(--merah-telkom);
+    margin-bottom: 6px;
+    font-size: 24px;
+}
+
+.jadwal-sopir-header p {
+    color: #666;
+    font-size: 14px;
+}
+
+/* ===================== BUTTONS ===================== */
+/* Tambah / Primary */
+.btn-primary {
+    padding: 10px 20px;
+    background-color: var(--merah-telkom);
+    color: var(--putih);
+    border: none;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-primary:hover {
+    background-color: var(--merah-gelap);
+    transform: translateY(-1px);
+}
+
+/* Edit / Warning */
+.btn-warning, .btn-edit {
+    padding: 6px 12px;
+    background-color: #ffc107;
+    color: #212529;
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-warning:hover, .btn-edit:hover {
+    background-color: #e0a800;
+    transform: translateY(-1px);
+}
+
+/* Delete / Danger */
+.btn-danger, .btn-delete {
+    padding: 6px 12px;
+    background-color: #dc3545;
+    color: #fff;
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-danger:hover, .btn-delete:hover {
+    background-color: #b02a37;
+    transform: translateY(-1px);
+}
+
+/* Reset / Secondary */
+.btn-light, .btn-reset {
+    padding: 6px 12px;
+    background-color: var(--putih);
+    color: var(--hitam);
+    border: 1px solid var(--abu-border);
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 12px;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-light:hover, .btn-reset:hover {
+    background-color: var(--abu-soft);
+    border-color: var(--merah-telkom);
+    color: var(--merah-telkom);
+}
+
+/* ===================== SEARCH ===================== */
+.input-group {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 16px;
+}
+
+.input-group input.form-control {
+    flex: 1;
+    padding: 10px 12px;
+    border: 1px solid var(--abu-border);
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+}
+
+.input-group input.form-control:focus {
+    outline: none;
+    border-color: var(--merah-telkom);
+    box-shadow: 0 0 0 3px rgba(196, 22, 28, 0.1);
+}
+
+.input-group button, .input-group a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ===================== TABLE ===================== */
+.table-responsive {
+    overflow-x: auto;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th {
+    background: var(--abu-soft);
+    font-weight: 600;
+    padding: 14px;
+    border-bottom: 2px solid var(--abu-border);
+    text-align: left;
+    white-space: nowrap;
+}
+
+.table td {
+    padding: 14px;
+    border-bottom: 1px solid var(--abu-border);
+    vertical-align: top;
+}
+
+.table tbody tr:hover {
+    background-color: var(--abu-soft);
+    transition: background-color 0.2s;
+}
+
+.table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.table td strong {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--hitam);
+}
+
+.table td small {
+    display: block;
+    margin-top: 2px;
+    font-size: 12px;
+    color: #666;
+}
+
+/* Status badges */
+.status {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.status.aktif {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.status.selesai {
+    background-color: #cce5ff;
+    color: #004085;
+}
+
+.status.belum_aktif {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+/* Empty table row */
+.empty {
+    text-align: center;
+    padding: 40px !important;
+    color: #999;
+    font-style: italic;
+}
+
+/* Flash message */
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 12px 16px;
+    border-radius: var(--radius-sm);
+    margin-bottom: 20px;
+    border-left: 4px solid #28a745;
+}
+
+/* ===================== PAGINATION ===================== */
+.jadwal-sopir-pagination {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--abu-border);
+    display: flex;
+    justify-content: center;
+}
+
+.jadwal-sopir-pagination .pagination {
+    display: flex;
+    list-style: none;
+    gap: 8px;
+    padding: 0;
+    margin: 0;
+}
+
+.jadwal-sopir-pagination .pagination li {
+    display: inline-block;
+}
+
+.jadwal-sopir-pagination .pagination a,
+.jadwal-sopir-pagination .pagination span {
+    display: inline-block;
+    padding: 8px 12px;
+    border: 1px solid var(--abu-border);
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    color: var(--hitam);
+    transition: all 0.2s ease-in-out;
+}
+
+.jadwal-sopir-pagination .pagination a:hover {
+    background-color: var(--merah-telkom);
+    color: var(--putih);
+    border-color: var(--merah-telkom);
+}
+
+.jadwal-sopir-pagination .pagination .active span {
+    background-color: var(--merah-telkom);
+    color: var(--putih);
+    border-color: var(--merah-telkom);
+}
+
+/* ===================== RESPONSIVE ===================== */
+@media (max-width: 1024px) {
+    .input-group {
+        flex-direction: column;
+        gap: 8px;
+    }
+}
+
+@media (max-width: 768px) {
+    .jadwal-sopir-header {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .table th, .table td {
+        padding: 10px 8px;
+        font-size: 14px;
+    }
+
+    .btn-primary, .btn-light, .btn-warning, .btn-danger {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+    }
+}
