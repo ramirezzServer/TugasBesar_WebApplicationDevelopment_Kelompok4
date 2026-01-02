@@ -104,8 +104,12 @@ Route::middleware(['auth', WebRoleMiddleware::class . ':admin'])
         Route::get('/sopir', [AdminSopir::class, 'index'])
             ->name('sopir');
 
-        Route::get('/kendaraan', [AdminKendaraan::class, 'index'])
-            ->name('kendaraan');
+        // ADMIN KENDARAAN CRUD
+        Route::get('/kendaraan', [AdminKendaraan::class, 'index'])->name('kendaraan.index');
+        Route::post('/kendaraan', [AdminKendaraan::class, 'store'])->name('kendaraan.store');
+        Route::put('/kendaraan/{id}', [AdminKendaraan::class, 'update'])->name('kendaraan.update');
+        Route::delete('/kendaraan/{id}', [AdminKendaraan::class, 'destroy'])->name('kendaraan.destroy');
+
 
         Route::get('/halte', [AdminHalte::class, 'index'])
             ->name('halte');
