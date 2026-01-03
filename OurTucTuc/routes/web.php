@@ -26,6 +26,7 @@ use App\Http\Controllers\Admin\UserController as AdminUser;
 | AUTH
 |--------------------------------------------------------------------------
 */
+
 Route::get('/', fn() => view('auth.login'))
     ->name('login');
 
@@ -161,9 +162,21 @@ Route::middleware(['auth', WebRoleMiddleware::class . ':admin'])
 
         Route::get('/rute-halte', [AdminRH::class, 'index'])
             ->name('rute-halte.index');
-            
+
+        Route::get('/admin/rute-halte/create', [AdminRH::class, 'create'])
+            ->name('rute-halte.create');
+
+        Route::post('/admin/rute-halte', [AdminRH::class, 'store'])
+            ->name('rute-halte.store');
+
         Route::delete('rute-halte/{id}', [AdminRH::class, 'destroy'])
             ->name('rute-halte.destroy');
+
+        Route::get('/admin/rute-halte/{id}/edit', [AdminRH::class, 'edit'])
+            ->name('rute-halte.edit');
+
+        Route::put('/admin/rute-halte/{id}', [AdminRH::class, 'update'])
+            ->name('rute-halte.update');
 
         Route::get('/jadwal-sopir', [AdminJS::class, 'index'])
             ->name('jadwal-sopir');
