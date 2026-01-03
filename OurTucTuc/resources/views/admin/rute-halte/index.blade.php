@@ -1,11 +1,9 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="card">
-    <div class="card-header">
+    <div class="card">
         <h2>Data Rute</h2>
-    </div>
-    <div class="card-body">
+
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -16,21 +14,20 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse ($ruteHalte->groupBy('rute.id') as $ruteId => $ruteGroup)
+                @forelse ($data->groupBy('rute.id') as $ruteGroup)
                     @foreach ($ruteGroup as $index => $item)
                         <tr>
-                            {{-- Kolom Nama Rute hanya muncul di baris pertama grup --}}
                             @if ($index === 0)
-                                <td rowspan="{{ $ruteGroup->count() }}" style="vertical-align: middle;">
-                                    <strong>{{ $item->rute->nama_rute ?? 'N/A' }}</strong>
+                                <td rowspan="{{ $ruteGroup->count() }}">
+                                    <strong>{{ $item->rute->nama_rute }}</strong>
                                 </td>
                             @endif
 
-                            <td>{{ $item->halte->nama_halte ?? 'N/A' }}</td>
+                            <td>{{ $item->halte->nama_halte }}</td>
                             <td>{{ $item->jam_berangkat }}</td>
-                            
                             <td>
-                                <form action="{{ route('admin.rute-halte.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus halte ini dari rute?');">
+                                <form action="{{ route('admin.rute-halte.destroy', $item->id) }}" method="POST"
+                                    onsubmit="return confirm('Yakin ingin menghapus halte ini dari rute?');">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm">
@@ -48,5 +45,4 @@
             </tbody>
         </table>
     </div>
-</div>
 @endsection

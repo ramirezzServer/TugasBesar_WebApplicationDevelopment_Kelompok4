@@ -160,7 +160,10 @@ Route::middleware(['auth', WebRoleMiddleware::class . ':admin'])
             ->name('rute');
 
         Route::get('/rute-halte', [AdminRH::class, 'index'])
-            ->name('rute-halte');
+            ->name('rute-halte.index');
+            
+        Route::delete('rute-halte/{id}', [AdminRH::class, 'destroy'])
+            ->name('rute-halte.destroy');
 
         Route::get('/jadwal-sopir', [AdminJS::class, 'index'])
             ->name('jadwal-sopir');

@@ -8,10 +8,9 @@ class RuteHalteController extends Controller
 {
     public function index()
     {
-        $ruteHalte = RuteHalte::with(['rute', 'halte'])->get();
-        return view('admin.rute-halte.index', compact('ruteHalte'));
+        $data = RuteHalte::with(['rute', 'halte'])->get();
+        return view('admin.rute-halte.index', compact('data'));
     }
-
     public function destroy($id)
     {
         $ruteHalte = RuteHalte::findOrFail($id);
