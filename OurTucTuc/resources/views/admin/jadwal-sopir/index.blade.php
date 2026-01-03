@@ -5,53 +5,43 @@
 @endsection
 
 @section('content')
-<div class="jadwal-sopir-wrapper">
+<div class="js-wrapper">
 
     {{-- HEADER --}}
-    <div class="jadwal-sopir-header">
-        <div>
-            <h2>Jadwal Sopir</h2>
-            <p>Kelola jadwal kerja sopir</p>
+    <div class="js-header">
+        {{-- KIRI: Judul --}}
+        <div class="js-title-section">
+            <h2 class="js-title">Jadwal Sopir</h2>
+            <p class="js-subtitle">Kelola jadwal kerja sopir</p>
         </div>
 
-    {{-- SEARCH --}}
-    <form action="{{ route('admin.jadwal-sopir') }}" method="GET" class="mb-3">
-        <div class="input-group">
-            <input type="text"
-                   name="search"
-                   class="form-control"
-                   placeholder="Cari sopir / plat kendaraan / rute / status"
-                   value="{{ request('search') }}">
+        {{-- KANAN: Search + Button --}}
+        <div class="js-action-group">
+            <form action="{{ route('admin.jadwal-sopir') }}" method="GET" class="js-search-form">
+                <input type="text"
+                       name="search"
+                       class="js-search-input"
+                       placeholder="Cari sopir / plat kendaraan / rute / status"
+                       value="{{ request('search') }}">
+                <button class="js-btn-primary" type="submit">Cari</button>
+            </form>
 
-            <button class="btn-secondary" type="submit">
-                🔍 Search
-            </button>
-            @if(request('search'))
-                <a href="{{ route('admin.jadwal-sopir') }}" class="btn-reset">
-                    Reset
-                </a>
-            @endif
+            <a href="{{ route('admin.jadwal-sopir.create') }}" class="js-btn-primary">
+                + Tambah Jadwal
+            </a>
         </div>
-    </form>
-
-    {{-- BUTTON TAMBAH --}}
-    <a href="{{ route('admin.jadwal-sopir.create') }}" class="btn-primary">
-        + Tambah Jadwal
-    </a>
-    
-</form>
     </div>
 
     {{-- FLASH MESSAGE --}}
     @if (session('success'))
-        <div class="alert alert-success">
+        <div class="js-alert-success">
             {{ session('success') }}
         </div>
     @endif
 
     {{-- TABLE --}}
-    <div class="table-responsive">
-        <table class="table table-bordered table-hover">
+    <div class="js-table-container">
+        <table class="js-table">
             <thead>
                 <tr>
                     <th>No</th>
@@ -89,7 +79,7 @@
                         <td>{{ $item->jam_selesai ? \Carbon\Carbon::parse($item->jam_selesai)->format('H:i') : '-' }}</td>
 
                         <td>
-                            <span class="status {{ $item->status ?? 'belum_aktif' }}">
+                            <span class="js-status js-status-{{ $item->status ?? 'belum_aktif' }}">
                                 {{ ucfirst($item->status ?? 'belum aktif') }}
                             </span>
                         </td>
@@ -99,10 +89,8 @@
                             <small>{{ $item->created_at->format('H:i') }}</small>
                         </td>
 
-                        {{-- AKSI --}}
                         <td>
-                            <a href="{{ route('admin.jadwal-sopir.edit', $item->id) }}"
-                               class="btn-warning">
+                            <a href="{{ route('admin.jadwal-sopir.edit', $item->id) }}" class="js-btn-warning">
                                 Edit
                             </a>
 
@@ -111,9 +99,8 @@
                                   style="display:inline-block">
                                 @csrf
                                 @method('DELETE')
-
                                 <button type="submit"
-                                        class="btn-danger"
+                                        class="js-btn-danger"
                                         onclick="return confirm('Hapus jadwal ini?')">
                                     Hapus
                                 </button>
@@ -122,7 +109,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="9" class="text-center">
+                        <td colspan="9" class="js-text-center">
                             Belum ada jadwal sopir
                         </td>
                     </tr>
@@ -130,7 +117,6 @@
             </tbody>
         </table>
     </div>
-
 
 </div>
 @endsection

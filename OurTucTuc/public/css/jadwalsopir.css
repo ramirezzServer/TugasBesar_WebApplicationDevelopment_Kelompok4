@@ -1,304 +1,497 @@
 /* ===================== WRAPPER ===================== */
-.jadwal-sopir-wrapper {
+.js-wrapper{
     max-width: 100%;
     padding: 20px;
 }
 
 /* ===================== HEADER ===================== */
-.jadwal-sopir-header {
+.js-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     flex-wrap: wrap;
     margin-bottom: 24px;
-    gap: 16px;
+    gap: 20px;
+    width: 100%;
 }
 
-.jadwal-sopir-header h2 {
+.js-title-section {
+    flex: 0 1 auto;
+}
+
+.js-title {
     color: var(--merah-telkom);
-    margin-bottom: 6px;
+    margin: 0 0 4px 0;
     font-size: 24px;
+    font-weight: 700;
 }
 
-.jadwal-sopir-header p {
-    color: #666;
+.js-subtitle {
+    color: #6b7280;
     font-size: 14px;
+    margin: 0;
+}
+
+/* ===================== ACTION GROUP ===================== */
+.js-action-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    max-width: 100%;
+}
+
+/* ===================== SEARCH FORM ===================== */
+.js-search-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+}
+
+.js-search-form .js-search-input {
+    flex: 1;
+    min-width: 500px;
+    max-width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    font-size: 14px;
+    margin: 0;
+    box-sizing: border-box;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: all var(--transition-fast);
+    font-family: inherit;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    line-height: normal;
+    width: auto;
+}
+
+.js-search-form .js-search-input:focus {
+    outline: none;
+    border-color: var(--merah-telkom);
+    box-shadow: 0 4px 12px rgba(196, 22, 28, 0.15);
+}
+
+.js-search-form .js-search-input::placeholder {
+    color: #9ca3af;
 }
 
 /* ===================== BUTTONS ===================== */
-/* Tambah / Primary */
-.btn-primary {
-    padding: 10px 20px;
-    background-color: var(--merah-telkom) !important;
-    color: var(--putih) !important;
-    border: none !important;
-    border-radius: var(--radius-sm);
+.js-wrapper .js-btn-primary {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    
+    padding: 12px 24px;
+    background: var(--merah-telkom);
+    background-color: var(--merah-telkom);
+    background-image: none;
+    color: var(--putih);
+    border: none;
+    border-radius: 12px;
+    
     font-weight: 600;
     font-size: 14px;
     text-decoration: none;
     cursor: pointer;
-    transition: all 0.2s ease-in-out;
-    opacity: 1;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background-image: none !important;
+    white-space: nowrap;
+    flex-shrink: 0;
+    
+    box-shadow: var(--shadow-soft);
+    transition: all var(--transition-fast);
+    width: auto;
 }
 
-.btn-primary:hover {
+.js-btn-primary:hover {
+    background: var(--merah-gelap);
     background-color: var(--merah-gelap);
-    transform: translateY(-1px);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
 }
 
-
-.btn-primary:hover {
-    background-color: var(--merah-gelap);
-    transform: translateY(-1px);
-}
-
-.btn-primary:hover {
-    background-color: var(--merah-gelap);
-    transform: translateY(-1px);
-}
-
-
-
-/* Edit / Warning */
-.btn-warning, .btn-edit {
+.js-btn-warning {
+    display: inline-block;
     padding: 6px 12px;
     background-color: #ffc107;
     color: #212529;
+    border: none;
     border-radius: var(--radius-sm);
     font-size: 12px;
     font-weight: 500;
-    text-decoration: none;
-    transition: all 0.2s ease-in-out;
+    transition: all var(--transition-fast);
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(255, 193, 7, 0.3);
 }
 
-.btn-warning:hover, .btn-edit:hover {
+.js-btn-warning:hover {
     background-color: #e0a800;
     transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(255, 193, 7, 0.4);
 }
 
-/* Delete / Danger */
-.btn-danger, .btn-delete {
+.js-btn-danger {
+    display: inline-block;
     padding: 6px 12px;
     background-color: #dc3545;
     color: #fff;
+    border: none;
     border-radius: var(--radius-sm);
     font-size: 12px;
     font-weight: 500;
     text-decoration: none;
-    transition: all 0.2s ease-in-out;
+    transition: all var(--transition-fast);
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(220, 53, 69, 0.3);
 }
 
-.btn-danger:hover, .btn-delete:hover {
+.js-btn-danger:hover {
     background-color: #b02a37;
     transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(220, 53, 69, 0.4);
 }
 
-/* Reset / Secondary */
-.btn-light, .btn-reset {
+/* ===================== TABLE ===================== */
+.js-table-container {
+    overflow-x: auto;
+    margin-top: 20px;
+    background: var(--putih);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+}
+
+.js-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.js-table th {
+    background: var(--abu-soft);
+    font-weight: 600;
+    padding: 16px;
+    border-bottom: 2px solid var(--abu-border);
+    text-align: left;
+    white-space: nowrap;
+    font-size: 14px;
+    color: #374151;
+}
+
+.js-table td {
+    padding: 16px;
+    border-bottom: 1px solid var(--abu-border);
+    vertical-align: top;
+    font-size: 14px;
+}
+
+.js-table tbody tr:hover {
+    background-color: var(--abu-soft);
+    transition: background-color var(--transition-fast);
+}
+
+.js-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.js-table td small {
+    display: block;
+    margin-top: 4px;
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.js-text-center {
+    text-align: center;
+}
+
+/* ===================== STATUS BADGES ===================== */
+.js-status {
+    display: inline-block;
     padding: 6px 12px;
-    background-color: var(--putih);
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.js-status-aktif {
+    background-color: #d1fae5;
+    color: #065f46;
+}
+
+.js-status-selesai {
+    background-color: #dbeafe;
+    color: #1e40af;
+}
+
+.js-status-belum_aktif {
+    background-color: #fef3c7;
+    color: #92400e;
+}
+
+/* ===================== ALERT ===================== */
+.js-alert-success {
+    background-color: #d1fae5;
+    color: #065f46;
+    padding: 14px 18px;
+    border-radius: var(--radius-lg);
+    margin-bottom: 20px;
+    border-left: 4px solid #10b981;
+    box-shadow: var(--shadow-soft);
+}
+
+/* ===================== RESPONSIVE ===================== */
+@media (max-width: 992px) {
+    .js-action-group {
+        width: 100%;
+    }
+    
+    .js-search-input {
+        min-width: 300px;
+    }
+}
+
+@media (max-width: 768px) {
+    .js-header {
+        flex-direction: column;
+    }
+    
+    .js-action-group {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .js-search-form {
+        width: 100%;
+    }
+    
+    .js-search-input {
+        min-width: 100%;
+    }
+    
+    .js-btn-primary {
+        width: 100%;
+    }
+
+    .js-table th,
+    .js-table td {
+        padding: 10px 8px;
+        font-size: 13px;
+    }
+
+    /* ===================== FORM WRAPPER ===================== */
+
+}
+
+.js-form-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+/* ===================== FORM HEADER ===================== */
+.js-form-wrapper .js-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid var(--abu-border);
+}
+
+.js-form-wrapper .btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: var(--putih);
     color: var(--hitam);
     border: 1px solid var(--abu-border);
     border-radius: var(--radius-sm);
     text-decoration: none;
+    font-size: 14px;
     font-weight: 500;
-    font-size: 12px;
-    transition: all 0.2s ease-in-out;
+    transition: all var(--transition-fast);
 }
 
-.btn-light:hover, .btn-reset:hover {
-    background-color: var(--abu-soft);
+.js-form-wrapper .btn-back:hover {
+    background: var(--abu-soft);
     border-color: var(--merah-telkom);
     color: var(--merah-telkom);
 }
 
-/* ===================== SEARCH ===================== */
-.input-group {
-    display: flex;
-    gap: 4px;
-    margin-bottom: 16px;
+/* ===================== FORM CARD ===================== */
+.js-form-wrapper .js-form-card {
+    background: var(--putih);
+    padding: 36px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
 }
 
-.input-group input.form-control {
-    flex: 1;
-    padding: 10px 12px;
+/* ===================== FORM ROW (2 columns) ===================== */
+.js-form-wrapper .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+/* ===================== FORM GROUP ===================== */
+.js-form-wrapper .form-group {
+    margin-bottom: 24px;
+}
+
+.js-form-wrapper .form-group label {
+    display: block;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--hitam);
+    margin-bottom: 8px;
+}
+
+.js-form-wrapper .form-group .required {
+    color: var(--merah-telkom);
+    margin-left: 4px;
+}
+
+/* ===================== FORM INPUTS & SELECT ===================== */
+.js-form-wrapper select,
+.js-form-wrapper input[type="time"],
+.js-form-wrapper input[type="text"],
+.js-form-wrapper input[type="date"] {
+    width: 100%;
+    padding: 12px 16px;
     border: 1px solid var(--abu-border);
     border-radius: var(--radius-sm);
     font-size: 14px;
+    font-family: inherit;
+    background: var(--putih);
+    transition: all var(--transition-fast);
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    box-sizing: border-box;
 }
 
-.input-group input.form-control:focus {
+/* Custom select arrow */
+.js-form-wrapper select {
+    padding-right: 12px;
+}
+
+.js-form-wrapper select:focus,
+.js-form-wrapper input:focus {
     outline: none;
     border-color: var(--merah-telkom);
     box-shadow: 0 0 0 3px rgba(196, 22, 28, 0.1);
 }
 
-.input-group button, .input-group a {
+/* Error state */
+.js-form-wrapper .form-group small.error {
+    display: block;
+    color: #dc3545;
+    font-size: 12px;
+    margin-top: 6px;
+    font-weight: 500;
+}
+
+/* ===================== FORM ACTIONS ===================== */
+.js-form-wrapper .form-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid var(--abu-border);
+}
+
+.js-form-wrapper .form-actions .btn-simpan {
+    padding: 12px 32px;
+    background: var(--putih);
+    color: var(--hitam);
+    border: 1px solid var(--abu-border);
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all var(--transition-fast);
+    cursor: pointer;
     display: inline-flex;
     align-items: center;
     justify-content: center;
 }
 
-/* ===================== TABLE ===================== */
-.table-responsive {
-    overflow-x: auto;
-}
-
-.table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.table th {
+.js-form-wrapper .form-actions .btn-simpan:hover {
     background: var(--abu-soft);
-    font-weight: 600;
-    padding: 14px;
-    border-bottom: 2px solid var(--abu-border);
-    text-align: left;
-    white-space: nowrap;
+    border-color: var(--merah-telkom);
+    color: var(--merah-telkom);
 }
 
-.table td {
-    padding: 14px;
-    border-bottom: 1px solid var(--abu-border);
-    vertical-align: top;
-}
-
-.table tbody tr:hover {
-    background-color: var(--abu-soft);
-    transition: background-color 0.2s;
-}
-
-.table tbody tr:last-child td {
-    border-bottom: none;
-}
-
-.table td strong {
-    display: block;
-    margin-bottom: 4px;
+.js-form-wrapper .form-actions .btn-cancel {
+    padding: 12px 32px;
+    background: var(--putih);
     color: var(--hitam);
-}
-
-.table td small {
-    display: block;
-    margin-top: 2px;
-    font-size: 12px;
-    color: #666;
-}
-
-/* Status badges */
-.status {
-    display: inline-block;
-    padding: 6px 12px;
+    border: 1px solid var(--abu-border);
     border-radius: var(--radius-sm);
-    font-size: 12px;
-    font-weight: 600;
-    text-transform: uppercase;
-}
-
-.status.aktif {
-    background-color: #d4edda;
-    color: #155724;
-}
-
-.status.selesai {
-    background-color: #cce5ff;
-    color: #004085;
-}
-
-.status.belum_aktif {
-    background-color: #fff3cd;
-    color: #856404;
-}
-
-/* Empty table row */
-.empty {
-    text-align: center;
-    padding: 40px !important;
-    color: #999;
-    font-style: italic;
-}
-
-/* Flash message */
-.alert-success {
-    background-color: #d4edda;
-    color: #155724;
-    padding: 12px 16px;
-    border-radius: var(--radius-sm);
-    margin-bottom: 20px;
-    border-left: 4px solid #28a745;
-}
-
-/* ===================== PAGINATION ===================== */
-.jadwal-sopir-pagination {
-    margin-top: 24px;
-    padding-top: 20px;
-    border-top: 1px solid var(--abu-border);
-    display: flex;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all var(--transition-fast);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
     justify-content: center;
 }
 
-.jadwal-sopir-pagination .pagination {
-    display: flex;
-    list-style: none;
-    gap: 8px;
-    padding: 0;
-    margin: 0;
-}
-
-.jadwal-sopir-pagination .pagination li {
-    display: inline-block;
-}
-
-.jadwal-sopir-pagination .pagination a,
-.jadwal-sopir-pagination .pagination span {
-    display: inline-block;
-    padding: 8px 12px;
-    border: 1px solid var(--abu-border);
-    border-radius: var(--radius-sm);
-    text-decoration: none;
-    color: var(--hitam);
-    transition: all 0.2s ease-in-out;
-}
-
-.jadwal-sopir-pagination .pagination a:hover {
-    background-color: var(--merah-telkom);
-    color: var(--putih);
+.js-form-wrapper .form-actions .btn-cancel:hover {
+    background: var(--abu-soft);
     border-color: var(--merah-telkom);
+    color: var(--merah-telkom);
 }
 
-.jadwal-sopir-pagination .pagination .active span {
-    background-color: var(--merah-telkom);
-    color: var(--putih);
-    border-color: var(--merah-telkom);
+/* ===================== ALERT SUCCESS ===================== */
+.js-form-wrapper .alert-success {
+    background-color: #d1fae5;
+    color: #065f46;
+    padding: 14px 18px;
+    border-radius: var(--radius-lg);
+    margin-bottom: 20px;
+    border-left: 4px solid #10b981;
+    box-shadow: var(--shadow-soft);
 }
 
 /* ===================== RESPONSIVE ===================== */
-@media (max-width: 1024px) {
-    .input-group {
-        flex-direction: column;
-        gap: 8px;
-    }
-}
-
 @media (max-width: 768px) {
-    .jadwal-sopir-header {
+    .js-form-wrapper .js-form-card {
+        padding: 24px;
+    }
+    
+    .js-form-wrapper .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+    
+    .js-form-wrapper .form-actions {
         flex-direction: column;
-        gap: 12px;
     }
-
-    .table th, .table td {
-        padding: 10px 8px;
-        font-size: 14px;
-    }
-
-    .btn-primary, .btn-light, .btn-warning, .btn-danger {
+    
+    .js-form-wrapper .form-actions .btn-primary,
+    .js-form-wrapper .form-actions .btn-cancel {
         width: 100%;
         text-align: center;
-        justify-content: center;
+    }
+    
+    .js-form-wrapper .js-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
     }
 }

@@ -1,16 +1,15 @@
 @extends('layouts.admin')
 
 @section('head')
-    <link rel="stylesheet" href="{{ asset('css/jadwal-sopir.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/jadwalsopir.css') }}">
 
 @section('content')
-    <div class="jadwal-sopir-form-wrapper">
+    <div class="js-form-wrapper">
 
         {{-- HEADER --}}
-        <div class="jadwal-sopir-header">
+        <div class="js-header">
             <div>
-                <h2>Tambah Jadwal Sopir</h2>
-
+               <h2 class="js-title">Tambah Jadwal Sopir</h2>
             </div>
             <a href="{{ route('admin.jadwal-sopir') }}" class="btn-back">
                 ← Kembali
@@ -25,7 +24,7 @@
         @endif
 
         {{-- FORM CARD --}}
-        <div class="jadwal-sopir-form-card">
+        <div class="js-form-card">
             <form method="POST" action="{{ route('admin.jadwal-sopir.store') }}">
                 @csrf
 
@@ -138,7 +137,7 @@
 
                 {{-- BUTTONS --}}
                 <div class="form-actions">
-                    <button type="submit" class="btn-primary">
+                    <button type="submit" class="btn-simpan">
                         Simpan Jadwal
                     </button>
                     <a href="{{ route('admin.jadwal-sopir') }}" class="btn-cancel">

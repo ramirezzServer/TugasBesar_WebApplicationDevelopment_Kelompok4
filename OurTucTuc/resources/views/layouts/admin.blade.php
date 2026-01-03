@@ -7,6 +7,8 @@
 
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/keluhan.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/jadwalsopir.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/jadwalsopir.css') }}">
     <link rel="icon" href="{{ asset('favicon.ico') }}">
 
     @stack('styles')

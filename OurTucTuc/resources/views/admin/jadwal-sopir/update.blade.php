@@ -1,10 +1,14 @@
 @extends('layouts.admin')
 
+@section('head')
+<link rel="stylesheet" href="{{ asset('css/jadwalsopir.css') }}">
+@endsection
+
 @section('content')
-    <div class="jadwal-sopir-form-wrapper">
+    <div class="js-form-wrapper">
 
         {{-- HEADER --}}
-        <div class="jadwal-sopir-header">
+        <div class="js-header">
             <div>
                 <h2>Edit Jadwal Sopir</h2>
                 <p>Perbarui jadwal sopir</p>
@@ -22,7 +26,7 @@
         @endif
 
         {{-- FORM CARD --}}
-        <div class="jadwal-sopir-form-card">
+        <div class="js-form-card">
             <form method="POST" action="{{ route('admin.jadwal-sopir.update', $jadwalSopir->id) }}">
                 @csrf
                 @method('PUT')
