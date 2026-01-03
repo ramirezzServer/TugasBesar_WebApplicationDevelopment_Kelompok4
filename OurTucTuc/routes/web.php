@@ -26,13 +26,21 @@ use App\Http\Controllers\Admin\UserController as AdminUser;
 | AUTH
 |--------------------------------------------------------------------------
 */
-Route::get('/', fn() => view('auth.login'))->name('login');
+Route::get('/', fn() => view('auth.login'))
+    ->name('login');
+
 Route::get('/login', fn() => view('auth.login'));
+
 Route::get('/register', fn() => view('auth.register'));
 
-Route::post('/web-login', [WebAuth::class, 'login'])->name('web.login');
-Route::post('/web-register', [WebAuth::class, 'register'])->name('web.register');
-Route::post('/logout', [WebAuth::class, 'logout'])->name('logout');
+Route::post('/web-login', [WebAuth::class, 'login'])
+    ->name('web.login');
+
+Route::post('/web-register', [WebAuth::class, 'register'])
+    ->name('web.register');
+
+Route::post('/logout', [WebAuth::class, 'logout'])
+    ->name('logout');
 
 /*
 |--------------------------------------------------------------------------
@@ -101,16 +109,52 @@ Route::middleware(['auth', WebRoleMiddleware::class . ':admin'])
             ->name('user');
 
         Route::get('/sopir', [AdminSopir::class, 'index'])
-            ->name('sopir');
+            ->name('sopir.index');
 
-        Route::get('/kendaraan', [AdminKendaraan::class, 'index'])->name('kendaraan.index');
-        Route::post('/kendaraan', [AdminKendaraan::class, 'store'])->name('kendaraan.store');
-        Route::put('/kendaraan/{id}', [AdminKendaraan::class, 'update'])->name('kendaraan.update');
-        Route::delete('/kendaraan/{id}', [AdminKendaraan::class, 'destroy'])->name('kendaraan.destroy');
+        Route::get('/sopir/create', [AdminSopir::class, 'create'])
+            ->name('sopir.create');
 
+        Route::post('/sopir', [AdminSopir::class, 'store'])
+            ->name('sopir.store');
+
+        Route::get('/sopir/{id}/edit', [AdminSopir::class, 'edit'])
+            ->name('sopir.edit');
+
+        Route::put('/sopir/{id}', [AdminSopir::class, 'update'])
+            ->name('sopir.update');
+
+        Route::delete('/sopir/{id}', [AdminSopir::class, 'destroy'])
+            ->name('sopir.destroy');
+
+        Route::get('/kendaraan', [AdminKendaraan::class, 'index'])
+            ->name('kendaraan.index');
+
+        Route::post('/kendaraan', [AdminKendaraan::class, 'store'])
+            ->name('kendaraan.store');
+
+        Route::put('/kendaraan/{id}', [AdminKendaraan::class, 'update'])
+            ->name('kendaraan.update');
+
+        Route::delete('/kendaraan/{id}', [AdminKendaraan::class, 'destroy'])
+            ->name('kendaraan.destroy');
 
         Route::get('/halte', [AdminHalte::class, 'index'])
-            ->name('halte');
+            ->name('halte.index');
+
+        Route::get('/halte/create', [AdminHalte::class, 'create'])
+            ->name('halte.create');
+
+        Route::post('/halte', [AdminHalte::class, 'store'])
+            ->name('halte.store');
+
+        Route::get('/halte/{id}/edit', [AdminHalte::class, 'edit'])
+            ->name('halte.edit');
+
+        Route::put('/halte/{id}', [AdminHalte::class, 'update'])
+            ->name('halte.update');
+
+        Route::delete('/halte/{id}', [AdminHalte::class, 'destroy'])
+            ->name('halte.destroy');
 
         Route::get('/rute', [AdminRute::class, 'index'])
             ->name('rute');
@@ -120,4 +164,19 @@ Route::middleware(['auth', WebRoleMiddleware::class . ':admin'])
 
         Route::get('/jadwal-sopir', [AdminJS::class, 'index'])
             ->name('jadwal-sopir');
+
+        Route::get('/jadwal-sopir/create', [AdminJS::class, 'create'])
+            ->name('jadwal-sopir.create');
+
+        Route::post('/jadwal-sopir', [AdminJS::class, 'store'])
+            ->name('jadwal-sopir.store');
+
+        Route::get('/jadwal-sopir/{id}/edit', [AdminJS::class, 'edit'])
+            ->name('jadwal-sopir.edit');
+
+        Route::put('/jadwal-sopir/{id}', [AdminJS::class, 'update'])
+            ->name('jadwal-sopir.update');
+
+        Route::delete('/jadwal-sopir/{id}', [AdminJS::class, 'destroy'])
+            ->name('jadwal-sopir.destroy');
     });

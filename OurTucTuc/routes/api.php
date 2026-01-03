@@ -82,7 +82,7 @@ Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
     Route::get('/sopir', [SopirController::class, 'index']);
     Route::post('/sopir', [SopirController::class, 'store']);
     Route::get('/sopir/{id}', [SopirController::class, 'show']);
-    Route::post('/sopir/{sopir}', [SopirController::class, 'update']);
+    Route::put('/sopir/{sopir}', [SopirController::class, 'update']);
     Route::delete('/sopir/{id}', [SopirController::class, 'destroy']);
 
     /* ================= RUTE - HALTE ================= */

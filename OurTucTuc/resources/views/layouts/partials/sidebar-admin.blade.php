@@ -13,7 +13,7 @@
         User
     </a>
 
-    <a href="{{ route('admin.sopir') }}" class="{{ request()->routeIs('admin.sopir') ? 'active' : '' }}">
+    <a href="{{ route('admin.sopir.index') }}" class="{{ request()->routeIs('admin.sopir.*') ? 'active' : '' }}">
         Sopir
     </a>
 
@@ -21,7 +21,7 @@
         Kendaraan
     </a>
 
-    <a href="{{ route('admin.halte') }}" class="{{ request()->routeIs('admin.halte') ? 'active' : '' }}">
+    <a href="{{ route('admin.halte.index') }}" class="{{ request()->routeIs('admin.halte.*') ? 'active' : '' }}">
         Halte
     </a>
 
