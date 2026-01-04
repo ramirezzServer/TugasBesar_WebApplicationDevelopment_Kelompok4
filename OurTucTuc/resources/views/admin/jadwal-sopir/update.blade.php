@@ -11,8 +11,10 @@
         {{-- HEADER --}}
         <div class="js-header">
             <div>
-                <h2>Edit Jadwal Sopir</h2>
-                <p>Perbarui jadwal sopir</p>
+                <div class="js-title-section">
+            <h2 class="js-title">Edit Jadwal Sopir</h2>
+            <p class="js-subtitle">Perbarui jadwal sopir yang ada</p>
+        </div>
             </div>
             <a href="{{ route('admin.jadwal-sopir') }}" class="btn-back">
                 ← Kembali
