@@ -1,7 +1,6 @@
 @extends('layouts.admin')
 
 @section('head')
-<<<<<<< HEAD
 <link rel="stylesheet" href="{{ asset('css/jadwalsopir.css') }}">
 @endsection
 
@@ -91,7 +90,7 @@
                         </td>
 
                         <td>
-                            <a href="{{ route('admin.jadwal-sopir.update', $item->id) }}" class="js-btn-warning">
+                            <a href="{{ route('admin.jadwal-sopir.edit', $item->id) }}" class="js-btn-warning">
                                 Edit
                             </a>
 
@@ -117,9 +116,7 @@
                 @endforelse
             </tbody>
         </table>
-
     </div>
 
 </div>
-
 @endsection
