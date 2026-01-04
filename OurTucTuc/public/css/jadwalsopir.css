@@ -141,7 +141,7 @@
     box-shadow: 0 4px 10px rgba(255, 193, 7, 0.4);
 }
 
-.js-wrapper .js-btn-danger {
+.js-wrapper.s-btn-danger {
     display: inline-block;
     padding: 6px 12px;
     background-color: #dc3545;
@@ -473,6 +473,28 @@
     .js-form-wrapper .js-form-card {
         padding: 24px;
     }
+    
+    .js-form-wrapper .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+    
+    .js-form-wrapper .form-actions {
+        flex-direction: column;
+    }
+    
+    .js-form-wrapper .form-actions .btn-primary,
+    .js-form-wrapper .form-actions .btn-cancel {
+        width: 100%;
+        text-align: center;
+    }
+
+/* ===================== RESPONSIVE ===================== */
+@media (max-width: 768px) {
+    .js-form-wrapper .js-form-card {
+        padding: 24px;
+    }
+}
     
     .js-form-wrapper .form-row {
         grid-template-columns: 1fr;

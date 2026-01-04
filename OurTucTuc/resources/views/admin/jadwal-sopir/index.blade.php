@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 
 @section('head')
+<<<<<<< HEAD
 <link rel="stylesheet" href="{{ asset('css/jadwalsopir.css') }}">
 @endsection
 
@@ -116,6 +117,7 @@
                 @endforelse
             </tbody>
         </table>
+
     </div>
 
 </div>

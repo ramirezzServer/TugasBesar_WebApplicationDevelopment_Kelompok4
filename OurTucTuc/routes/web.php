@@ -204,7 +204,11 @@ Route::middleware(['auth', WebRoleMiddleware::class . ':admin'])
         Route::post('/jadwal-sopir', [AdminJS::class, 'store'])
             ->name('jadwal-sopir.store');
 
+<<<<<<< HEAD
         Route::get('/jadwal-sopir/{id}/update', [AdminJS::class, 'edit'])
+=======
+        Route::get('/jadwal-sopir/{id}/edit', [AdminJS::class, 'edit'])
+>>>>>>> c707b74ac302242bfee1ce966d279ea4dbf0670d
             ->name('jadwal-sopir.edit');
 
         Route::put('/jadwal-sopir/{id}', [AdminJS::class, 'update'])
@@ -212,4 +216,8 @@ Route::middleware(['auth', WebRoleMiddleware::class . ':admin'])
 
         Route::delete('/jadwal-sopir/{id}', [AdminJS::class, 'destroy'])
             ->name('jadwal-sopir.destroy');
+<<<<<<< HEAD
     });
+=======
+    });
+>>>>>>> c707b74ac302242bfee1ce966d279ea4dbf0670d

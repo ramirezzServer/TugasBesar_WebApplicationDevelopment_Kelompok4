@@ -13,23 +13,23 @@
         User
     </a>
 
-    <a href="{{ route('admin.sopir') }}" class="{{ request()->routeIs('admin.sopir') ? 'active' : '' }}">
+    <a href="{{ route('admin.sopir.index') }}" class="{{ request()->routeIs('admin.sopir.*') ? 'active' : '' }}">
         Sopir
     </a>
 
-    <a href="{{ route('admin.kendaraan') }}" class="{{ request()->routeIs('admin.kendaraan') ? 'active' : '' }}">
+    <a href="{{ route('admin.kendaraan.index') }}" class="{{ request()->routeIs('admin.kendaraan.*') ? 'active' : '' }}">
         Kendaraan
     </a>
 
-    <a href="{{ route('admin.halte') }}" class="{{ request()->routeIs('admin.halte') ? 'active' : '' }}">
+    <a href="{{ route('admin.halte.index') }}" class="{{ request()->routeIs('admin.halte.*') ? 'active' : '' }}">
         Halte
     </a>
 
-    <a href="{{ route('admin.rute') }}" class="{{ request()->routeIs('admin.rute') ? 'active' : '' }}">
+    <a href="{{ route('admin.rute.index') }}" class="{{ request()->routeIs('admin.rute.*') ? 'active' : '' }}">
         Rute
     </a>
 
-    <a href="{{ route('admin.rute-halte') }}" class="{{ request()->routeIs('admin.rute-halte') ? 'active' : '' }}">
+    <a href="{{ route('admin.rute-halte.index') }}" class="{{ request()->routeIs('admin.rute-halte.*') ? 'active' : '' }}">
         Rute Halte
     </a>
 

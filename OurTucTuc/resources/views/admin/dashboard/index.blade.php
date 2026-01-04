@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
+
 <div class="card">
     <h2 class="text-2xl font-semibold my-2">Dashboard Admin</h2>
 </div>

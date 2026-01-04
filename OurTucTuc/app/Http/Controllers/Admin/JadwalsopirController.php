@@ -25,6 +25,7 @@ class JadwalSopirController extends Controller
         if ($search) {
             $query->where(function ($q) use ($search) {
                 $q->whereHas('sopir', function ($sq) use ($search) {
+
                         $sq->where('nama_sopir', 'like', "%{$search}%")
                            ->orWhere('notelp_sopir', 'like', "%{$search}%");
                     })
@@ -38,6 +39,7 @@ class JadwalSopirController extends Controller
                         $hq->where('nama_halte', 'like', "%{$search}%");
                     })
                   ->orWhere('status', 'like', "%{$search}%");
+
             });
         }
 
@@ -74,7 +76,9 @@ class JadwalSopirController extends Controller
 
     public function edit($id)
     {
+
         $jadwalSopir = JadwalSopir::with(['sopir', 'kendaraan', 'ruteHalte'])->findOrFail($id);
+
         $sopirs = Sopir::all();
         $kendaraans = Kendaraan::all();
         $ruteHaltes = RuteHalte::with(['rute', 'halte'])->get();
@@ -114,8 +118,10 @@ class JadwalSopirController extends Controller
     public function destroy($id)
     {
         $jadwalSopir = JadwalSopir::findOrFail($id);
+
         $jadwalSopir->delete();
 
         return redirect()->route('admin.jadwal-sopir')
             ->with('success', 'Jadwal sopir berhasil dihapus');
     }}
+

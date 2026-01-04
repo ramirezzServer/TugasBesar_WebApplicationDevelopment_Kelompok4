@@ -20,9 +20,9 @@
             </div>
             <hr class="my-6 border-default sm:mx-auto lg:my-8" />
             <div class="sm:flex sm:items-center sm:justify-between">
-                <span class="text-sm text-body sm:text-center">© 2026 <a href="https://telkomcampus.id/fitur-my-tuc-tuc-resmi-diluncurkan-pada-aplikasi-mytelu/" class="hover:underline">OutTucTuc</a>. All Rights Reserved.
+                <span class="text-sm text-body sm:text-center text-white">© 2026 <a href="https://telkomcampus.id/fitur-my-tuc-tuc-resmi-diluncurkan-pada-aplikasi-mytelu/" class="hover:underline">OutTucTuc</a>. All Rights Reserved.
                 </span>
-                
+
             </div>
         </div>
     </footer>
@@ -64,5 +64,3 @@
         © {{ date('Y') }} OurTucTuc. Seluruh hak cipta dilindungi.
     </div>
 </footer> -->
-
-

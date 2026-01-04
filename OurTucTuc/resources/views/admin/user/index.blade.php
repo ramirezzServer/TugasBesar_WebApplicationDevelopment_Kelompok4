@@ -19,12 +19,12 @@
             <tbody>
                 @foreach ($data as $index => $item)
                     <tr>
-                         <td>{{ $index + 1 }}</td>
+                        <td>{{ $index + 1 }}</td>
                         <td>{{ $item->name }}</td>
                         <td>{{ $item->email }}</td>
                         <td>{{ $item->NoTelp }}</td>
                         <td>{{ $item->role }}</td>
-                       <td>{{ $item->keluhans_count }}</td>
+                        <td>{{ $item->keluhans_count }}</td>
 
                     </tr>
                 @endforeach
