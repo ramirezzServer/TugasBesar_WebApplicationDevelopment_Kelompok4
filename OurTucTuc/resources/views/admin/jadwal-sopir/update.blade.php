@@ -5,6 +5,7 @@
 @endsection
 
 @section('content')
+
     <div class="js-form-wrapper">
 
         {{-- HEADER --}}
@@ -30,7 +31,6 @@
             <form method="POST" action="{{ route('admin.jadwal-sopir.update', $jadwalSopir->id) }}">
                 @csrf
                 @method('PUT')
-
                 <div class="form-row">
                     {{-- SOPIR --}}
                     <div class="form-group">
@@ -143,7 +143,7 @@
 
                 {{-- BUTTONS --}}
                 <div class="form-actions">
-                    <button type="submit" class="btn-primary">
+                    <button type="submit" class="btn-simpan">
                         Update Jadwal
                     </button>
                     <a href="{{ route('admin.jadwal-sopir') }}" class="btn-cancel">
