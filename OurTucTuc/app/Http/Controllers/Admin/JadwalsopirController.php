@@ -118,5 +118,4 @@ class JadwalSopirController extends Controller
 
         return redirect()->route('admin.jadwal-sopir')
             ->with('success', 'Jadwal sopir berhasil dihapus');
-    }
-}
+    }}

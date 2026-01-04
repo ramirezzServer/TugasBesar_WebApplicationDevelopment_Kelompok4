@@ -26,13 +26,22 @@ use App\Http\Controllers\Admin\UserController as AdminUser;
 | AUTH
 |--------------------------------------------------------------------------
 */
-Route::get('/', fn() => view('auth.login'))->name('login');
+
+Route::get('/', fn() => view('auth.login'))
+    ->name('login');
+
 Route::get('/login', fn() => view('auth.login'));
+
 Route::get('/register', fn() => view('auth.register'));
 
-Route::post('/web-login', [WebAuth::class, 'login'])->name('web.login');
-Route::post('/web-register', [WebAuth::class, 'register'])->name('web.register');
-Route::post('/logout', [WebAuth::class, 'logout'])->name('logout');
+Route::post('/web-login', [WebAuth::class, 'login'])
+    ->name('web.login');
+
+Route::post('/web-register', [WebAuth::class, 'register'])
+    ->name('web.register');
+
+Route::post('/logout', [WebAuth::class, 'logout'])
+    ->name('logout');
 
 /*
 |--------------------------------------------------------------------------
@@ -58,6 +67,9 @@ Route::middleware(['auth', WebRoleMiddleware::class . ':penumpang'])
         Route::get('/dashboard', [UserDashboardController::class, 'index'])
             ->name('user.dashboard');
 
+        Route::get('/dashboard/data', [UserDashboardController::class, 'data'])
+            ->name('user.dashboard.data');
+            
         Route::get('/rute', [RouteController::class, 'index'])
             ->name('user.rute');
 
@@ -91,7 +103,6 @@ Route::middleware(['auth', WebRoleMiddleware::class . ':admin'])
         Route::get('/dashboard', [AdminDashboard::class, 'index'])
             ->name('dashboard');
 
-        // ✅ ADMIN KELUHAN (LIHAT + UPDATE STATUS SAJA)
         Route::get('/keluhan', [AdminKeluhan::class, 'index'])
             ->name('keluhan');
 
@@ -102,19 +113,87 @@ Route::middleware(['auth', WebRoleMiddleware::class . ':admin'])
             ->name('user');
 
         Route::get('/sopir', [AdminSopir::class, 'index'])
-            ->name('sopir');
+            ->name('sopir.index');
+
+        Route::get('/sopir/create', [AdminSopir::class, 'create'])
+            ->name('sopir.create');
+
+        Route::post('/sopir', [AdminSopir::class, 'store'])
+            ->name('sopir.store');
+
+        Route::get('/sopir/{id}/edit', [AdminSopir::class, 'edit'])
+            ->name('sopir.edit');
+
+        Route::put('/sopir/{id}', [AdminSopir::class, 'update'])
+            ->name('sopir.update');
+
+        Route::delete('/sopir/{id}', [AdminSopir::class, 'destroy'])
+            ->name('sopir.destroy');
 
         Route::get('/kendaraan', [AdminKendaraan::class, 'index'])
-            ->name('kendaraan');
+            ->name('kendaraan.index');
+
+        Route::post('/kendaraan', [AdminKendaraan::class, 'store'])
+            ->name('kendaraan.store');
+
+        Route::put('/kendaraan/{id}', [AdminKendaraan::class, 'update'])
+            ->name('kendaraan.update');
+
+        Route::delete('/kendaraan/{id}', [AdminKendaraan::class, 'destroy'])
+            ->name('kendaraan.destroy');
 
         Route::get('/halte', [AdminHalte::class, 'index'])
-            ->name('halte');
+            ->name('halte.index');
 
+        Route::get('/halte/create', [AdminHalte::class, 'create'])
+            ->name('halte.create');
+
+        Route::post('/halte', [AdminHalte::class, 'store'])
+            ->name('halte.store');
+
+        Route::get('/halte/{id}/edit', [AdminHalte::class, 'edit'])
+            ->name('halte.edit');
+
+        Route::put('/halte/{id}', [AdminHalte::class, 'update'])
+            ->name('halte.update');
+
+        Route::delete('/halte/{id}', [AdminHalte::class, 'destroy'])
+            ->name('halte.destroy');
         Route::get('/rute', [AdminRute::class, 'index'])
-            ->name('rute');
+            ->name('rute.index');
+
+        Route::get('/rute/create', [AdminRute::class, 'create'])
+            ->name('rute.create');
+
+        Route::post('/rute', [AdminRute::class, 'store'])
+            ->name('rute.store');
+
+        Route::get('/rute/{id}/edit', [AdminRute::class, 'edit'])
+            ->name('rute.edit');
+
+        Route::put('/rute/{id}', [AdminRute::class, 'update'])
+            ->name('rute.update');
+
+        Route::delete('/rute/{id}', [AdminRute::class, 'destroy'])
+            ->name('rute.destroy');
 
         Route::get('/rute-halte', [AdminRH::class, 'index'])
-            ->name('rute-halte');
+            ->name('rute-halte.index');
+
+        Route::get('/admin/rute-halte/create', [AdminRH::class, 'create'])
+            ->name('rute-halte.create');
+
+        Route::post('/admin/rute-halte', [AdminRH::class, 'store'])
+            ->name('rute-halte.store');
+
+        Route::delete('rute-halte/{id}', [AdminRH::class, 'destroy'])
+            ->name('rute-halte.destroy');
+
+        Route::get('/admin/rute-halte/{id}/edit', [AdminRH::class, 'edit'])
+            ->name('rute-halte.edit');
+
+        Route::put('/admin/rute-halte/{id}', [AdminRH::class, 'update'])
+            ->name('rute-halte.update');
 
         Route::get('/jadwal-sopir', [AdminJS::class, 'index'])
             ->name('jadwal-sopir');
