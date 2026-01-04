@@ -11,7 +11,7 @@
         {{-- HEADER --}}
         <div class="js-header">
             <div>
-                <h2 class="js-title">Edit Jadwal Sopir</h2>
+                <h2>Edit Jadwal Sopir</h2>
                 <p>Perbarui jadwal sopir</p>
             </div>
             <a href="{{ route('admin.jadwal-sopir') }}" class="btn-back">
@@ -28,7 +28,7 @@
 
         {{-- FORM CARD --}}
         <div class="js-form-card">
-            <form method="POST" action="{{ route('admin.jadwal-sopir.update', $jadwalSopir->id) }}">
+            <form method="POST" action="{{ route('admin.jadwal-sopir.edit', $jadwalSopir->id) }}">
                 @csrf
                 @method('PUT')
                 <div class="form-row">
@@ -155,4 +155,5 @@
         </div>
 
     </div>
+
 @endsection
