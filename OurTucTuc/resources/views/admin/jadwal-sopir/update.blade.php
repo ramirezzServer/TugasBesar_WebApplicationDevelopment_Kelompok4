@@ -11,7 +11,7 @@
         {{-- HEADER --}}
         <div class="js-header">
             <div>
-                <h2>Edit Jadwal Sopir</h2>
+                <h2 class="js-title">Edit Jadwal Sopir</h2>
                 <p>Perbarui jadwal sopir</p>
             </div>
             <a href="{{ route('admin.jadwal-sopir') }}" class="btn-back">
