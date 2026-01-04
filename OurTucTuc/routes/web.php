@@ -156,9 +156,23 @@ Route::middleware(['auth', WebRoleMiddleware::class . ':admin'])
 
         Route::delete('/halte/{id}', [AdminHalte::class, 'destroy'])
             ->name('halte.destroy');
-
         Route::get('/rute', [AdminRute::class, 'index'])
-            ->name('rute');
+            ->name('rute.index');
+
+        Route::get('/rute/create', [AdminRute::class, 'create'])
+            ->name('rute.create');
+
+        Route::post('/rute', [AdminRute::class, 'store'])
+            ->name('rute.store');
+
+        Route::get('/rute/{id}/edit', [AdminRute::class, 'edit'])
+            ->name('rute.edit');
+
+        Route::put('/rute/{id}', [AdminRute::class, 'update'])
+            ->name('rute.update');
+
+        Route::delete('/rute/{id}', [AdminRute::class, 'destroy'])
+            ->name('rute.destroy');
 
         Route::get('/rute-halte', [AdminRH::class, 'index'])
             ->name('rute-halte.index');

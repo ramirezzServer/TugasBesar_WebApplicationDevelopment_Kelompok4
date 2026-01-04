@@ -25,7 +25,7 @@
         Halte
     </a>
 
-    <a href="{{ route('admin.rute') }}" class="{{ request()->routeIs('admin.rute') ? 'active' : '' }}">
+    <a href="{{ route('admin.rute.index') }}" class="{{ request()->routeIs('admin.rute.*') ? 'active' : '' }}">
         Rute
     </a>
 

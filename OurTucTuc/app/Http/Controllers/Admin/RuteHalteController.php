@@ -12,7 +12,9 @@ class RuteHalteController extends Controller
 {
     public function index()
     {
-        $data = RuteHalte::with(['rute', 'halte'])->get();
+        $data = RuteHalte::with(['rute', 'halte'])
+        ->orderBy('jam_berangkat', 'asc')
+        ->get();
         return view('admin.rute-halte.index', compact('data'));
     }
     public function destroy($id)
