@@ -141,7 +141,7 @@
     box-shadow: 0 4px 10px rgba(255, 193, 7, 0.4);
 }
 
-.js-wrapper. s-btn-danger {
+.js-wrapper .js-btn-danger {
     display: inline-block;
     padding: 6px 12px;
     background-color: #dc3545;
