@@ -1,5 +1,5 @@
 /* ===================== WRAPPER ===================== */
-.js-wrapper {
+.js-wrapper{
     max-width: 100%;
     padding: 20px;
 }
@@ -89,11 +89,11 @@
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
-
+    
     display: inline-flex;
     align-items: center;
     justify-content: center;
-
+    
     padding: 12px 24px;
     background: var(--merah-telkom);
     background-color: var(--merah-telkom);
@@ -101,14 +101,14 @@
     color: var(--putih);
     border: none;
     border-radius: 12px;
-
+    
     font-weight: 600;
     font-size: 14px;
     text-decoration: none;
     cursor: pointer;
     white-space: nowrap;
     flex-shrink: 0;
-
+    
     box-shadow: var(--shadow-soft);
     transition: all var(--transition-fast);
     width: auto;
@@ -141,24 +141,23 @@
     box-shadow: 0 4px 10px rgba(255, 193, 7, 0.4);
 }
 
-.js-btn-danger {
-    background-color: #ff4d4d !important;
-    color: white !important;
+.js-wrapper.s-btn-danger {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: #dc3545;
+    color: #fff;
     border: none;
-    padding: 6px 14px;
-    border-radius: 6px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    transition: all 0.2s;
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all var(--transition-fast);
     cursor: pointer;
-    box-shadow: 0 2px 4px rgba(255, 77, 77, 0.3);
+    box-shadow: 0 2px 6px rgba(220, 53, 69, 0.3);
 }
 
 .js-btn-danger:hover {
-
+    background-color: #b02a37;
     transform: translateY(-1px);
     box-shadow: 0 4px 10px rgba(220, 53, 69, 0.4);
 }
@@ -257,7 +256,7 @@
     .js-action-group {
         width: 100%;
     }
-
+    
     .js-search-input {
         min-width: 300px;
     }
@@ -267,20 +266,20 @@
     .js-header {
         flex-direction: column;
     }
-
+    
     .js-action-group {
         flex-direction: column;
         width: 100%;
     }
-
+    
     .js-search-form {
         width: 100%;
     }
-
+    
     .js-search-input {
         min-width: 100%;
     }
-
+    
     .js-btn-primary {
         width: 100%;
     }
@@ -300,7 +299,6 @@
     margin: 0 auto;
     padding: 20px;
 }
-
 /* ===================== FORM HEADER ===================== */
 .js-form-wrapper .js-header {
     display: flex;
@@ -475,22 +473,44 @@
     .js-form-wrapper .js-form-card {
         padding: 24px;
     }
-
+    
     .js-form-wrapper .form-row {
         grid-template-columns: 1fr;
         gap: 0;
     }
-
+    
     .js-form-wrapper .form-actions {
         flex-direction: column;
     }
-
+    
     .js-form-wrapper .form-actions .btn-primary,
     .js-form-wrapper .form-actions .btn-cancel {
         width: 100%;
         text-align: center;
     }
 
+/* ===================== RESPONSIVE ===================== */
+@media (max-width: 768px) {
+    .js-form-wrapper .js-form-card {
+        padding: 24px;
+    }
+}
+    
+    .js-form-wrapper .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+    
+    .js-form-wrapper .form-actions {
+        flex-direction: column;
+    }
+    
+    .js-form-wrapper .form-actions .btn-primary,
+    .js-form-wrapper .form-actions .btn-cancel {
+        width: 100%;
+        text-align: center;
+    }
+    
     .js-form-wrapper .js-header {
         flex-direction: column;
         align-items: flex-start;
