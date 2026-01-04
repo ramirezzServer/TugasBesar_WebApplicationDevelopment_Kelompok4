@@ -204,7 +204,8 @@ Route::middleware(['auth', WebRoleMiddleware::class . ':admin'])
         Route::post('/jadwal-sopir', [AdminJS::class, 'store'])
             ->name('jadwal-sopir.store');
 
-        Route::get('/jadwal-sopir/{id}/update', [AdminJS::class, 'edit'])
+        Route::get('/jadwal-sopir/{id}/edit', [AdminJS::class, 'edit'])
+            ->name('jadwal-sopir.edit');
 
         Route::put('/jadwal-sopir/{id}', [AdminJS::class, 'update'])
             ->name('jadwal-sopir.update');
