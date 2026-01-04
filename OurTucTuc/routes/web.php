@@ -67,6 +67,9 @@ Route::middleware(['auth', WebRoleMiddleware::class . ':penumpang'])
         Route::get('/dashboard', [UserDashboardController::class, 'index'])
             ->name('user.dashboard');
 
+        Route::get('/dashboard/data', [UserDashboardController::class, 'data'])
+            ->name('user.dashboard.data');
+            
         Route::get('/rute', [RouteController::class, 'index'])
             ->name('user.rute');
 
