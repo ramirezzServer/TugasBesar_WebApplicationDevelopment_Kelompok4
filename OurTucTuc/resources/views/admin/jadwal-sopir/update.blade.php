@@ -30,7 +30,7 @@
 
         {{-- FORM CARD --}}
         <div class="js-form-card">
-            <form method="POST" action="{{ route('admin.jadwal-sopir.edit', $jadwalSopir->id) }}">
+            <form method="POST" action="{{ route('admin.jadwal-sopir.update', $jadwalSopir->id) }}">
                 @csrf
                 @method('PUT')
                 <div class="form-row">
@@ -40,7 +40,7 @@
                         <select name="id_sopir" id="id_sopir" required>
                             <option value="">Pilih Sopir</option>
                             @foreach ($sopirs as $sopir)
-                                <option value="{{ $sopir->id }}" 
+                                <option value="{{ $sopir->id }}"
                                     @selected(old('id_sopir', $jadwalSopir->id_sopir) == $sopir->id)>
                                     {{ $sopir->nama_sopir }}
                                     @if($sopir->notelp_sopir)
@@ -60,7 +60,7 @@
                         <select name="id_kendaraan" id="id_kendaraan" required>
                             <option value="">Pilih Kendaraan</option>
                             @foreach ($kendaraans as $kendaraan)
-                                <option value="{{ $kendaraan->id }}" 
+                                <option value="{{ $kendaraan->id }}"
                                     @selected(old('id_kendaraan', $jadwalSopir->id_kendaraan) == $kendaraan->id)>
                                     {{ $kendaraan->plat_nomor }}
                                     @if($kendaraan->status)
@@ -81,9 +81,9 @@
                     <select name="id_rute_halte" id="id_rute_halte" required>
                         <option value="">Pilih Rute & Halte</option>
                         @foreach ($ruteHaltes as $ruteHalte)
-                            <option value="{{ $ruteHalte->id }}" 
+                            <option value="{{ $ruteHalte->id }}"
                                 @selected(old('id_rute_halte', $jadwalSopir->id_rute_halte) == $ruteHalte->id)>
-                                {{ $ruteHalte->rute->nama_rute ?? 'Rute' }} - 
+                                {{ $ruteHalte->rute->nama_rute ?? 'Rute' }} -
                                 {{ $ruteHalte->halte->nama_halte ?? 'Halte' }}
                                 @if($ruteHalte->jam_berangkat)
                                     (Berangkat: {{ $ruteHalte->jam_berangkat }})
@@ -100,10 +100,10 @@
                     {{-- JAM MULAI --}}
                     <div class="form-group">
                         <label for="jam_mulai">Jam Mulai <span class="required">*</span></label>
-                        <input type="time" 
-                               name="jam_mulai" 
-                               id="jam_mulai" 
-                               value="{{ old('jam_mulai', $jadwalSopir->jam_mulai ? \Carbon\Carbon::parse($jadwalSopir->jam_mulai)->format('H:i') : '') }}" 
+                        <input type="time"
+                               name="jam_mulai"
+                               id="jam_mulai"
+                               value="{{ old('jam_mulai', $jadwalSopir->jam_mulai ? \Carbon\Carbon::parse($jadwalSopir->jam_mulai)->format('H:i') : '') }}"
                                required>
                         @error('jam_mulai')
                             <small class="error">{{ $message }}</small>
@@ -113,10 +113,10 @@
                     {{-- JAM SELESAI --}}
                     <div class="form-group">
                         <label for="jam_selesai">Jam Selesai <span class="required">*</span></label>
-                        <input type="time" 
-                               name="jam_selesai" 
-                               id="jam_selesai" 
-                               value="{{ old('jam_selesai', $jadwalSopir->jam_selesai ? \Carbon\Carbon::parse($jadwalSopir->jam_selesai)->format('H:i') : '') }}" 
+                        <input type="time"
+                               name="jam_selesai"
+                               id="jam_selesai"
+                               value="{{ old('jam_selesai', $jadwalSopir->jam_selesai ? \Carbon\Carbon::parse($jadwalSopir->jam_selesai)->format('H:i') : '') }}"
                                required>
                         @error('jam_selesai')
                             <small class="error">{{ $message }}</small>

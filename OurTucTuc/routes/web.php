@@ -69,7 +69,7 @@ Route::middleware(['auth', WebRoleMiddleware::class . ':penumpang'])
 
         Route::get('/dashboard/data', [UserDashboardController::class, 'data'])
             ->name('user.dashboard.data');
-            
+
         Route::get('/rute', [RouteController::class, 'index'])
             ->name('user.rute');
 
@@ -212,3 +212,5 @@ Route::middleware(['auth', WebRoleMiddleware::class . ':admin'])
 
         Route::delete('/jadwal-sopir/{id}', [AdminJS::class, 'destroy'])
             ->name('jadwal-sopir.destroy');
+    }
+);
