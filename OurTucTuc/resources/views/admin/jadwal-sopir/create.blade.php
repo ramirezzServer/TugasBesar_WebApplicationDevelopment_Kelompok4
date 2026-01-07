@@ -10,7 +10,7 @@
         <div class="js-header">
             <div>
 
-               <h2 class="js-title">Tambah Jadwal Sopir</h2>
+                <h2 class="js-title">Tambah Jadwal Sopir</h2>
 
             </div>
             <a href="{{ route('admin.jadwal-sopir') }}" class="btn-back">
@@ -40,8 +40,7 @@
                                 <option value="{{ $sopir->id }}" @selected(old('id_sopir') == $sopir->id)>
                                     {{ $sopir->nama_sopir }}
 
-                                    @if($sopir->notelp_sopir)
-
+                                    @if ($sopir->notelp_sopir)
                                         - {{ $sopir->notelp_sopir }}
                                     @endif
                                 </option>
@@ -61,8 +60,7 @@
                                 <option value="{{ $kendaraan->id }}" @selected(old('id_kendaraan') == $kendaraan->id)>
                                     {{ $kendaraan->plat_nomor }}
 
-                                    @if($kendaraan->status)
-
+                                    @if ($kendaraan->status)
                                         ({{ ucfirst($kendaraan->status) }})
                                     @endif
                                 </option>
@@ -82,10 +80,9 @@
                         @foreach ($ruteHaltes as $ruteHalte)
                             <option value="{{ $ruteHalte->id }}" @selected(old('id_rute_halte') == $ruteHalte->id)>
 
-                                {{ $ruteHalte->rute->nama_rute ?? 'Rute' }} - 
+                                {{ $ruteHalte->rute->nama_rute ?? 'Rute' }} -
                                 {{ $ruteHalte->halte->nama_halte ?? 'Halte' }}
-                                @if($ruteHalte->jam_berangkat)
-
+                                @if ($ruteHalte->jam_berangkat)
                                     (Berangkat: {{ $ruteHalte->jam_berangkat }})
                                 @endif
                             </option>
@@ -101,11 +98,7 @@
                     <div class="form-group">
                         <label for="jam_mulai">Jam Mulai <span class="required">*</span></label>
 
-                        <input type="time" 
-                               name="jam_mulai" 
-                               id="jam_mulai" 
-                               value="{{ old('jam_mulai') }}" 
-                               required>
+                        <input type="time" name="jam_mulai" id="jam_mulai" value="{{ old('jam_mulai') }}" required>
 
                         @error('jam_mulai')
                             <small class="error">{{ $message }}</small>
@@ -116,11 +109,8 @@
                     <div class="form-group">
                         <label for="jam_selesai">Jam Selesai <span class="required">*</span></label>
 
-                        <input type="time" 
-                               name="jam_selesai" 
-                               id="jam_selesai" 
-                               value="{{ old('jam_selesai') }}" 
-                               required>
+                        <input type="time" name="jam_selesai" id="jam_selesai" value="{{ old('jam_selesai') }}"
+                            required>
 
                         @error('jam_selesai')
                             <small class="error">{{ $message }}</small>

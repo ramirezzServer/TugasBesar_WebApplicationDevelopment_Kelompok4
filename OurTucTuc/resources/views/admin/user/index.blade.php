@@ -1,34 +1,47 @@
 @extends('layouts.admin')
 
 @section('content')
-    <div class="card">
-        <h2>Data user</h2>
+    <div class="keluhan-wrapper">
 
-        <table>
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Nama</th>
-                    <th>Email</th>
-                    <th>No Telepon</th>
-                    <th>role</th>
-                    <th>jumlah keluhan</th>
+        {{-- HEADER (ikut style admin keluhan) --}}
+        <div class="keluhan-header">
+            <div>
+                <h2>Data user</h2>
+                <p>Admin hanya dapat melihat data user</p>
+            </div>
+        </div>
 
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($data as $index => $item)
+        {{-- TABLE (ikut card/table style admin keluhan) --}}
+        <div class="keluhan-table-card">
+            <table>
+                <thead>
                     <tr>
-                        <td>{{ $index + 1 }}</td>
-                        <td>{{ $item->name }}</td>
-                        <td>{{ $item->email }}</td>
-                        <td>{{ $item->NoTelp }}</td>
-                        <td>{{ $item->role }}</td>
-                        <td>{{ $item->keluhans_count }}</td>
-
+                        <th>No</th>
+                        <th>Nama</th>
+                        <th>Email</th>
+                        <th>No Telepon</th>
+                        <th>role</th>
+                        <th>jumlah keluhan</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @forelse ($data as $index => $item)
+                        <tr>
+                            <td>{{ $index + 1 }}</td>
+                            <td>{{ $item->name }}</td>
+                            <td>{{ $item->email }}</td>
+                            <td>{{ $item->NoTelp }}</td>
+                            <td>{{ $item->role }}</td>
+                            <td>{{ $item->keluhans_count }}</td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="6" class="empty">Belum ada data user</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+
     </div>
 @endsection
