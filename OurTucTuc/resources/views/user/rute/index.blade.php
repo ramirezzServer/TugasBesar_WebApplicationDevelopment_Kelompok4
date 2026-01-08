@@ -18,38 +18,31 @@
     </div>
 
     {{-- LIST RUTE --}}
-    @forelse ($data->groupBy('rute.id') as $ruteGroup)
-        <div class="card rute-card mb-3">
+    @forelse ($rutes as $rute)
+    <div class="card rute-card mb-3">
 
-            {{-- RUTE HEADER --}}
-            <div class="card-header rute-header">
-                {{ $ruteGroup->first()->rute->nama_rute }}
-            </div>
+        {{-- RUTE HEADER --}}
+        <div class="card-header rute-header">
+            {{ $rute->nama_rute }}
+        </div>
 
-            {{-- HALTE LIST --}}
-            <div class="list-group list-group-flush">
-                @foreach ($ruteGroup as $item)
-                    <div class="list-group-item halte-item">
-
-                        <div class="halte-info">
-                            <span class="halte-name">
-                                {{ $item->halte->nama_halte }}
-                            </span>
-
-                            <span class="halte-time">
-                                {{ $item->jam_berangkat }}
-                            </span>
-                        </div>
-
+        {{-- HALTE LIST --}}
+        <div class="list-group list-group-flush">
+            @foreach ($rute->rute_halte as $item)
+                <div class="list-group-item halte-item">
+                    <div class="halte-info">
+                        <span class="halte-name">{{ $item->halte->nama_halte }}</span>
+                        <span class="halte-time">{{ $item->jam_berangkat }}</span>
                     </div>
-                @endforeach
-            </div>
+                </div>
+            @endforeach
         </div>
-    @empty
-        <div class="text-center text-muted py-5">
-            Data tidak ditemukan
-        </div>
-    @endforelse
+    </div>
+@empty
+    <div class="text-center text-muted py-5">
+        Data tidak ditemukan
+    </div>
+@endforelse
 
 </div>
 
@@ -123,7 +116,7 @@
 
 .halte-time {
     font-size: 13px;
-    color: #6b7280;
+    color: #35383fff;
     background-color: #f3f4f6;
     padding: 4px 10px;
     border-radius: 999px;

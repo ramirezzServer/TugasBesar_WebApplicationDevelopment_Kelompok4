@@ -9,15 +9,25 @@ use App\Models\Rute;
 class RouteController extends Controller
 {
 
-    public function index()
+     public function index()
     {
+        $rutes = Rute::with(['rute_halte' => function($q){
+    $q->orderBy('jam_berangkat', 'asc')
+      ->with('halte');
+}])->get();
 
-        $rute = Rute::with('ruteHalte.halte')->first()
-            ->orderBy('jam_berangkat', 'asc')
-            ->get();
+        return view('user.rute.index', compact('rutes'));
+    }
+
+    // Untuk dashboard
+    public function dashboard()
+    {
+        $rutes = Rute::with(['rute_halte' => function($q){
+    $q->orderBy('jam_berangkat', 'asc')
+      ->with('halte');
+}])->get();
+
         $now = date('H:i');
-
-        return view('dashboard.index', compact('rute', 'now'));
-        return view('user.rute.index', compact('data'));
+        return view('user.dashboard.index', compact('rutes', 'now'));
     }
 }
