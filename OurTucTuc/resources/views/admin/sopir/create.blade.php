@@ -23,8 +23,7 @@
 
                     <div class="mb-3">
                         <label class="form-label">Nama Sopir</label>
-                        <input type="text" name="nama_sopir" class="form-control" required
-                            placeholder="Masukkan nama lengkap">
+                        <input type="text" name="nama_sopir" class="form-control" required placeholder="Masukkan nama lengkap">
                     </div>
 
                     <div class="mb-3">
@@ -39,8 +38,7 @@
 
                     <div class="mb-3">
                         <label class="form-label">Email</label>
-                        <input type="email" name="email_sopir" class="form-control" required
-                            placeholder="email@contoh.com">
+                        <input type="email" name="email_sopir" class="form-control" required placeholder="email@contoh.com">
                     </div>
 
                     <div class="mb-3">
@@ -78,7 +76,6 @@
             border: 1px solid #dee2e6;
             transition: all 0.3s;
         }
-
         .btn-back:hover {
             background-color: #e9ecef;
             color: #495057;
@@ -98,7 +95,6 @@
             cursor: pointer;
             text-decoration: none;
         }
-
         .btn-save:hover {
             background-color: #bb2d3b;
             color: white !important;
@@ -118,7 +114,6 @@
             gap: 8px;
             transition: all 0.3s;
         }
-
         .btn-cancel:hover {
             background-color: #f8f9fa;
             color: #dc3545;
@@ -135,15 +130,8 @@
         }
 
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 @endsection```
