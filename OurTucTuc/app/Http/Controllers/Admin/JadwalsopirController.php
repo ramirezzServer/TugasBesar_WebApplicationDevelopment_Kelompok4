@@ -26,20 +26,19 @@ class JadwalSopirController extends Controller
             $query->where(function ($q) use ($search) {
                 $q->whereHas('sopir', function ($sq) use ($search) {
 
-                        $sq->where('nama_sopir', 'like', "%{$search}%")
-                           ->orWhere('notelp_sopir', 'like', "%{$search}%");
-                    })
-                  ->orWhereHas('kendaraan', function ($kq) use ($search) {
+                    $sq->where('nama_sopir', 'like', "%{$search}%")
+                        ->orWhere('notelp_sopir', 'like', "%{$search}%");
+                })
+                    ->orWhereHas('kendaraan', function ($kq) use ($search) {
                         $kq->where('plat_nomor', 'like', "%{$search}%");
                     })
-                  ->orWhereHas('ruteHalte.rute', function ($rq) use ($search) {
+                    ->orWhereHas('ruteHalte.rute', function ($rq) use ($search) {
                         $rq->where('nama_rute', 'like', "%{$search}%");
                     })
-                  ->orWhereHas('ruteHalte.halte', function ($hq) use ($search) {
+                    ->orWhereHas('ruteHalte.halte', function ($hq) use ($search) {
                         $hq->where('nama_halte', 'like', "%{$search}%");
                     })
-                  ->orWhere('status', 'like', "%{$search}%");
-
+                    ->orWhere('status', 'like', "%{$search}%");
             });
         }
 
@@ -67,6 +66,31 @@ class JadwalSopirController extends Controller
             'jam_selesai' => 'required|date_format:H:i|after:jam_mulai',
             'status' => 'sometimes|in:aktif,selesai,belum_aktif',
         ]);
+        if ($validated['jam_selesai'] <= $validated['jam_mulai']) {
+            return back()
+                ->withErrors(['jam_selesai' => 'Jam selesai harus setelah jam mulai'])
+                ->withInput();
+        }
+
+        $ruteHalte = RuteHalte::find($validated['id_rute_halte']);
+
+        if ($validated['jam_mulai'] > $ruteHalte->jam_berangkat) {
+            return back()
+                ->withErrors([
+                    'jam_mulai' => 'Jam mulai harus sebelum atau sama dengan jam berangkat rute ('
+                        . $ruteHalte->jam_berangkat . ')'
+                ])
+                ->withInput();
+        }
+
+        if ($validated['jam_selesai'] < $ruteHalte->jam_berangkat) {
+            return back()
+                ->withErrors([
+                    'jam_selesai' => 'Jam selesai harus setelah atau sama dengan jam berangkat rute ('
+                        . $ruteHalte->jam_berangkat . ')'
+                ])
+                ->withInput();
+        }
 
         JadwalSopir::create($validated);
 
@@ -99,17 +123,37 @@ class JadwalSopirController extends Controller
             'status' => 'sometimes|in:aktif,selesai,belum_aktif',
         ]);
 
-        // Validasi jam_selesai harus setelah jam_mulai
-        $jamMulai = $validated['jam_mulai'] ?? $jadwalSopir->jam_mulai;
-        $jamSelesai = $validated['jam_selesai'] ?? $jadwalSopir->jam_selesai;
+        $jamMulai   = $validated['jam_mulai'] ?? $jadwalSopir->jam_mulai;
+    $jamSelesai = $validated['jam_selesai'] ?? $jadwalSopir->jam_selesai;
 
-        if ($jamMulai && $jamSelesai && strtotime($jamSelesai) <= strtotime($jamMulai)) {
-            return redirect()->back()
-                ->withErrors(['jam_selesai' => 'Jam selesai harus setelah jam mulai'])
-                ->withInput();
-        }
+    if ($jamMulai && $jamSelesai && $jamSelesai <= $jamMulai) {
+        return back()
+            ->withErrors(['jam_selesai' => 'Jam selesai harus setelah jam mulai'])
+            ->withInput();
+    }
 
-        $jadwalSopir->update($validated);
+    $idRuteHalte = $validated['id_rute_halte'] ?? $jadwalSopir->id_rute_halte;
+    $ruteHalte = RuteHalte::find($idRuteHalte);
+
+    if ($jamMulai > $ruteHalte->jam_berangkat) {
+        return back()
+            ->withErrors([
+                'jam_mulai' => 'Jam mulai harus sebelum atau sama dengan jam berangkat rute ('
+                    . $ruteHalte->jam_berangkat . ')'
+            ])
+            ->withInput();
+    }
+
+    if ($jamSelesai < $ruteHalte->jam_berangkat) {
+        return back()
+            ->withErrors([
+                'jam_selesai' => 'Jam selesai harus setelah atau sama dengan jam berangkat rute ('
+                    . $ruteHalte->jam_berangkat . ')'
+            ])
+            ->withInput();
+    }
+
+    $jadwalSopir->update($validated);
 
         return redirect()->route('admin.jadwal-sopir')
             ->with('success', 'Jadwal sopir berhasil diupdate');
@@ -123,5 +167,5 @@ class JadwalSopirController extends Controller
 
         return redirect()->route('admin.jadwal-sopir')
             ->with('success', 'Jadwal sopir berhasil dihapus');
-    }}
-
+    }
+}
