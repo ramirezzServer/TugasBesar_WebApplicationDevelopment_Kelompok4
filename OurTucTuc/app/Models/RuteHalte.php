@@ -25,4 +25,8 @@ class RuteHalte extends Model
     {
         return $this->belongsTo(Halte::class, 'id_halte');
     }
+      public function jadwalSopir()
+    {
+        return $this->hasMany(JadwalSopir::class, 'id_rute_halte');
+    }
 }

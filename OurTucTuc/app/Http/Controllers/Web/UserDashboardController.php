@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Models\JadwalSopir;
 use App\Models\Kendaraan;
+use App\Models\Rute;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
@@ -12,7 +13,33 @@ class UserDashboardController extends Controller
 {
     public function index()
     {
-        return view('user.dashboard.index');
+       $rutes = Rute::with([
+        'rute_halte.halte',
+        'rute_halte.jadwalSopir.kendaraan',
+        'rute_halte.jadwalSopir.sopir'
+    ])->get();
+
+   $now = date('H:i');
+
+foreach ($rutes as $rute) {
+    foreach ($rute->rute_halte as $rh) {
+        foreach ($rh->jadwalSopir as $jadwal) {
+
+            if ($now < $jadwal->jam_mulai) {
+                $jadwal->status_auto = 'Belum Aktif';
+            }
+            elseif ($now >= $jadwal->jam_mulai && $now <= $jadwal->jam_selesai) {
+                $jadwal->status_auto = 'Aktif';
+            }
+            else {
+                $jadwal->status_auto = 'Selesai';
+            }
+
+        }
+    }
+}
+
+        return view('user.dashboard.index', compact('rutes'));
     }
 
     /**
