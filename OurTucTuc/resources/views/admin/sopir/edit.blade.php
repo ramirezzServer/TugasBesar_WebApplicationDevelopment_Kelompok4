@@ -1,4 +1,4 @@
-```@extends('layouts.admin')
+@extends('layouts.admin')
 
 @section('content')
     <div class="page-animate">
@@ -6,9 +6,15 @@
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
                 <h2 class="mb-1">Edit Data Sopir</h2>
-                <p class="text-muted mb-5">
+                <p class="text-muted mb-0">
                     Silakan perbarui data sopir di bawah ini.
                 </p>
+            </div>
+
+            <a href="{{ route('admin.sopir.index') }}" class="btn-back">
+                ← Kembali
+            </a>
+        </div>
 
         <div class="card">
             <div class="card-body">
@@ -18,37 +24,74 @@
 
                     <div class="mb-3">
                         <label class="form-label">Nama Sopir</label>
-                        <input type="text" name="nama_sopir" class="form-control" required
-                               value="{{ old('nama_sopir', $sopir->nama_sopir) }}"
-                               placeholder="Masukkan nama lengkap">
+                        <input
+                            type="text"
+                            name="nama_sopir"
+                            class="form-control @error('nama_sopir') is-invalid @enderror"
+                            required
+                            value="{{ old('nama_sopir', $sopir->nama_sopir) }}"
+                            placeholder="Masukkan nama lengkap"
+                        >
+                        @error('nama_sopir')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label">No Telepon</label>
-                        <input type="number" name="notelp_sopir" class="form-control" required
-                               value="{{ old('notelp_sopir', $sopir->notelp_sopir) }}"
-                               placeholder="08...">
+                        <input
+                            type="text"
+                            name="notelp_sopir"
+                            class="form-control @error('notelp_sopir') is-invalid @enderror"
+                            required
+                            value="{{ old('notelp_sopir', $sopir->notelp_sopir) }}"
+                            placeholder="08..."
+                        >
+                        @error('notelp_sopir')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label">Alamat</label>
-                        <textarea name="alamat" class="form-control" rows="3" required
-                                  placeholder="Masukkan alamat lengkap">{{ old('alamat', $sopir->alamat) }}</textarea>
+                        <textarea
+                            name="alamat"
+                            class="form-control @error('alamat') is-invalid @enderror"
+                            rows="3"
+                            required
+                            placeholder="Masukkan alamat lengkap"
+                        >{{ old('alamat', $sopir->alamat) }}</textarea>
+                        @error('alamat')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label">Email</label>
-                        <input type="email" name="email_sopir" class="form-control" required
-                               value="{{ old('email_sopir', $sopir->email_sopir) }}"
-                               placeholder="email@contoh.com">
+                        <input
+                            type="email"
+                            name="email_sopir"
+                            class="form-control @error('email_sopir') is-invalid @enderror"
+                            required
+                            value="{{ old('email_sopir', $sopir->email_sopir) }}"
+                            placeholder="email@contoh.com"
+                        >
+                        @error('email_sopir')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label d-block">Foto Saat Ini</label>
 
-                        @if($sopir->foto)
+                        @if ($sopir->foto)
                             <div class="mb-2">
-                                <img src="{{ asset('storage/' . $sopir->foto) }}" alt="Foto Lama" width="100" class="img-thumbnail">
+                                <img
+                                    src="{{ asset('storage/' . $sopir->foto) }}"
+                                    alt="Foto Lama"
+                                    width="100"
+                                    class="img-thumbnail"
+                                >
                             </div>
                         @else
                             <div class="mb-2 text-muted fst-italic">
@@ -57,20 +100,27 @@
                         @endif
 
                         <label class="form-label mt-2">Ganti Foto (Opsional)</label>
-                        <input type="file" name="foto" class="form-control">
+                        <input
+                            type="file"
+                            name="foto"
+                            class="form-control @error('foto') is-invalid @enderror"
+                            accept="image/png,image/jpeg,image/jpg"
+                        >
                         <small class="text-muted">Biarkan kosong jika tidak ingin mengubah foto.</small>
+                        @error('foto')
+                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <hr class="my-4">
 
                     <div class="form-action d-flex gap-3">
-
                         <button type="submit" class="btn-save">
-                            Save
+                            💾 Simpan Perubahan
                         </button>
 
                         <a href="{{ route('admin.sopir.index') }}" class="btn-cancel">
-                            Cancel
+                            ✖ Batal
                         </a>
                     </div>
 
@@ -115,7 +165,6 @@
             transform: translateY(-1px);
         }
 
-        /* Style untuk tombol Batal */
         .btn-cancel {
             background-color: white;
             color: #6c757d;
@@ -135,18 +184,13 @@
             border-color: #dc3545;
         }
 
-        .form-label {
-            font-weight: 500;
-            margin-bottom: 0.5rem;
-        }
+        .form-label { font-weight: 500; margin-bottom: 0.5rem; }
 
-        .page-animate {
-            animation: fadeIn 0.5s ease-in-out;
-        }
+        .page-animate { animation: fadeIn 0.5s ease-in-out; }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
     </style>
-@endsection```
+@endsection

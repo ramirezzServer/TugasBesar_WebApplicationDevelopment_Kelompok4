@@ -1,4 +1,4 @@
-```@extends('layouts.admin')
+@extends('layouts.admin')
 
 @section('content')
     <div class="page-animate">
@@ -6,7 +6,7 @@
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
                 <h2 class="mb-1">Tambah Sopir Baru</h2>
-                <p class="text-muted mb-5">
+                <p class="text-muted mb-0">
                     Silakan isi formulir di bawah ini untuk mendaftarkan sopir baru.
                 </p>
             </div>
@@ -23,34 +23,80 @@
 
                     <div class="mb-3">
                         <label class="form-label">Nama Sopir</label>
-                        <input type="text" name="nama_sopir" class="form-control" required placeholder="Masukkan nama lengkap">
+                        <input
+                            type="text"
+                            name="nama_sopir"
+                            class="form-control @error('nama_sopir') is-invalid @enderror"
+                            value="{{ old('nama_sopir') }}"
+                            required
+                            placeholder="Masukkan nama lengkap"
+                        >
+                        @error('nama_sopir')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label">No Telepon</label>
-                        <input type="number" name="notelp_sopir" class="form-control" required placeholder="08...">
+                        <input
+                            type="text"
+                            name="notelp_sopir"
+                            class="form-control @error('notelp_sopir') is-invalid @enderror"
+                            value="{{ old('notelp_sopir') }}"
+                            required
+                            placeholder="08..."
+                        >
+                        @error('notelp_sopir')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label">Alamat</label>
-                        <textarea name="alamat" class="form-control" rows="3" required placeholder="Masukkan alamat lengkap"></textarea>
+                        <textarea
+                            name="alamat"
+                            class="form-control @error('alamat') is-invalid @enderror"
+                            rows="3"
+                            required
+                            placeholder="Masukkan alamat lengkap"
+                        >{{ old('alamat') }}</textarea>
+                        @error('alamat')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label">Email</label>
-                        <input type="email" name="email_sopir" class="form-control" required placeholder="email@contoh.com">
+                        <input
+                            type="email"
+                            name="email_sopir"
+                            class="form-control @error('email_sopir') is-invalid @enderror"
+                            value="{{ old('email_sopir') }}"
+                            required
+                            placeholder="email@contoh.com"
+                        >
+                        @error('email_sopir')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label">Foto</label>
-                        <input type="file" name="foto" class="form-control">
+                        <input
+                            type="file"
+                            name="foto"
+                            class="form-control @error('foto') is-invalid @enderror"
+                            accept="image/png,image/jpeg,image/jpg"
+                        >
                         <small class="text-muted">Format: jpg, jpeg, png. Maks: 2MB</small>
+                        @error('foto')
+                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <hr class="my-4">
 
                     <div class="form-action d-flex gap-3">
-
                         <button type="submit" class="btn-save">
                             💾 Simpan Data
                         </button>
@@ -96,7 +142,7 @@
             text-decoration: none;
         }
         .btn-save:hover {
-            background-color: #bb2d3b;
+            background-color: #bb2d3b !important;
             color: white !important;
             transform: translateY(-1px);
         }
@@ -120,18 +166,4 @@
             border-color: #dc3545;
         }
 
-        .form-label {
-            font-weight: 500;
-            margin-bottom: 0.5rem;
-        }
-
-        .page-animate {
-            animation: fadeIn 0.5s ease-in-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-    </style>
-@endsection```
+        .form-label { font-weight: 500; margin-bottom: 0.5rem; }
